@@ -1,6 +1,7 @@
 package pacotePrincipal;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * representação de um controlador de usuarios
@@ -11,13 +12,13 @@ import java.util.ArrayList;
  * @author Diego Amancio - 116210716
  */
 public class UsuarioController {
-	private ArrayList<Usuario> usuarios;
+	private Map<String,Usuario> usuarios;
 
 	/**
 	 * constroi um controlador de usuarios
 	 */
 	public UsuarioController() {
-		this.usuarios = new ArrayList<Usuario>();
+		this.usuarios = new HashMap<String,Usuario>();
 	}
 
 	/**
@@ -33,7 +34,7 @@ public class UsuarioController {
 	public void cadastrarUsuario(String nome, String telefone, String email) {
 		Usuario usuario = new Usuario(nome, telefone, email);
 
-		if (getUsuario(nome, telefone) != null) {
+		if (getUsuario(nome, telefone) == null) {
 			usuarios.add(usuario);
 		} else {
 			throw new IllegalArgumentException("Usuario ja cadastrado");
@@ -52,7 +53,9 @@ public class UsuarioController {
 	 */
 	public Usuario getUsuario(String nome, String telefone) {
 		Usuario usuario = new Usuario(nome, telefone, "");
+
 		Usuario acheiUsuario = null;
+
 		for (int i = 0; i < usuarios.size(); i++) {
 			if (usuarios.equals(usuario)) {
 				acheiUsuario = usuarios.get(i);
@@ -60,6 +63,25 @@ public class UsuarioController {
 			}
 		}
 		return acheiUsuario;
+	}
+
+	public String getInfoUsuario(String nome, String telefone, String atributo) {
+		Usuario usuario = getUsuario(nome, telefone);
+		
+		if (usuario != null) {
+			if (atributo.equals("Nome")) {
+				return usuario.getNome();
+			} else if (atributo.equals("Telefone")) {
+				return usuario.getTelefone();
+			} else if (atributo.equals("Email")) {
+				return usuario.getEmail();
+			} else {
+				throw new IllegalArgumentException("atributo invalido");
+			}
+		} else {
+			throw new IllegalArgumentException("Usuario invalido");
+
+		}
 	}
 
 	/**
