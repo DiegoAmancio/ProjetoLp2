@@ -33,8 +33,7 @@ public class BluRay {
 				this.classificacao = Classificacao.DEZOITO_ANOS;
 				break;
 			default:
-				throw new IllegalArgumentException();
-				
+				throw new IllegalArgumentException();				
 		}
 		
 				
