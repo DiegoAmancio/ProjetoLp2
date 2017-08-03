@@ -2,9 +2,10 @@
 Equipe:
  - Andre
  - Diego
- - Isac
+ - Isaac
  
 Monitora:
+
  - Mariana
 
 Professor:
