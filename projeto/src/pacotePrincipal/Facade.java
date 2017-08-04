@@ -9,6 +9,9 @@ public class Facade {
 	public void iniciarSistema(){
 		
 	}
+	public void fecharSistema(){
+		
+	}
 	public void cadastrarUsuario(String nome, String telefone, String email) {
 		controllerUsuario.cadastrarUsuario(nome, telefone, email);
 	}
