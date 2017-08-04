@@ -9,15 +9,16 @@ package Enums;
 * @author Diego Amancio - 116210716
 */
 
-public enum Plataforma {
+public enum Plataformas {
 	PC("PC"), MAC("MAC"), PS3("PS3"), PS4("PS4"), XBOX360("XBOX360"), XBOX_ONE("XBOX_ONE"), NINTENDO_3DS("NITENDO_3DS"), OUTRO("OUTRO");
 	private String valor;
 
-	private Plataforma(String plataforma) {
+	private Plataformas(String plataforma) {
 		this.valor = plataforma;
 	}
 
 	public String getValor() {
 		return valor;
 	}
+}
 	
