@@ -8,9 +8,9 @@ package pacotePrincipal;
  * @author Diego Amancio - 116210716
  */
 public abstract class Item {
-	private String nome;
-	private int preco;
-	private boolean emprestado;
+	protected String nome;
+	protected int preco;
+	protected boolean emprestado;
 	/**
 	 * constroi um item
 	 * @param nome nome do item
@@ -36,6 +36,14 @@ public abstract class Item {
 		this.emprestado = emprestado;
 	}
 	
-	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Item) {
+			if (((Item) obj).getNome().equals(nome)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }
