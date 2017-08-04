@@ -13,7 +13,10 @@ public enum Plataformas {
 			"NITENDO_3DS"), OUTRO("OUTRO");
 	
 	private String tipo;
-
+	/**
+	 * 
+	 * @param plataforma especificação da plataforma.
+	 */
 	private Plataformas(String plataforma) {
 		this.tipo = plataforma;
 	}
