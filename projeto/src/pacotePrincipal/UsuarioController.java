@@ -112,26 +112,26 @@ public class UsuarioController {
 	 */
 	public void atualizarUsuario(String nome, String telefone, String atributo, String valor) {
 		String identificacao = nome + telefone;
-		
+
 		if (usuarios.containsKey(identificacao)) {
 
 			Usuario antigoUsuario = usuarios.get(identificacao);
 			Usuario novoUsuario = new Usuario(nome, telefone, antigoUsuario.getEmail());
 
 			if (atributo.equals("Nome")) {
-				
+
 				novoUsuario.setNome(valor);
-			
+
 			} else if (atributo.equals("Telefone")) {
-				
+
 				novoUsuario.setTelefone(valor);
-			
+
 			} else if (atributo.equals("Email")) {
-				
+
 				novoUsuario.setEmail(valor);
-			
+
 			} else {
-				
+
 				throw new IllegalArgumentException("atributo invalido");
 			}
 
