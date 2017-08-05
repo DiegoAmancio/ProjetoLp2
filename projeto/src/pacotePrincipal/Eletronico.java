@@ -6,7 +6,7 @@ public class Eletronico extends Item{
 	
 	private Plataforma plataforma;
 
-	public Eletronico(String nome, int preco, String plataforma) {
+	public Eletronico(String nome, double preco, String plataforma) {
 		super(nome, preco);
 		setPlataforma(plataforma);
 	}

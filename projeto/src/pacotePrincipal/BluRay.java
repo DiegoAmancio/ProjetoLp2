@@ -11,6 +11,14 @@ public class BluRay {
 		verificaClassificacao(classificacao);
 	}
 	
+	public int getDuracao() {
+		return duracao;
+	}
+
+	public Classificacao getClassificacao() {
+		return classificacao;
+	}
+
 	private void verificaClassificacao(String classificacao){
 		
 		switch(classificacao.toUpperCase().trim()){
