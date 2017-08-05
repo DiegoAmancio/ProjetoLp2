@@ -28,7 +28,7 @@ public class Facade {
 	}
 
 	public void cadastrarEletronico(String nome, String telefone, String nomeItem, int preco, String plataforma) {
-
+		controllerUsuario.cadastrarEletronico(nome, telefone, nomeItem, preco, plataforma);
 	}
 
 	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, int preco) {

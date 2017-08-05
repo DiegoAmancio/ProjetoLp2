@@ -1,4 +1,4 @@
-package pacoteTestes;
+package PacoteTestes;
 
 import static org.junit.Assert.*;
 
@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import pacotePrincipal.UsuarioController;
 
-public class UsuarioControllerTest {
+public class UsuarioControllerTeste {
 
 	@Test
 	public void testCadastrarUsuario() {

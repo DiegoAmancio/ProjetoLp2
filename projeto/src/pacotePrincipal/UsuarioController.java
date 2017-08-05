@@ -142,4 +142,7 @@ public class UsuarioController {
 
 		}
 	}
+	public void cadastrarEletronico(String nome, String telefone, String nomeItem, int preco, String plataforma) {
+		E
+	}
 }
