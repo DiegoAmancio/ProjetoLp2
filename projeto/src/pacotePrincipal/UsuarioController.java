@@ -142,4 +142,31 @@ public class UsuarioController {
 
 		}
 	}
+
+	/**
+	 * repassa as informações do item para serem cadastrados em usuario
+	 * 
+	 * @param nome
+	 *            nome do usuario
+	 * @param telefone
+	 *            telefone do usuario
+	 * @param nomeItem
+	 *            nome do item
+	 * @param preco
+	 *            preço do item
+	 * @param plataforma
+	 *            plataforma do jogo eletronico.
+	 */
+	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma) {
+		String identificacao = nome + telefone;
+		if (usuarios.containsKey(identificacao)) {
+
+			Usuario usuario = usuarios.get(identificacao);
+			usuario.cadastrarEletronico(nomeItem, preco, plataforma);
+		}
+
+	}
+
+	
+	
 }
