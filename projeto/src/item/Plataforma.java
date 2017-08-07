@@ -1,4 +1,4 @@
-package Enums;
+package item;
 /**
 * representação das plataformas para um jogo
 * 

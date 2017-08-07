@@ -1,6 +1,4 @@
-package pacotePrincipal;
-
-import Enums.Plataforma;
+package item;
 
 public class Eletronico extends Item{
 	

@@ -1,6 +1,8 @@
-package pacotePrincipal;
+package usuario;
 
 import java.util.ArrayList;
+
+import item.Item;
 /**
  * representação de um usuario
  * 

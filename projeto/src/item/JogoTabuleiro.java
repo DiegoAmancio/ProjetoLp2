@@ -1,4 +1,4 @@
-package pacotePrincipal;
+package item;
 
 import java.util.ArrayList;
 import java.util.List;

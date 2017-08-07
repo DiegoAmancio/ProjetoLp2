@@ -1,4 +1,4 @@
-package pacotePrincipal;
+package facade;
 
 public class Facade {
 
