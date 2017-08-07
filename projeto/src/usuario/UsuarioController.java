@@ -1,6 +1,7 @@
 package usuario;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * representação de um controlador de usuarios
@@ -11,13 +12,13 @@ import java.util.ArrayList;
  * @author Diego Amancio - 116210716
  */
 public class UsuarioController {
-	private ArrayList<Usuario> usuarios;
+	private Map<String, Usuario> usuarios;
 
 	/**
 	 * constroi um controlador de usuarios
 	 */
 	public UsuarioController() {
-		this.usuarios = new ArrayList<Usuario>();
+		this.usuarios = new HashMap<String, Usuario>();
 	}
 
 	/**
@@ -31,35 +32,49 @@ public class UsuarioController {
 	 *            email do usuario
 	 */
 	public void cadastrarUsuario(String nome, String telefone, String email) {
+
 		Usuario usuario = new Usuario(nome, telefone, email);
 
-		if (getUsuario(nome, telefone) != null) {
-			usuarios.add(usuario);
-		} else {
+		String identificacao = nome + telefone;
+
+		if (usuarios.containsKey(identificacao)) {
 			throw new IllegalArgumentException("Usuario ja cadastrado");
+		} else {
+			usuarios.put(identificacao, usuario);
 		}
 
 	}
 
 	/**
-	 * verifica se o usuario ja esta cadastrado
+	 * metodo que pega a informação do usuario e a exibe no console caso o
+	 * usuario esteja cadastrado
 	 * 
 	 * @param nome
 	 *            nome do usuario
 	 * @param telefone
 	 *            telefone do usuario
-	 * @return retorna usuario caso esteja cadastrado
+	 * @param atributo
+	 *            atributo do usuario que sera mudado
+	 * @throws @return
+	 *             atributo do usuario
 	 */
-	public Usuario getUsuario(String nome, String telefone) {
-		Usuario usuario = new Usuario(nome, telefone, "");
-		Usuario acheiUsuario = null;
-		for (int i = 0; i < usuarios.size(); i++) {
-			if (usuarios.equals(usuario)) {
-				acheiUsuario = usuarios.get(i);
-				break;
+	public String getInfoUsuario(String nome, String telefone, String atributo) {
+		if (usuarios.containsKey(nome + telefone)) {
+			String identificacao = nome + telefone;
+			switch (atributo) {
+			case "Nome":
+				return usuarios.get(identificacao).getNome();
+			case "Telefone":
+				return usuarios.get(identificacao).getTelefone();
+			case "Email":
+				return usuarios.get(identificacao).getEmail();
+			default:
+				throw new IllegalArgumentException("Atributo invalido");
 			}
+		} else {
+			throw new NullPointerException("Usuario invalido");
 		}
-		return acheiUsuario;
+
 	}
 
 	/**
@@ -71,12 +86,16 @@ public class UsuarioController {
 	 *            telefone do usuario
 	 */
 	public void removerUsuario(String nome, String telefone) {
-		Usuario usuario = getUsuario(nome, telefone);
-		if (usuario != null) {
-			usuarios.remove(usuario);
+		String identificacao = nome + telefone;
+
+		if (usuarios.containsKey(identificacao)) {
+
+			usuarios.remove(identificacao);
 		} else {
-			throw new IllegalArgumentException("Usuario invalido");
+			throw new NullPointerException("Usuario invalido");
+
 		}
+
 	}
 
 	/**
@@ -92,20 +111,62 @@ public class UsuarioController {
 	 *            nova informaçao para o atributo do usuario
 	 */
 	public void atualizarUsuario(String nome, String telefone, String atributo, String valor) {
-		Usuario usuario = getUsuario(nome, telefone);
-		if (usuario != null) {
+		String identificacao = nome + telefone;
+
+		if (usuarios.containsKey(identificacao)) {
+
+			Usuario antigoUsuario = usuarios.get(identificacao);
+			Usuario novoUsuario = new Usuario(nome, telefone, antigoUsuario.getEmail());
+
 			if (atributo.equals("Nome")) {
-				usuario.setNome(valor);
+
+				novoUsuario.setNome(valor);
+
 			} else if (atributo.equals("Telefone")) {
-				usuario.setTelefone(valor);
+
+				novoUsuario.setTelefone(valor);
+
 			} else if (atributo.equals("Email")) {
-				usuario.setEmail(valor);
+
+				novoUsuario.setEmail(valor);
+
 			} else {
+
 				throw new IllegalArgumentException("atributo invalido");
 			}
+
+			removerUsuario(nome, telefone);
+			cadastrarUsuario(novoUsuario.getNome(), novoUsuario.getTelefone(), novoUsuario.getEmail());
 		} else {
-			throw new IllegalArgumentException("Usuario invalido");
+			throw new NullPointerException("Usuario invalido");
 
 		}
 	}
+
+	/**
+	 * repassa as informações do item para serem cadastrados em usuario
+	 * 
+	 * @param nome
+	 *            nome do usuario
+	 * @param telefone
+	 *            telefone do usuario
+	 * @param nomeItem
+	 *            nome do item
+	 * @param preco
+	 *            preço do item
+	 * @param plataforma
+	 *            plataforma do jogo eletronico.
+	 */
+	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma) {
+		String identificacao = nome + telefone;
+		if (usuarios.containsKey(identificacao)) {
+
+			Usuario usuario = usuarios.get(identificacao);
+			usuario.cadastrarEletronico(nomeItem, preco, plataforma);
+		}
+
+	}
+
+	
+	
 }

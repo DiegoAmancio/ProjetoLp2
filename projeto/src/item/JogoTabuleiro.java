@@ -7,7 +7,7 @@ public class JogoTabuleiro extends Item{
 
 	private List<Peca> pecasPerdidas;
 	
-	public JogoTabuleiro(String nome, int preco) {
+	public JogoTabuleiro(String nome, Double preco) {
 		super(nome, preco);
 		pecasPerdidas = new ArrayList<>();
 	}

@@ -9,23 +9,23 @@ package item;
  */
 public abstract class Item {
 	protected String nome;
-	protected int preco;
+	protected double preco;
 	protected boolean emprestado;
 	/**
 	 * constroi um item
 	 * @param nome nome do item
-	 * @param preco valor de compra deste item
+	 * @param preco2 valor de compra deste item
 	 */
-	public Item(String nome, int preco) {
+	public Item(String nome, double preco2) {
 		this.nome = nome;
-		this.preco = preco;
+		this.preco = preco2;
 		this.emprestado = false;
 	}
 	public String getNome() {
 		return nome;
 	}
 	
-	public int getPreco() {
+	public double getPreco() {
 		return preco;
 	}
 	
