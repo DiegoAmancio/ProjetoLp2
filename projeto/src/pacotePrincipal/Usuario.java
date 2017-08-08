@@ -4,7 +4,6 @@ package pacotePrincipal;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * representação de um usuario
  * 
