@@ -7,35 +7,46 @@ import pacotePrincipal.Usuario;
 /**
  * testa criaçao de usuarios.
  * 
- * @author diego
+ * @author andre
  *
  */
 public class UsuarioTest {
+	
+	private Usuario usuarioInvalido;
+	
 	/**
 	 * testa criaçao de usuarios invalidos
 	 * 
-	 * @author diego
+	 * @author andre
 	 *
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void usuariosEmailVazioTest() {
-		Usuario usuarioEmailInvalido = new Usuario("diego", "4002-8922", "");
+		usuarioInvalido = new Usuario("diego", "4002-8922", "");
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void usuariosEmailEspacosTest() {
-		Usuario usuarioEmailInvalido = new Usuario("diego", "4002-8922", "               ");
+		usuarioInvalido = new Usuario("diego", "4002-8922", "               ");
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void usuarioTelefoneVazioTest() {
-		Usuario usuarioTelefoneVazio1 = new Usuario("as", "", "as@ccc.ufcg.edu.br");
+		usuarioInvalido = new Usuario("as", "", "as@ccc.ufcg.edu.br");
 	}
-		
-		Usuario usuarioTelefoneVazio2 = new Usuario("birl", "                 ", "bl@ccc.ufcg.edu.br");
-
-		Usuario usuarioNomeVazio1 = new Usuario("god", " ", "gd@ccc.ufcg.edu.br");
-		Usuario usuarioNomeVazio2 = new Usuario("", "4002-8922", "diego.pereira@ccc.ufcg.edu.br");
-
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void usuarioTelefoneEspacosTest() {
+		usuarioInvalido = new Usuario("as", "               ", "as@ccc.ufcg.edu.br");
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void usuarioNomeVazioTest() {
+		usuarioInvalido = new Usuario("", "4002-8922", "diego.pereira@ccc.ufcg.edu.br");
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void usuarioNomeEspacosTest() {
+		usuarioInvalido = new Usuario("               ", "4002-8922", "diego.pereira@ccc.ufcg.edu.br");
 	}
 }

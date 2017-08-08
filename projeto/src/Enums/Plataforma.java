@@ -1,9 +1,5 @@
-<<<<<<< HEAD:projeto/src/item/Plataforma.java
-package item;
-=======
 package Enums;
 
->>>>>>> master:projeto/src/Enums/Plataforma.java
 /**
  * representação das plataformas para um jogo
  * 
