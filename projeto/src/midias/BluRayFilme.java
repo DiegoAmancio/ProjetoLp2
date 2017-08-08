@@ -1,4 +1,4 @@
-package bluray;
+package midias;
 
 public class BluRayFilme extends BluRay{
 	private String genero;
