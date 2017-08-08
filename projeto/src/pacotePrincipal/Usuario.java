@@ -2,10 +2,10 @@ package pacotePrincipal;
 
 import java.util.ArrayList;
 /**
- * representação de um usuario
+ * representacao de um usuario
  * 
  * 
- * Laboratório de Programação 2 - projeto
+ * Laboratorio de Programacao 2 - projeto
  * 
  * @author Diego Amancio - 116210716
  */
@@ -52,9 +52,18 @@ public class Usuario {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}	
+	
+	public ArrayList<Item> getItens() {
+		return itens;
 	}
+
+	public void setItens(ArrayList<Item> itens) {
+		this.itens = itens;
+	}
+
 	/**
-	 * representação de um usuario
+	 * representacao de um usuario
 	 */
 	@Override
 	public String toString() {
@@ -74,4 +83,5 @@ public class Usuario {
 		}
 		return saida;
 	}
+	
 }

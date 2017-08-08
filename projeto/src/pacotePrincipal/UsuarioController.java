@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * representação de um controlador de usuarios
  * 
  * 
- * Laboratório de Programação 2 - projeto
+ * Laboratorio de Programacao 2 - projeto
  * 
  * @author Diego Amancio - 116210716
  */
@@ -107,5 +107,6 @@ public class UsuarioController {
 			throw new IllegalArgumentException("Usuario invalido");
 
 		}
-	}
+	}	
+	
 }
