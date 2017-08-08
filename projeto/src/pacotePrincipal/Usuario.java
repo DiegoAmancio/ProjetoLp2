@@ -1,5 +1,7 @@
 package pacotePrincipal;
 
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * representação de um usuario
@@ -13,7 +15,7 @@ public class Usuario {
 	private String nome;
 	private String telefone;
 	private String email;
-	private ItemController itens;
+	private List<Item> itens ;
 
 	/**
 	 * 
@@ -33,7 +35,7 @@ public class Usuario {
 		this.nome = nome;
 		this.telefone = telefone;
 		this.email = email;
-		this.itens = new ItemController();
+		this.itens = new ArrayList<Item>();
 	}
 	public void validaUsuarioAtributo(String atributo,String qualAtributo){
 		if(atributo == null){
@@ -78,13 +80,20 @@ public class Usuario {
 	 *            plataforma do item
 	 */
 	public void cadastrarEletronico(String nomeItem, double preco, String plataforma) {
-		itens.cadastraItem(nomeItem, preco, plataforma);
+		Item eletronico = new Eletronico(nomeItem, preco, plataforma);
+		if(!(itens.contains(eletronico))){
+			itens.add(eletronico);
+		}
 		
 	}
 	public void cadastrarJogoTabuleiro(String nomeItem,double preco){
-		itens.cadastraJogoTabuleiro(nomeItem, preco);
+		Item novoTabuleiro = new JogoTabuleiro(nomeItem, preco);
+		
+		if(!(itens.contains(novoTabuleiro))){
+			itens.add(novoTabuleiro);
+		}
 	}
-
+	
 	/**
 	 * representação de um usuario
 	 */
