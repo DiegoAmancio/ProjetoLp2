@@ -14,6 +14,16 @@ public class BluRaySerie extends BluRay{
 		super(duracao, classificacao);
 		this.nome = nome;
 	}
+	
+	public int duracaoTotal(){
+		int totalDuracao = 0;
+		
+		for(BluRay br : temporada){
+			totalDuracao += br.getDuracao();
+		}
+		
+		return totalDuracao;
+	}
 
 	@Override
 	public int hashCode() {
@@ -73,8 +83,6 @@ public class BluRaySerie extends BluRay{
 
 	public void setNumeroDaTemporada(int numeroDaTemporada) {
 		this.numeroDaTemporada = numeroDaTemporada;
-	}
-	
-	
+	}	
 
 }
