@@ -1,7 +1,5 @@
 package pacotePrincipal;
 
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * representação de um usuario
@@ -15,7 +13,7 @@ public class Usuario {
 	private String nome;
 	private String telefone;
 	private String email;
-	private Map<String, Item> itens;
+	private ItemController itens;
 
 	/**
 	 * 
@@ -35,7 +33,7 @@ public class Usuario {
 		this.nome = nome;
 		this.telefone = telefone;
 		this.email = email;
-		this.itens = new HashMap<String, Item>();
+		this.itens = new ItemController();
 	}
 	public void validaUsuarioAtributo(String atributo,String qualAtributo){
 		if(atributo == null){
@@ -48,7 +46,7 @@ public class Usuario {
 	public String getNome() {
 		return nome;
 	}
-
+	
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
@@ -80,11 +78,11 @@ public class Usuario {
 	 *            plataforma do item
 	 */
 	public void cadastrarEletronico(String nomeItem, double preco, String plataforma) {
-		if (!(itens.containsKey(nomeItem + plataforma))) {
-			Item novoEletronico = new Eletronico(nomeItem, preco, plataforma);
-			itens.put(nomeItem + plataforma, novoEletronico);
-		}
-
+		itens.cadastraItem(nomeItem, preco, plataforma);
+		
+	}
+	public void cadastrarJogoTabuleiro(String nomeItem,double preco){
+		itens.cadastraJogoTabuleiro(nomeItem, preco);
 	}
 
 	/**

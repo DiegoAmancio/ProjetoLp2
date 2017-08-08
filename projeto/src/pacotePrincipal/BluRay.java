@@ -2,15 +2,18 @@ package pacotePrincipal;
 
 import Enums.Classificacao;
 
-public class BluRay {
+public class BluRay extends Item {
 	private int duracao;
 	private Classificacao classificacao;
 	
-	public BluRay(int duracao, String classificacao){
-		this.duracao = duracao;
-		verificaClassificacao(classificacao);
-	}
 	
+	
+	public BluRay(String nome, double preco2, int duracao, String classificacao) {
+		super(nome, preco2);
+		this.duracao = duracao;
+		verificaClassificacao(classificacao);;
+	}
+
 	public int getDuracao() {
 		return duracao;
 	}
