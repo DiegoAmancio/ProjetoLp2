@@ -1,14 +1,15 @@
 package usuario;
 
-<<<<<<< HEAD:projeto/src/usuario/Usuario.java
+
 import java.util.ArrayList;
 
+import item.Eletronico;
 import item.Item;
-=======
+
 import java.util.HashMap;
 import java.util.Map;
 
->>>>>>> master:projeto/src/pacotePrincipal/Usuario.java
+
 /**
  * representação de um usuario
  * 

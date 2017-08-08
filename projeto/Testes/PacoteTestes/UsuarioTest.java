@@ -2,7 +2,7 @@ package PacoteTestes;
 
 import org.junit.Test;
 
-import pacotePrincipal.Usuario;
+import usuario.Usuario;
 
 /**
  * testa criaçao de usuarios.
@@ -18,11 +18,20 @@ public class UsuarioTest {
 	 *
 	 */
 	@Test(expected = IllegalArgumentException.class)
-	public void usuariosInvalidosTest() {
-
-		Usuario usuarioEmailVazio1 = new Usuario("diego", "4002-8922", "                    ");
-
+	public void usuariosEmailVazioTest() {
+		Usuario usuarioEmailInvalido = new Usuario("diego", "4002-8922", "");
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void usuariosEmailEspacosTest() {
+		Usuario usuarioEmailInvalido = new Usuario("diego", "4002-8922", "               ");
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void usuarioTelefoneVazioTest() {
 		Usuario usuarioTelefoneVazio1 = new Usuario("as", "", "as@ccc.ufcg.edu.br");
+	}
+		
 		Usuario usuarioTelefoneVazio2 = new Usuario("birl", "                 ", "bl@ccc.ufcg.edu.br");
 
 		Usuario usuarioNomeVazio1 = new Usuario("god", " ", "gd@ccc.ufcg.edu.br");

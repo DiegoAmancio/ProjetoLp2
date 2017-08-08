@@ -1,4 +1,4 @@
-package pacotePrincipal;
+package item;
 
 import Enums.Classificacao;
 
