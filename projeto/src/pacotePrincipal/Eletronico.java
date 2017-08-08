@@ -33,9 +33,12 @@ public class Eletronico extends Item{
 	public boolean equals(Object obj) {
 		if (super.equals(obj)) {
 			if (obj instanceof Eletronico) {
-				if (((Eletronico) obj).getPlataforma().equals(plataforma)) {
-					return true;
+				if(((Eletronico) obj).getNome().equals(nome)){
+					if (((Eletronico) obj).getPlataforma().equals(plataforma)  ) {
+						return true;
+					}
 				}
+				
 			}
 		}
 		return false;
