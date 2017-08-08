@@ -24,11 +24,9 @@ public class Facade {
 	}
 
 	public void atualizarUsuario(String nome, String telefone, String atributo, String valor) {
-<<<<<<< HEAD
-		
-=======
+
 		controllerUsuario.atualizarUsuario(nome, telefone, atributo, valor);
->>>>>>> b23e0f50b49d1ec935f36db0117c41f15654a88e
+
 	}
 	
 	public void getInfoItem(){
@@ -36,7 +34,7 @@ public class Facade {
 	}
 	
 	public void cadastrarEletronico(String nome, String telefone, String nomeItem, int preco, String plataforma) {
-		controllerUsuario.cadastrarEletronico(nome, telefone, nomeItem, preco, plataforma);
+	
 	}
 
 	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, int preco) {

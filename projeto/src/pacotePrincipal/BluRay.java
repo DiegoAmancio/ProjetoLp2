@@ -1,42 +1,22 @@
-package midias;
+package pacotePrincipal;
 
 import Enums.Classificacao;
-import pacotePrincipal.Item;
 
-<<<<<<< HEAD:projeto/src/midias/BluRay.java
-public class BluRay extends Item{
-=======
+
 public class BluRay extends Item {
->>>>>>> b23e0f50b49d1ec935f36db0117c41f15654a88e:projeto/src/pacotePrincipal/BluRay.java
+
 	private int duracao;
 	private Classificacao classificacao;
 	
 	
-<<<<<<< HEAD:projeto/src/midias/BluRay.java
+
 	public BluRay(String nome, int preco, int duracao, String classificacao) {
-		super(nome, preco);		
-=======
-	
-	public BluRay(String nome, double preco2, int duracao, String classificacao) {
-		super(nome, preco2);
->>>>>>> b23e0f50b49d1ec935f36db0117c41f15654a88e:projeto/src/pacotePrincipal/BluRay.java
+		super(nome, preco);
+		verificaClassificacao(classificacao);
 		this.duracao = duracao;
-		verificaClassificacao(classificacao);;
 	}
-<<<<<<< HEAD:projeto/src/midias/BluRay.java
 	
-	
-=======
 
-	public int getDuracao() {
-		return duracao;
-	}
-
-	public Classificacao getClassificacao() {
-		return classificacao;
-	}
-
->>>>>>> b23e0f50b49d1ec935f36db0117c41f15654a88e:projeto/src/pacotePrincipal/BluRay.java
 	private void verificaClassificacao(String classificacao){
 		
 		switch(classificacao.toUpperCase().trim()){

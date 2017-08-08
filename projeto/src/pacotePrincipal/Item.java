@@ -59,14 +59,5 @@ public abstract class Item {
 		return true;
 	}
 	
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof Item) {
-			if (((Item) obj).getNome().equals(nome)) {
-				return true;
-			}
-		}
-		return false;
-	}
 
 }

@@ -1,6 +1,8 @@
 package pacotePrincipal;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * representação de um controlador de usuarios
@@ -11,13 +13,13 @@ import java.util.ArrayList;
  * @author Diego Amancio - 116210716
  */
 public class UsuarioController {
-	private ArrayList<Usuario> usuarios;
+	private Map<String, Usuario> usuarios;
 
 	/**
 	 * constroi um controlador de usuarios
 	 */
 	public UsuarioController() {
-		this.usuarios = new ArrayList<Usuario>();
+		this.usuarios = new HashMap<String, Usuario>();
 	}
 
 	/**
@@ -31,35 +33,40 @@ public class UsuarioController {
 	 *            email do usuario
 	 */
 	public void cadastrarUsuario(String nome, String telefone, String email) {
+		String identificacao = nome + telefone;
 		Usuario usuario = new Usuario(nome, telefone, email);
 
-		if (getUsuario(nome, telefone) != null) {
-			usuarios.add(usuario);
+		if (!(usuarios.containsKey(identificacao))) {
+			usuarios.put(identificacao, usuario);
 		} else {
 			throw new IllegalArgumentException("Usuario ja cadastrado");
 		}
 
 	}
 
-	/**
-	 * verifica se o usuario ja esta cadastrado
-	 * 
-	 * @param nome
-	 *            nome do usuario
-	 * @param telefone
-	 *            telefone do usuario
-	 * @return retorna usuario caso esteja cadastrado
-	 */
-	public Usuario getUsuario(String nome, String telefone) {
-		Usuario usuario = new Usuario(nome, telefone, "");
-		Usuario acheiUsuario = null;
-		for (int i = 0; i < usuarios.size(); i++) {
-			if (usuarios.equals(usuario)) {
-				acheiUsuario = usuarios.get(i);
-				break;
+	public String getInfoUsuario(String nome, String telefone, String atributo) {
+		String identificacao = nome + telefone;
+		if (usuarios.containsKey(identificacao)) {
+			Usuario usuario = usuarios.get(identificacao);
+
+			switch (atributo.trim().toUpperCase()) {
+
+			case "NOME":
+				return usuario.getNome();
+			case "TELEFONE":
+				return usuario.getTelefone();
+
+			case "EMAIL":
+				return usuario.getEmail();
+
+			default:
+				throw new IllegalArgumentException("Atributo invalido");
+
 			}
+		} else {
+			throw new NullPointerException("Usuario invalido");
 		}
-		return acheiUsuario;
+
 	}
 
 	/**
@@ -71,9 +78,9 @@ public class UsuarioController {
 	 *            telefone do usuario
 	 */
 	public void removerUsuario(String nome, String telefone) {
-		Usuario usuario = getUsuario(nome, telefone);
-		if (usuario != null) {
-			usuarios.remove(usuario);
+		String identificacao = nome + telefone;
+		if (usuarios.containsKey(identificacao)) {
+			usuarios.remove(identificacao);
 		} else {
 			throw new IllegalArgumentException("Usuario invalido");
 		}
@@ -92,21 +99,35 @@ public class UsuarioController {
 	 *            nova informaçao para o atributo do usuario
 	 */
 	public void atualizarUsuario(String nome, String telefone, String atributo, String valor) {
-		Usuario usuario = getUsuario(nome, telefone);
-		if (usuario != null) {
-			if (atributo.equals("Nome")) {
-				usuario.setNome(valor);
-			} else if (atributo.equals("Telefone")) {
-				usuario.setTelefone(valor);
-			} else if (atributo.equals("Email")) {
+		
+		String identificacao = nome + telefone;
+		
+		if (usuarios.containsKey(identificacao)) {
+			Usuario usuario = usuarios.get(identificacao);
+			
+			switch (atributo.trim().toUpperCase()) {
+
+			case "NOME":
+				cadastrarUsuario(valor, telefone, usuario.getEmail()); 
+				removerUsuario(nome, telefone);
+				 break;
+			case "TELEFONE":
+				cadastrarUsuario(nome, valor, usuario.getEmail()); 
+				removerUsuario(nome, telefone);
+				 break;
+
+			case "EMAIL":
 				usuario.setEmail(valor);
-			} else {
-				throw new IllegalArgumentException("atributo invalido");
+				 break;
+
+			default:
+				throw new IllegalArgumentException("Atributo invalido");
+
 			}
 		} else {
 			throw new IllegalArgumentException("Usuario invalido");
 
 		}
-	}	
-	
+	}
+
 }

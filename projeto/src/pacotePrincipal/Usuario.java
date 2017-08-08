@@ -15,7 +15,7 @@ public class Usuario {
 	private String nome;
 	private String telefone;
 	private String email;
-	private List<Item> itens ;
+	private List<Item> itens;
 
 	/**
 	 * 
@@ -69,16 +69,8 @@ public class Usuario {
 		this.email = email;
 	}	
 	
-	public ArrayList<Item> getItens() {
-		return itens;
-	}
+	
 
-<<<<<<< HEAD
-	public void setItens(ArrayList<Item> itens) {
-		this.itens = itens;
-	}
-
-=======
 	/**
 	 * cadastra o jogo eletronico
 	 * 
@@ -104,7 +96,7 @@ public class Usuario {
 		}
 	}
 	
->>>>>>> b23e0f50b49d1ec935f36db0117c41f15654a88e
+
 	/**
 	 * representacao de um usuario
 	 */
