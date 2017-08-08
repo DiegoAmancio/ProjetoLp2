@@ -1,4 +1,4 @@
-package item;
+package pacotePrincipal;
 /**
  * representação de um item
  * 

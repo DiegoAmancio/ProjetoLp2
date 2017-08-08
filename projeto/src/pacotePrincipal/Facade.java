@@ -1,4 +1,4 @@
-package facade;
+package pacotePrincipal;
 
 public class Facade {
 	UsuarioController controllerUsuario;

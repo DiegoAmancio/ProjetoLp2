@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import usuario.UsuarioController;
+import pacotePrincipal.UsuarioController;
 
 /**
  * testa metodos da classe UsuarioController

@@ -2,7 +2,7 @@ package PacoteTestes;
 
 import org.junit.Test;
 
-import usuario.Usuario;
+import pacotePrincipal.Usuario;
 
 /**
  * testa criaçao de usuarios.
