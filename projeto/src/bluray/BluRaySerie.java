@@ -4,15 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BluRaySerie extends BluRay{
-	private String nome;
 	private String genero;
-	private int anoLancamentoç;
+	private int anoLancamento;
 	private int numeroDaTemporada;
 	private List<BluRay> temporada = new ArrayList<BluRay>();
 	
-	public BluRaySerie(int duracao, String classificacao, String nome) {
-		super(duracao, classificacao);
-		this.nome = nome;
+	public BluRaySerie(String nome, int duracao, String classificacao) {
+		super(nome, duracao, classificacao);
+		this.genero = genero;
+		this.anoLancamento = anoLancamento;
+		this.numeroDaTemporada = numeroDaTemporada;
 	}
 	
 	public int duracaoTotal(){
