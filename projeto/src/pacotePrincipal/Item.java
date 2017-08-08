@@ -8,24 +8,24 @@ package pacotePrincipal;
  * @author Diego Amancio - 116210716
  */
 public abstract class Item {
-	private String nome;
-	private int preco;
-	private boolean emprestado;
+	protected String nome;
+	protected double preco;
+	protected boolean emprestado;
 	/**
 	 * constroi um item
 	 * @param nome nome do item
-	 * @param preco valor de compra deste item
+	 * @param preco2 valor de compra deste item
 	 */
-	public Item(String nome, int preco) {
+	public Item(String nome, double preco2) {
 		this.nome = nome;
-		this.preco = preco;
+		this.preco = preco2;
 		this.emprestado = false;
 	}
 	public String getNome() {
 		return nome;
 	}
 	
-	public int getPreco() {
+	public double getPreco() {
 		return preco;
 	}
 	
@@ -59,6 +59,14 @@ public abstract class Item {
 		return true;
 	}
 	
-	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Item) {
+			if (((Item) obj).getNome().equals(nome)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }
