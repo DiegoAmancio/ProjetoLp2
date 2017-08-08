@@ -1,9 +1,9 @@
 package Enums;
 /**
-* representação das plataformas para um jogo
+* representacao das plataformas para um jogo
 * 
 * 
-* Laboratório de Programação 2 - projeto
+* Laboratorio de Programacao 2 - projeto
 * 
 * @author Diego Amancio - 116210716
 */

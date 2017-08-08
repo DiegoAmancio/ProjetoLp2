@@ -1,9 +1,9 @@
 package pacotePrincipal;
 /**
- * representação de um item
+ * representacao de um item
  * 
  * 
- * Laboratório de Programação 2 - projeto
+ * Laboratorio de Programacao 2 - projeto
  * 
  * @author Diego Amancio - 116210716
  */

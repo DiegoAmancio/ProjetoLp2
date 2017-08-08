@@ -15,7 +15,7 @@ public class Facade {
 	}
 
 	public void atualizarUsuario(String nome, String telefone, String atributo, String valor) {
-
+		
 	}
 
 	public void cadastrarEletronico(String nome, String telefone, String nomeItem, int preco, String plataforma) {
@@ -44,12 +44,15 @@ public class Facade {
 			int duracao, String classificacao, String genero, int temporada) {
 
 	}
+	
 	public void adicionarBluRay(String nome, String telefone, String nomeBlueRayTemporada, int duracao) {
 
 	}
+	
 	public void removerItem(String nome, String telefone, String nomeItem) {
 
 	}
+	
 	public void atualizarItem(String nome, String telefone,String nomeItem, String atributo, String valor) {
 
 	}
