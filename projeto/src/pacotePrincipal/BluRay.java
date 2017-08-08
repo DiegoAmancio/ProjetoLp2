@@ -2,25 +2,20 @@ package pacotePrincipal;
 
 import Enums.Classificacao;
 
+
 public class BluRay extends Item {
+
 	private int duracao;
 	private Classificacao classificacao;
 	
 	
-	
-	public BluRay(String nome, double preco2, int duracao, String classificacao) {
-		super(nome, preco2);
+
+	public BluRay(String nome, int preco, int duracao, String classificacao) {
+		super(nome, preco);
+		verificaClassificacao(classificacao);
 		this.duracao = duracao;
-		verificaClassificacao(classificacao);;
 	}
-
-	public int getDuracao() {
-		return duracao;
-	}
-
-	public Classificacao getClassificacao() {
-		return classificacao;
-	}
+	
 
 	private void verificaClassificacao(String classificacao){
 		
@@ -49,5 +44,22 @@ public class BluRay extends Item {
 		
 				
 	}
+
+	public int getDuracao() {
+		return duracao;
+	}
+
+	public void setDuracao(int duracao) {
+		this.duracao = duracao;
+	}
+
+	public Classificacao getClassificacao() {
+		return classificacao;
+	}
+
+	public void setClassificacao(Classificacao classificacao) {
+		this.classificacao = classificacao;
+	}
+
 	
 }

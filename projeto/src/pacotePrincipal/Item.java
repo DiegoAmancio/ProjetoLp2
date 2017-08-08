@@ -1,9 +1,9 @@
 package pacotePrincipal;
 /**
- * representação de um item
+ * representacao de um item
  * 
  * 
- * Laboratório de Programação 2 - projeto
+ * Laboratorio de Programacao 2 - projeto
  * 
  * @author Diego Amancio - 116210716
  */
@@ -35,15 +35,29 @@ public abstract class Item {
 	public void setEmprestado(boolean emprestado) {
 		this.emprestado = emprestado;
 	}
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		return result;
+	}
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof Item) {
-			if (((Item) obj).getNome().equals(nome)) {
-				return true;
-			}
-		}
-		return false;
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Item other = (Item) obj;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		return true;
 	}
+	
 
 }

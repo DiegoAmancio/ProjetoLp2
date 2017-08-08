@@ -1,47 +1,80 @@
 package pacotePrincipal;
 
 import Enums.Plataforma;
+import pacotePrincipal.Item;
 
 public class Eletronico extends Item{
+	private Plataforma plataforma;	
 	
-	private Plataforma plataforma;
-
 	public Eletronico(String nome, double preco, String plataforma) {
 		super(nome, preco);
-		setPlataforma(plataforma);
+		verificaPlataforma(plataforma);
 	}
+	
+	public void verificaPlataforma(String plataforma){
+		switch(plataforma.trim().toUpperCase()){
+			case "PC":
+				this.plataforma = Plataforma.PC;
+				break;
+			case "MAC":
+				this.plataforma = Plataforma.MAC;
+				break;
+			case "PS3":
+				this.plataforma = Plataforma.PS3;
+				break;
+			case "PS4":
+				this.plataforma = Plataforma.PS4;
+				break;
+			case "XBOX 360":
+				this.plataforma = Plataforma.XBOX360;
+				break;
+			case "XBOX ONE":
+				this.plataforma = Plataforma.XBOX_ONE;
+				break;
+			case "NINTENDO 3DS":
+				this.plataforma = Plataforma.NINTENDO_3DS;
+				break;
+			case "OUTRO":
+				this.plataforma = Plataforma.OUTRO;
+				break;							
+			default:
+				throw new IllegalArgumentException();
+		}
+	}
+	
+	
 	
 	public Plataforma getPlataforma() {
 		return plataforma;
 	}
 
-	private void setPlataforma(String valor) {
-		boolean valido = false;
-		for (Plataforma plataforma : Plataforma.values()) {
-			if (valor.equals(plataforma.getValor())) {
-				this.plataforma = plataforma;
-				valido = true;
-				break;
-			}
-		}
-		if (!valido) {
-			throw new IllegalArgumentException();
-		}
+	public void setPlataforma(Plataforma plataforma) {
+		this.plataforma = plataforma;
 	}
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((plataforma == null) ? 0 : plataforma.hashCode());
+		return result;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
-		if (super.equals(obj)) {
-			if (obj instanceof Eletronico) {
-				if(((Eletronico) obj).getNome().equals(nome)){
-					if (((Eletronico) obj).getPlataforma().equals(plataforma)  ) {
-						return true;
-					}
-				}
-				
-			}
-		}
-		return false;
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Eletronico other = (Eletronico) obj;
+		if (plataforma != other.plataforma)
+			return false;
+		return true;
 	}
+
+	
+	
 
 }

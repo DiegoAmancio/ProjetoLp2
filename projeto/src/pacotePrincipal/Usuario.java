@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * representação de um usuario
+ * representacao de um usuario
  * 
  * 
- * Laboratório de Programação 2 - projeto
+ * Laboratorio de Programacao 2 - projeto
  * 
  * @author Diego Amancio - 116210716
  */
@@ -16,7 +16,7 @@ public class Usuario {
 	private String nome;
 	private String telefone;
 	private String email;
-	private List<Item> itens ;
+	private List<Item> itens;
 
 	/**
 	 * 
@@ -68,7 +68,9 @@ public class Usuario {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
+	}	
+	
+	
 
 	/**
 	 * cadastra o jogo eletronico
@@ -95,8 +97,9 @@ public class Usuario {
 		}
 	}
 	
+
 	/**
-	 * representação de um usuario
+	 * representacao de um usuario
 	 */
 	@Override
 	public String toString() {
@@ -119,4 +122,5 @@ public class Usuario {
 		}
 		return saida;
 	}
+	
 }
