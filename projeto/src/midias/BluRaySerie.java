@@ -23,7 +23,6 @@ public class BluRaySerie extends BluRay{
 		
 		return totalDuracao;
 	}	
-
 		
 
 	@Override
@@ -62,6 +61,14 @@ public class BluRaySerie extends BluRay{
 
 	public void setNumeroDaTemporada(int numeroDaTemporada) {
 		this.numeroDaTemporada = numeroDaTemporada;
-	}	
+	}
 
+	public List<BluRay> getTemporada() {
+		return temporada;
+	}
+
+	public void setTemporada(List<BluRay> temporada) {
+		this.temporada = temporada;
+	}	
+	
 }

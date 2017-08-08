@@ -1,4 +1,4 @@
-package midias;
+package jogos;
 
 import Enums.Plataformas;
 import pacotePrincipal.Item;
@@ -40,6 +40,16 @@ public class JogoEletronico extends Item{
 			default:
 				throw new IllegalArgumentException();
 		}
+	}
+	
+	
+	
+	public Plataformas getPlataforma() {
+		return plataforma;
+	}
+
+	public void setPlataforma(Plataformas plataforma) {
+		this.plataforma = plataforma;
 	}
 
 	@Override
