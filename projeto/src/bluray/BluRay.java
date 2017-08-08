@@ -1,18 +1,20 @@
 package bluray;
 
 import Enums.Classificacao;
+import pacotePrincipal.Item;
 
-public class BluRay {
+public class BluRay extends Item{
 	private int duracao;
 	private Classificacao classificacao;
 	private String nome;
 	
-	
-	public BluRay(String nome, int duracao, String classificacao){
+	public BluRay(String nome, int preco, int duracao, String classificacao) {
+		super(nome, preco);
 		this.nome = nome;
 		this.duracao = duracao;
 		verificaClassificacao(classificacao);
 	}
+	
 	
 	private void verificaClassificacao(String classificacao){
 		
