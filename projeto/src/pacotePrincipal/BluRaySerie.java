@@ -5,6 +5,7 @@ import java.util.List;
 
 import Enums.Genero;
 
+
 /**
  * Representa o BluRaySerie. Atribui-se BRS para BluRaySerie
  * 
@@ -32,8 +33,8 @@ public class BluRaySerie extends BluRay {
 	 * @param numeroDaTemporada
 	 *            (numero da temporada do BRS)
 	 */
-	public BluRaySerie(String nome, int preco, int duracao, String classificacao, String genero,
-			int numeroDaTemporada) {
+	public BluRaySerie(String nome, double preco, int duracao, String classificacao, String genero, int numeroDaTemporada) {
+
 		super(nome, preco, duracao, classificacao);
 		verificaGenero(genero);
 		this.numeroDaTemporada = numeroDaTemporada;

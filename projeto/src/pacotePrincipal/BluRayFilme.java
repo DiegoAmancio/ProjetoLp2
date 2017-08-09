@@ -30,10 +30,11 @@ public class BluRayFilme extends BluRay {
 	 * 
 	 */
 	public BluRayFilme(String nome, int preco, int duracao, String classificacao, String genero, int anoLancamento) {
-		super(nome, preco, duracao, classificacao);
-		verificaGenero(genero);
-		this.anoLancamento = anoLancamento;
-	}
+
+public class BluRayFilme extends BluRay{
+	private Genero genero;
+	private int anoLancamento;	
+	
 
 	public String getGenero() {
 		return genero.getMensagem();
