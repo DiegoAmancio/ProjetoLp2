@@ -1,9 +1,31 @@
 package pacotePrincipal;
 
-public class BluRayShow extends BluRay{
+/**
+ * Representa o BluRayShow.
+ * 
+ * @author Isaac Meneses. Mat.: 116.111.246
+ *
+ */
+public class BluRayShow extends BluRay {
 	private int numeroFaixas;
 	private String nomeArtista;
-	
+
+	/**
+	 * Construtor de BluRayShow. Atribui-se BRS para BluRayShow
+	 * 
+	 * @param nome
+	 *            (nome do BRS)
+	 * @param preco
+	 *            (preco do BRS)
+	 * @param duracao
+	 *            (duracao do BRS)
+	 * @param classificacao
+	 *            (classificacao do BRS)
+	 * @param numeroFaixas
+	 *            (numero de faixas do BRS)
+	 * @param nomeArtista
+	 *            (nome do artista do BRS)
+	 */
 	public BluRayShow(String nome, int preco, int duracao, String classificacao, int numeroFaixas, String nomeArtista) {
 		super(nome, preco, duracao, classificacao);
 		this.numeroFaixas = numeroFaixas;
@@ -53,5 +75,5 @@ public class BluRayShow extends BluRay{
 			return false;
 		return true;
 	}
-	
+
 }
