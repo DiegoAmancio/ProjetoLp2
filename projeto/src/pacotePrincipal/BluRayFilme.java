@@ -2,15 +2,38 @@ package pacotePrincipal;
 
 import Enums.Genero;
 
-public class BluRayFilme extends BluRay{
+/**
+ * Representa o BluRayFilme. Atribui-se BRF para BluRayFilme
+ * 
+ * @author Isaac Meneses Mat.: 116.111.246
+ *
+ */
+public class BluRayFilme extends BluRay {
 	private Genero genero;
-	private int anoLancamento;	
-	
-	public BluRayFilme(String nome, int preco, int duracao, String classificacao, String genero, int anoLancamento, String nomeArtista, int numeroFaixas) {
+	private int anoLancamento;
+
+	/**
+	 * Construtor de BRF
+	 * 
+	 * @param nome
+	 *            (nome do BRF)
+	 * @param preco
+	 *            (preco do BRF)
+	 * @param duracao
+	 *            (duracao do BRF)
+	 * @param classificacao
+	 *            (classificacao do BRF)
+	 * @param genero
+	 *            (genero do BRF)
+	 * @param anoLancamento
+	 *            (ano de lancamento do BRF)
+	 * 
+	 */
+	public BluRayFilme(String nome, int preco, int duracao, String classificacao, String genero, int anoLancamento) {
 		super(nome, preco, duracao, classificacao);
 		verificaGenero(genero);
 		this.anoLancamento = anoLancamento;
-	}
+	}	
 
 	public String getGenero() {
 		return genero.getMensagem();
@@ -93,3 +116,4 @@ public class BluRayFilme extends BluRay{
 	}
 	
 }
+
