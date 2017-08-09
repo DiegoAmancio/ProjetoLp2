@@ -16,9 +16,9 @@ public abstract class Item {
 	 * @param nome nome do item
 	 * @param preco2 valor de compra deste item
 	 */
-	public Item(String nome, double preco2) {
+	public Item(String nome, double preco) {
 		this.nome = nome;
-		this.preco = preco2;
+		this.preco = preco;
 		this.emprestado = false;
 	}
 	public String getNome() {
@@ -35,6 +35,21 @@ public abstract class Item {
 	public void setEmprestado(boolean emprestado) {
 		this.emprestado = emprestado;
 	}
+	
+	public String getInfo(String atributo) {
+		String info = "";
+		switch (atributo) {
+		case "Nome":
+			info += this.getNome();
+			return info;
+		case "Preco":
+			info += this.getPreco();
+			return info;
+		default:
+			return info;
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

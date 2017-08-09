@@ -40,9 +40,7 @@ public class BluRay extends Item {
 				break;
 			default:
 				throw new IllegalArgumentException();				
-		}
-		
-				
+		}				
 	}
 
 	public int getDuracao() {
@@ -60,6 +58,20 @@ public class BluRay extends Item {
 	public void setClassificacao(Classificacao classificacao) {
 		this.classificacao = classificacao;
 	}
-
+	
+	@Override
+	public String getInfo(String atributo) {
+		String info = super.getInfo(atributo);
+		switch (atributo) {
+		case "Duracao":
+			info += this.getDuracao();
+			return info;
+		case "Classificacao":
+			info += this.getClassificacao().getMensagem();
+			return info;
+		default:
+			return info;
+		}
+	}
 	
 }

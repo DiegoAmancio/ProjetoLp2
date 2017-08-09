@@ -77,6 +77,19 @@ public class BluRayFilme extends BluRay{
 		this.anoLancamento = anoLancamento;
 	}
 	
-	
+	@Override
+	public String getInfo(String atributo) {
+		String info = super.getInfo(atributo);
+		switch (atributo) {
+		case "Genero":
+			info += this.getGenero();
+			return info;
+		case "Ano de Lancamento":
+			info += this.getAnoLancamento();
+			return info;
+		default:
+			throw new IllegalArgumentException();
+		}
+	}
 	
 }

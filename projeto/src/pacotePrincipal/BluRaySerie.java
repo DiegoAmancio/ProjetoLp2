@@ -120,6 +120,21 @@ public class BluRaySerie extends BluRay{
 
 	public void setTemporada(List<BluRay> temporada) {
 		this.temporada = temporada;
-	}	
+	}
+	
+	@Override
+	public String getInfo(String atributo) {
+		String info = super.getInfo(atributo);
+		switch (atributo) {
+		case "Genero":
+			info += this.getGenero();
+			return info;
+		case "Temporada":
+			info += this.getNumeroDaTemporada();
+			return info;
+		default:
+			throw new IllegalArgumentException();
+		}
+	}
 	
 }

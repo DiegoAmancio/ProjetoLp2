@@ -51,6 +51,18 @@ public class Eletronico extends Item{
 	public void setPlataforma(Plataforma plataforma) {
 		this.plataforma = plataforma;
 	}
+	
+	@Override
+	public String getInfo(String atributo) {
+		String info = super.getInfo(atributo);
+		switch (atributo) {
+		case "Plataforma":
+			info += this.getPlataforma();
+			return info;
+		default:
+			throw new IllegalArgumentException();
+		}
+	}
 
 	@Override
 	public int hashCode() {
