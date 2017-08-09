@@ -5,27 +5,72 @@ import java.util.List;
 
 import Enums.Genero;
 
-public class BluRaySerie extends BluRay{
+
+/**
+ * Representa o BluRaySerie. Atribui-se BRS para BluRaySerie
+ * 
+ * @author Isaac Meneses Mat.: 116.111.246
+ *
+ */
+public class BluRaySerie extends BluRay {
 	private Genero genero;
-	private int numeroDaTemporada;
-	private List<BluRay> temporada = new ArrayList<BluRay>();
-	
-	public BluRaySerie(String nome, int preco, int duracao, String classificacao, String genero, int numeroDaTemporada) {
+	private int numeroDaTemporada;	
+	private List<Episodio> temporada = new ArrayList<Episodio>();
+
+	/**
+	 * Construtor de BRS.
+	 * 
+	 * @param nome
+	 *            (nome do BRS)
+	 * @param preco
+	 *            (preco do BRS)
+	 * @param duracao
+	 *            (duracao do BRS)
+	 * @param classificacao
+	 *            (classificacao do BRS)
+	 * @param genero
+	 *            (genero do BRS)
+	 * @param numeroDaTemporada
+	 *            (numero da temporada do BRS)
+	 */
+	public BluRaySerie(String nome, double preco, int duracao, String classificacao, String genero, int numeroDaTemporada) {
+
 		super(nome, preco, duracao, classificacao);
 		verificaGenero(genero);
 		this.numeroDaTemporada = numeroDaTemporada;
 	}
-	
-	public int duracaoTotal(){
+
+	/**
+	 * Retorna a duracao total dos episodios da temporada
+	 * 
+	 * @return totalDuracao
+	 */
+	public int duracaoTotal() {
 		int totalDuracao = 0;
-		
-		for(BluRay br : temporada){
-			totalDuracao += br.getDuracao();
+
+		for (Episodio ep : temporada) {
+			totalDuracao += ep.getDuracao();
 		}
-		
+
 		return totalDuracao;
-	}	
-		
+	}
+
+	/**
+	 * Adiciona o episodio se a duracao de episodios da temporada + a duracao do
+	 * episodio for menor do que o limite da duracao do BluRaySerie
+	 * 
+	 * @param duracaoDoEpisodio
+	 * @return status da operacao
+	 */
+	public boolean adicionaEpisodio(int duracaoDoEpisodio) {
+		Episodio episodio = new Episodio(duracaoDoEpisodio);
+		if (duracaoTotal() + duracaoDoEpisodio < super.getDuracao()) {
+			temporada.add(episodio);
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	@Override
 	public int hashCode() {
@@ -114,12 +159,12 @@ public class BluRaySerie extends BluRay{
 		this.numeroDaTemporada = numeroDaTemporada;
 	}
 
-	public List<BluRay> getTemporada() {
+	public List<Episodio> getTemporada() {
 		return temporada;
 	}
 
-	public void setTemporada(List<BluRay> temporada) {
+	public void setTemporada(List<Episodio> temporada) {
 		this.temporada = temporada;
-	}	
-	
+	}
+
 }
