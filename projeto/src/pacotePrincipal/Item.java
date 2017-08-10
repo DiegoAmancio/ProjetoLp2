@@ -46,7 +46,7 @@ public abstract class Item {
 			info += this.getNome();
 			return info;
 		case "Preco":
-			info += this.getPreco();
+			info += String.format("%.2f", this.getPreco());
 			return info;
 		default:
 			return info;
@@ -55,7 +55,7 @@ public abstract class Item {
 	
 	@Override
 	public String toString() {
-		return nome + ", R$" + String.format("%.2f", preco) + ", " + emprestado.getMensagem();
+		return nome + ", R$ " + Double.toString(preco) + ", " + emprestado.getMensagem();
 	}
 	
 	@Override
