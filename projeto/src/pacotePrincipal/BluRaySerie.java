@@ -34,7 +34,6 @@ public class BluRaySerie extends BluRay {
 	 *            (numero da temporada do BRS)
 	 */
 	public BluRaySerie(String nome, double preco, int duracao, String classificacao, String genero, int numeroDaTemporada) {
-
 		super(nome, preco, duracao, classificacao);
 		verificaGenero(genero);
 		this.numeroDaTemporada = numeroDaTemporada;
@@ -166,5 +165,20 @@ public class BluRaySerie extends BluRay {
 	public void setTemporada(List<Episodio> temporada) {
 		this.temporada = temporada;
 	}
-
+	
+	@Override
+	public String getInfo(String atributo) {
+		String info = super.getInfo(atributo);
+		switch (atributo) {
+		case "Genero":
+			info += this.getGenero();
+			return info;
+		case "Temporada":
+			info += this.getNumeroDaTemporada();
+			return info;
+		default:
+			throw new IllegalArgumentException();
+		}
+	}
+	
 }

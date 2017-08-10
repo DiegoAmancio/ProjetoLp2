@@ -47,6 +47,21 @@ public class BluRayShow extends BluRay {
 	public void setNomeArtista(String nomeArtista) {
 		this.nomeArtista = nomeArtista;
 	}
+	
+	@Override
+	public String getInfo(String atributo) {
+		String info = super.getInfo(atributo);
+		switch (atributo) {
+		case "Artista":
+			info += this.getNomeArtista();
+			return info;
+		case "Faixas":
+			info += this.getNumeroFaixas();
+			return info;
+		default:
+			throw new IllegalArgumentException();
+		}
+	}
 
 	@Override
 	public int hashCode() {

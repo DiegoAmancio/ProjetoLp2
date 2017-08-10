@@ -20,7 +20,7 @@ public class BluRay extends Item {
 	 * @param duracao (duracao do Bluray)
 	 * @param classificacao (classificacao do BluRay)
 	 */
-	public BluRay(String nome, int preco, int duracao, String classificacao) {
+	public BluRay(String nome, double preco, int duracao, String classificacao) {
 		super(nome, preco);
 		verificaClassificacao(classificacao);
 		this.duracao = duracao;
@@ -52,10 +52,11 @@ public class BluRay extends Item {
 				this.classificacao = Classificacao.DEZOITO_ANOS;
 				break;
 			default:
-				throw new IllegalArgumentException();				
-		}		
+				throw new IllegalArgumentException();
+		}				
+	}		
 				
-	}
+
 
 	public int getDuracao() {
 		return duracao;
@@ -72,6 +73,20 @@ public class BluRay extends Item {
 	public void setClassificacao(Classificacao classificacao) {
 		this.classificacao = classificacao;
 	}
-
+	
+	@Override
+	public String getInfo(String atributo) {
+		String info = super.getInfo(atributo);
+		switch (atributo) {
+		case "Duracao":
+			info += this.getDuracao();
+			return info;
+		case "Classificacao":
+			info += this.getClassificacao().getMensagem();
+			return info;
+		default:
+			return info;
+		}
+	}
 	
 }

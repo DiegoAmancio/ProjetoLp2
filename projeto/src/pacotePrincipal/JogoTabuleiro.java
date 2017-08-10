@@ -32,7 +32,16 @@ public class JogoTabuleiro extends Item{
 	public void adicionaPecaPerdida(String peca){
 		pecasPerdidas.add(peca);
 		this.jogoCompleto = false;
-	}	
+	}
+	
+	@Override
+	public String getInfo(String atributo) {
+		String info = super.getInfo(atributo);
+		if (info.equals("")) {
+			throw new IllegalArgumentException();
+		}
+		return info;
+	}
 
 	@Override
 	public int hashCode() {

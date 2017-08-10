@@ -30,11 +30,10 @@ public class BluRayFilme extends BluRay {
 	 * 
 	 */
 	public BluRayFilme(String nome, int preco, int duracao, String classificacao, String genero, int anoLancamento) {
-
-public class BluRayFilme extends BluRay{
-	private Genero genero;
-	private int anoLancamento;	
-	
+		super(nome, preco, duracao, classificacao);
+		verificaGenero(genero);
+		this.anoLancamento = anoLancamento;
+	}	
 
 	public String getGenero() {
 		return genero.getMensagem();
@@ -100,5 +99,21 @@ public class BluRayFilme extends BluRay{
 	public void setAnoLancamento(int anoLancamento) {
 		this.anoLancamento = anoLancamento;
 	}
-
+	
+	@Override
+	public String getInfo(String atributo) {
+		String info = super.getInfo(atributo);
+		switch (atributo) {
+		case "Genero":
+			info += this.getGenero();
+			return info;
+		case "Ano de Lancamento":
+			info += this.getAnoLancamento();
+			return info;
+		default:
+			throw new IllegalArgumentException();
+		}
+	}
+	
 }
+
