@@ -1,8 +1,8 @@
 package pacotePrincipal;
 
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * representacao de um usuario
@@ -16,7 +16,7 @@ public class Usuario {
 	private String nome;
 	private String telefone;
 	private String email;
-	private List<Item> itens;
+	private Map<String, Item> itens;
 
 	/**
 	 * 
@@ -36,14 +36,14 @@ public class Usuario {
 		this.nome = nome;
 		this.telefone = telefone;
 		this.email = email;
-		this.itens = new ArrayList<Item>();
+		this.itens = new HashMap<String, Item>();
 	}
 	public void validaUsuarioAtributo(String atributo,String qualAtributo){
 		if(atributo == null){
-			throw new NullPointerException(qualAtributo+"invalido,nulo");
+			throw new NullPointerException(qualAtributo+" invalido,nulo");
 		}
 		if(atributo.trim().equals("")){
-			throw new IllegalArgumentException(qualAtributo+"invalido,vazio");
+			throw new IllegalArgumentException(qualAtributo+" invalido,vazio");
 		}
 	}
 	public String getNome() {
@@ -70,33 +70,16 @@ public class Usuario {
 		this.email = email;
 	}	
 	
-	
-
-	/**
-	 * cadastra o jogo eletronico
-	 * 
-	 * @param nomeItem
-	 *            nome do item
-	 * @param preco
-	 *            preço do item
-	 * @param plataforma
-	 *            plataforma do item
-	 */
-	public void cadastrarEletronico(String nomeItem, double preco, String plataforma) {
-		Item eletronico = new Eletronico(nomeItem, preco, plataforma);
-		if(!(itens.contains(eletronico))){
-			itens.add(eletronico);
-		}
-		
-	}
-	public void cadastrarJogoTabuleiro(String nomeItem,double preco){
-		Item novoTabuleiro = new JogoTabuleiro(nomeItem, preco);
-		
-		if(!(itens.contains(novoTabuleiro))){
-			itens.add(novoTabuleiro);
-		}
+	public void adicionaItem(String nomeItem, Item item) {
+		itens.put(nomeItem, item);
 	}
 	
+	public Item getItem(String nomeItem) {
+		if (itens.containsKey(nomeItem)) {
+			return itens.get(nomeItem);
+		}
+		throw new IllegalArgumentException("Item nao cadastrado");
+	}
 
 	/**
 	 * representacao de um usuario

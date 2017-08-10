@@ -1,37 +1,45 @@
 package pacotePrincipal;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 
+import Enums.Completo;
 import pacotePrincipal.Item;
 
 public class JogoTabuleiro extends Item{
-	private boolean jogoCompleto;
-	private HashSet<String> pecasPerdidas = new HashSet<String>();
+	private Completo jogoCompleto;
+	private List<Peca> pecasPerdidas;
 	
 	public JogoTabuleiro(String nome, double preco) {
-		super(nome, preco);	
-		this.jogoCompleto = true;
+		super(nome, preco);
+		pecasPerdidas = new ArrayList<>();
+		this.jogoCompleto = Completo.COMPLETO;
 	}
 
 	public boolean isJogoCompleto() {
-		return jogoCompleto;
+		return jogoCompleto.getValor();
 	}
 
 	public void setJogoCompleto(boolean jogoCompleto) {
-		this.jogoCompleto = jogoCompleto;
+		if (jogoCompleto) {
+			this.jogoCompleto = Completo.COMPLETO;
+		} else {
+			this.jogoCompleto = Completo.NAO_COMPLETO;
+		}
+		
 	}
 
-	public HashSet<String> getPecasPerdidas() {
+	public List<Peca> getPecasPerdidas() {
 		return pecasPerdidas;
 	}
 
-	public void setPecasPerdidas(HashSet<String> pecasPerdidas) {
+	public void setPecasPerdidas(List<Peca> pecasPerdidas) {
 		this.pecasPerdidas = pecasPerdidas;
 	}
 	
-	public void adicionaPecaPerdida(String peca){
-		pecasPerdidas.add(peca);
-		this.jogoCompleto = false;
+	public void adicionaPecaPerdida(String nomePeca){
+		pecasPerdidas.add(new Peca(nomePeca));
+		this.jogoCompleto = Completo.NAO_COMPLETO;
 	}
 	
 	@Override
@@ -41,6 +49,11 @@ public class JogoTabuleiro extends Item{
 			throw new IllegalArgumentException();
 		}
 		return info;
+	}
+	
+	@Override
+	public String toString() {
+		return "JOGO DE TABULEIRO: " + super.toString() + ", " + jogoCompleto.getMensagem();
 	}
 
 	@Override

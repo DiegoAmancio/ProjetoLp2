@@ -8,7 +8,7 @@ package pacotePrincipal;
  */
 public class BluRayShow extends BluRay {
 	private int numeroFaixas;
-	private String nomeArtista;
+	private String artista;
 
 	/**
 	 * Construtor de BluRayShow. Atribui-se BRS para BluRayShow
@@ -23,13 +23,13 @@ public class BluRayShow extends BluRay {
 	 *            (classificacao do BRS)
 	 * @param numeroFaixas
 	 *            (numero de faixas do BRS)
-	 * @param nomeArtista
+	 * @param artista
 	 *            (nome do artista do BRS)
 	 */
-	public BluRayShow(String nome, int preco, int duracao, String classificacao, int numeroFaixas, String nomeArtista) {
+	public BluRayShow(String nome, double preco, int duracao, String classificacao, int numeroFaixas, String artista) {
 		super(nome, preco, duracao, classificacao);
 		this.numeroFaixas = numeroFaixas;
-		this.nomeArtista = nomeArtista;
+		this.artista = artista;
 	}
 
 	public int getNumeroFaixas() {
@@ -40,12 +40,12 @@ public class BluRayShow extends BluRay {
 		this.numeroFaixas = numeroFaixas;
 	}
 
-	public String getNomeArtista() {
-		return nomeArtista;
+	public String getArtista() {
+		return artista;
 	}
 
-	public void setNomeArtista(String nomeArtista) {
-		this.nomeArtista = nomeArtista;
+	public void setArtista(String nomeArtista) {
+		this.artista = nomeArtista;
 	}
 	
 	@Override
@@ -53,7 +53,7 @@ public class BluRayShow extends BluRay {
 		String info = super.getInfo(atributo);
 		switch (atributo) {
 		case "Artista":
-			info += this.getNomeArtista();
+			info += this.getArtista();
 			return info;
 		case "Faixas":
 			info += this.getNumeroFaixas();
@@ -62,12 +62,17 @@ public class BluRayShow extends BluRay {
 			throw new IllegalArgumentException();
 		}
 	}
+	
+	@Override
+	public String toString() {
+		return "SHOW: " + super.toString() + ", " + artista + ", " + numeroFaixas + " faixas";
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((nomeArtista == null) ? 0 : nomeArtista.hashCode());
+		result = prime * result + ((artista == null) ? 0 : artista.hashCode());
 		result = prime * result + numeroFaixas;
 		return result;
 	}
@@ -81,10 +86,10 @@ public class BluRayShow extends BluRay {
 		if (getClass() != obj.getClass())
 			return false;
 		BluRayShow other = (BluRayShow) obj;
-		if (nomeArtista == null) {
-			if (other.nomeArtista != null)
+		if (artista == null) {
+			if (other.artista != null)
 				return false;
-		} else if (!nomeArtista.equals(other.nomeArtista))
+		} else if (!artista.equals(other.artista))
 			return false;
 		if (numeroFaixas != other.numeroFaixas)
 			return false;
