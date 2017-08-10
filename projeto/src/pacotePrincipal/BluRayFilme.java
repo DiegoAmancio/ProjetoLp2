@@ -116,7 +116,10 @@ public class BluRayFilme extends BluRay {
 			info += this.getAnoLancamento();
 			return info;
 		default:
-			throw new IllegalArgumentException();
+			if (info == "") {
+				throw new IllegalArgumentException();
+			}
+			return info;
 		}
 	}
 	

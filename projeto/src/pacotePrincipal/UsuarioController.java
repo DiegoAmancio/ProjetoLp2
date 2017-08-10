@@ -47,11 +47,10 @@ public class UsuarioController {
 	
 	public Usuario getUsuario(String nome,String telefone) {
 		String identificacao = nome + " " + telefone;
-		if (usuarios.containsKey(identificacao)) {
-			return usuarios.get(identificacao);
-		} else {
+		if (!(usuarios.containsKey(identificacao))) {
 			throw new NullPointerException("Usuario invalido");
-		}
+		} 
+		return usuarios.get(identificacao);
 	}
 
 	public String getInfoUsuario(String nome, String telefone, String atributo) {

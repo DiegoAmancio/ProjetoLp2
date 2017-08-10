@@ -192,7 +192,10 @@ public class BluRaySerie extends BluRay {
 			info += this.getTemporada();
 			return info;
 		default:
-			throw new IllegalArgumentException();
+			if (info == "") {
+				throw new IllegalArgumentException();
+			}
+			return info;
 		}
 	}
 	
