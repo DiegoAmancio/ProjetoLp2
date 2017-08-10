@@ -24,17 +24,15 @@ public class Facade {
 	}
 
 	public void atualizarUsuario(String nome, String telefone, String atributo, String valor) {
-
 		controllerUsuario.atualizarUsuario(nome, telefone, atributo, valor);
-
 	}
 	
-	public void getInfoItem(){
-		
+	public String getInfoItem(String nome, String telefone, String nomeItem, String atributo){
+		return controllerUsuario.getInfoItem(nome, telefone, nomeItem, atributo);
 	}
 	
 	public void cadastrarEletronico(String nome, String telefone, String nomeItem, int preco, String plataforma) {
-	
+		controllerUsuario.cadastrarEletronico(nome, telefone, nomeItem, preco, plataforma);
 	}
 
 	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, int preco) {

@@ -1,8 +1,8 @@
 package pacotePrincipal;
 
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * representacao de um usuario
@@ -16,7 +16,7 @@ public class Usuario {
 	private String nome;
 	private String telefone;
 	private String email;
-	private List<Item> itens;
+	private Map<String, Item> itens;
 
 	/**
 	 * 
@@ -36,7 +36,7 @@ public class Usuario {
 		this.nome = nome;
 		this.telefone = telefone;
 		this.email = email;
-		this.itens = new ArrayList<Item>();
+		this.itens = new HashMap<String, Item>();
 	}
 	public void validaUsuarioAtributo(String atributo,String qualAtributo){
 		if(atributo == null){
@@ -78,24 +78,40 @@ public class Usuario {
 	 * @param nomeItem
 	 *            nome do item
 	 * @param preco
-	 *            preço do item
+	 *            preco do item
 	 * @param plataforma
 	 *            plataforma do item
 	 */
 	public void cadastrarEletronico(String nomeItem, double preco, String plataforma) {
 		Item eletronico = new Eletronico(nomeItem, preco, plataforma);
-		if(!(itens.contains(eletronico))){
-			itens.add(eletronico);
+		if(!(itens.containsKey(nomeItem))){
+			itens.put(nomeItem, eletronico);
 		}
 		
 	}
-	public void cadastrarJogoTabuleiro(String nomeItem,double preco){
+	public void cadastrarJogoTabuleiro(String nomeItem, double preco){
 		Item novoTabuleiro = new JogoTabuleiro(nomeItem, preco);
 		
-		if(!(itens.contains(novoTabuleiro))){
-			itens.add(novoTabuleiro);
+		if(!(itens.containsKey(nomeItem))){
+			itens.put(nomeItem, novoTabuleiro);
 		}
 	}
+	
+	/**
+	 * Retorna o preco do item
+	 * @param nomeItem
+	 * @param atributo
+	 * @return
+	 */
+	
+		public String getInfoItem(String nomeItem, String atributo){
+			if(itens.containsKey(nomeItem)){				
+				return String.format("%.2f", itens.get(nomeItem).getPreco());
+			}else{
+				throw new NullPointerException("Item invalido");
+			}
+		}
+
 	
 
 	/**
@@ -122,5 +138,7 @@ public class Usuario {
 		}
 		return saida;
 	}
+	
+	
 	
 }

@@ -1,11 +1,10 @@
 package pacotePrincipal;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * representação de um controlador de usuarios
+ * representacao de um controlador de usuarios
  * 
  * 
  * Laboratorio de Programacao 2 - projeto
@@ -22,6 +21,10 @@ public class UsuarioController {
 		this.usuarios = new HashMap<String, Usuario>();
 	}
 
+	public String getToken(String nome, String telefone){
+		return nome + telefone;
+	}
+	
 	/**
 	 * cadastra um usuario
 	 * 
@@ -33,11 +36,11 @@ public class UsuarioController {
 	 *            email do usuario
 	 */
 	public void cadastrarUsuario(String nome, String telefone, String email) {
-		String identificacao = nome + telefone;
+		String identificador = getToken(nome, telefone);
 		Usuario usuario = new Usuario(nome, telefone, email);
 
-		if (!(usuarios.containsKey(identificacao))) {
-			usuarios.put(identificacao, usuario);
+		if (!(usuarios.containsKey(identificador))) {
+			usuarios.put(identificador, usuario);
 		} else {
 			throw new IllegalArgumentException("Usuario ja cadastrado");
 		}
@@ -45,9 +48,9 @@ public class UsuarioController {
 	}
 
 	public String getInfoUsuario(String nome, String telefone, String atributo) {
-		String identificacao = nome + telefone;
-		if (usuarios.containsKey(identificacao)) {
-			Usuario usuario = usuarios.get(identificacao);
+		String identificador = getToken(nome, telefone);
+		if (usuarios.containsKey(identificador)) {
+			Usuario usuario = usuarios.get(identificador);
 
 			switch (atributo.trim().toUpperCase()) {
 
@@ -68,7 +71,14 @@ public class UsuarioController {
 		}
 
 	}
-
+	
+	public String getInfoItem(String nome, String telefone, String nomeItem, String atributo){
+		String identificador = getToken(nome, telefone);
+		Usuario usuario = usuarios.get(identificador);
+		return usuario.getInfoItem(nomeItem, atributo);		
+	}
+	
+	
 	/**
 	 * remove um usuario cadastrado
 	 * 
@@ -78,12 +88,17 @@ public class UsuarioController {
 	 *            telefone do usuario
 	 */
 	public void removerUsuario(String nome, String telefone) {
-		String identificacao = nome + telefone;
-		if (usuarios.containsKey(identificacao)) {
-			usuarios.remove(identificacao);
+		String identificador = getToken(nome, telefone);
+		if (usuarios.containsKey(identificador)) {
+			usuarios.remove(identificador);
 		} else {
 			throw new IllegalArgumentException("Usuario invalido");
 		}
+	}
+	
+	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma){
+		String identificador = getToken(nome, telefone);
+		usuarios.get(identificador).cadastrarEletronico(nomeItem, preco, plataforma);
 	}
 
 	/**
@@ -96,14 +111,14 @@ public class UsuarioController {
 	 * @param atributo
 	 *            atributo do usuario a ser modificado
 	 * @param valor
-	 *            nova informaçao para o atributo do usuario
+	 *            nova informacao para o atributo do usuario
 	 */
 	public void atualizarUsuario(String nome, String telefone, String atributo, String valor) {
 		
-		String identificacao = nome + telefone;
+		String identificador = getToken(nome, telefone);
 		
-		if (usuarios.containsKey(identificacao)) {
-			Usuario usuario = usuarios.get(identificacao);
+		if (usuarios.containsKey(identificador)) {
+			Usuario usuario = usuarios.get(identificador);
 			
 			switch (atributo.trim().toUpperCase()) {
 
@@ -129,5 +144,6 @@ public class UsuarioController {
 
 		}
 	}
-
+	
+	
 }
