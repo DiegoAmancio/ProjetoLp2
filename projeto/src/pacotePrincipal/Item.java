@@ -1,4 +1,7 @@
 package pacotePrincipal;
+
+import Enums.Emprestado;
+
 /**
  * representacao de um item
  * 
@@ -10,7 +13,7 @@ package pacotePrincipal;
 public abstract class Item {
 	protected String nome;
 	protected double preco;
-	protected boolean emprestado;
+	protected Emprestado emprestado;
 	/**
 	 * constroi um item
 	 * @param nome nome do item
@@ -19,7 +22,7 @@ public abstract class Item {
 	public Item(String nome, double preco) {
 		this.nome = nome;
 		this.preco = preco;
-		this.emprestado = false;
+		this.emprestado = Emprestado.NAO_EMPRESTADO;
 	}
 	public String getNome() {
 		return nome;
@@ -30,10 +33,10 @@ public abstract class Item {
 	}
 	
 	public boolean isEmprestado() {
-		return emprestado;
+		return emprestado.getValor();
 	}
 	public void setEmprestado(boolean emprestado) {
-		this.emprestado = emprestado;
+		this.emprestado = Emprestado.EMPRESTADO;
 	}
 	
 	public String getInfo(String atributo) {
@@ -48,6 +51,11 @@ public abstract class Item {
 		default:
 			return info;
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return nome + ", R$" + String.format("%.2f", preco) + ", " + emprestado.getMensagem();
 	}
 	
 	@Override

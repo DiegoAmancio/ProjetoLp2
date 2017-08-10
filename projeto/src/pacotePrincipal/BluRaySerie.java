@@ -13,9 +13,10 @@ import Enums.Genero;
  *
  */
 public class BluRaySerie extends BluRay {
+	private String descricao;
 	private Genero genero;
-	private int numeroDaTemporada;	
-	private List<Episodio> temporada = new ArrayList<Episodio>();
+	private int temporada;	
+	private List<Episodio> episodios = new ArrayList<Episodio>();
 
 	/**
 	 * Construtor de BRS.
@@ -30,13 +31,14 @@ public class BluRaySerie extends BluRay {
 	 *            (classificacao do BRS)
 	 * @param genero
 	 *            (genero do BRS)
-	 * @param numeroDaTemporada
+	 * @param temporada
 	 *            (numero da temporada do BRS)
 	 */
-	public BluRaySerie(String nome, double preco, int duracao, String classificacao, String genero, int numeroDaTemporada) {
+	public BluRaySerie(String nome, double preco, String descricao, int duracao, String classificacao, String genero, int temporada) {
 		super(nome, preco, duracao, classificacao);
+		this.descricao = descricao;
 		verificaGenero(genero);
-		this.numeroDaTemporada = numeroDaTemporada;
+		this.temporada = temporada;
 	}
 
 	/**
@@ -47,7 +49,7 @@ public class BluRaySerie extends BluRay {
 	public int duracaoTotal() {
 		int totalDuracao = 0;
 
-		for (Episodio ep : temporada) {
+		for (Episodio ep : episodios) {
 			totalDuracao += ep.getDuracao();
 		}
 
@@ -64,7 +66,7 @@ public class BluRaySerie extends BluRay {
 	public boolean adicionaEpisodio(int duracaoDoEpisodio) {
 		Episodio episodio = new Episodio(duracaoDoEpisodio);
 		if (duracaoTotal() + duracaoDoEpisodio < super.getDuracao()) {
-			temporada.add(episodio);
+			episodios.add(episodio);
 			return true;
 		} else {
 			return false;
@@ -75,7 +77,7 @@ public class BluRaySerie extends BluRay {
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + numeroDaTemporada;
+		result = prime * result + temporada;
 		return result;
 	}
 
@@ -88,9 +90,17 @@ public class BluRaySerie extends BluRay {
 		if (getClass() != obj.getClass())
 			return false;
 		BluRaySerie other = (BluRaySerie) obj;
-		if (numeroDaTemporada != other.numeroDaTemporada)
+		if (temporada != other.temporada)
 			return false;
 		return true;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public String getGenero() {
@@ -150,20 +160,25 @@ public class BluRaySerie extends BluRay {
 		}
 	}
 
-	public int getNumeroDaTemporada() {
-		return numeroDaTemporada;
-	}
-
-	public void setNumeroDaTemporada(int numeroDaTemporada) {
-		this.numeroDaTemporada = numeroDaTemporada;
-	}
-
-	public List<Episodio> getTemporada() {
+	public int getTemporada() {
 		return temporada;
 	}
 
-	public void setTemporada(List<Episodio> temporada) {
-		this.temporada = temporada;
+	public void setTemporada(int numeroDaTemporada) {
+		this.temporada = numeroDaTemporada;
+	}
+
+	public List<Episodio> getEpisodios() {
+		return episodios;
+	}
+
+	public void setEpisodios(List<Episodio> episodios) {
+		this.episodios = episodios;
+	}
+	
+	@Override
+	public String toString() {
+		return "SERIE: " + super.toString() + ", " + genero.getMensagem() + ", Temporada" + temporada;
 	}
 	
 	@Override
@@ -174,7 +189,7 @@ public class BluRaySerie extends BluRay {
 			info += this.getGenero();
 			return info;
 		case "Temporada":
-			info += this.getNumeroDaTemporada();
+			info += this.getTemporada();
 			return info;
 		default:
 			throw new IllegalArgumentException();

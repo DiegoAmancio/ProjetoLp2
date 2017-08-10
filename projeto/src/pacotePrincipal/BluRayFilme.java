@@ -29,7 +29,7 @@ public class BluRayFilme extends BluRay {
 	 *            (ano de lancamento do BRF)
 	 * 
 	 */
-	public BluRayFilme(String nome, int preco, int duracao, String classificacao, String genero, int anoLancamento) {
+	public BluRayFilme(String nome, double preco, int duracao, String classificacao, String genero, int anoLancamento) {
 		super(nome, preco, duracao, classificacao);
 		verificaGenero(genero);
 		this.anoLancamento = anoLancamento;
@@ -98,6 +98,11 @@ public class BluRayFilme extends BluRay {
 
 	public void setAnoLancamento(int anoLancamento) {
 		this.anoLancamento = anoLancamento;
+	}
+	
+	@Override
+	public String toString() {
+		return "FILME: " + super.toString() + ", " + genero.getMensagem() + ", " + anoLancamento;
 	}
 	
 	@Override
