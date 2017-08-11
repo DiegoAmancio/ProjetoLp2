@@ -51,7 +51,7 @@ public class Facade {
 		controllerUsuario.cadastrarBluRayShow(nome, telefone, nomeItem, preco, duracao, numeroFaixas, artista, classificacao);
 	}
 
-	public void cadastrarBluRaySerie(String nome, String telefone, String nomeItem, int preco, String descricao, int duracao, String classificacao, String genero, int temporada) {
+	public void cadastrarBluRaySerie(String nome, String telefone, String nomeItem, double preco, String descricao, int duracao, String classificacao, String genero, int temporada) {
 		controllerUsuario.cadastrarBluRaySerie(nome, telefone, nomeItem, preco, descricao, duracao, classificacao, genero, temporada);
 	}
 	

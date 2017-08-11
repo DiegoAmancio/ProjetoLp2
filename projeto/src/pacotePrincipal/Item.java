@@ -14,10 +14,14 @@ public abstract class Item {
 	protected String nome;
 	protected double preco;
 	protected Emprestado emprestado;
+
 	/**
 	 * constroi um item
-	 * @param nome nome do item
-	 * @param preco2 valor de compra deste item
+	 * 
+	 * @param nome
+	 *            nome do item
+	 * @param preco2
+	 *            valor de compra deste item
 	 */
 	public Item(String nome, double preco) {
 		verificaPreco(preco);
@@ -25,25 +29,29 @@ public abstract class Item {
 		this.preco = preco;
 		this.emprestado = Emprestado.NAO_EMPRESTADO;
 	}
+
 	public String getNome() {
 		return nome;
 	}
-	
+
 	public double getPreco() {
 		return preco;
 	}
-	
+
 	public boolean isEmprestado() {
 		return emprestado.getValor();
 	}
+
 	public void setEmprestado(boolean emprestado) {
 		this.emprestado = Emprestado.EMPRESTADO;
 	}
-	public void verificaPreco(double preco){
-		if(preco <0){
+
+	public void verificaPreco(double preco) {
+		if (preco < 0) {
 			throw new IllegalArgumentException("Preco invalido");
 		}
 	}
+
 	public String getInfo(String atributo) {
 		String info = "";
 		switch (atributo) {
@@ -51,18 +59,19 @@ public abstract class Item {
 			info += this.getNome();
 			return info;
 		case "Preco":
-			info += this.getPreco();
+			info += String.format("%.2f", this.getPreco());
 			return info;
 		default:
 			return info;
 		}
 	}
-	
+
 	@Override
 	public String toString() {
-		return nome + ", R$ " + String.format("%.1f", preco).replace(",", ".") + ", " + emprestado.getMensagem();
+
+		return nome + ", R$ " + Double.toString(preco) + ", " + emprestado.getMensagem();
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -70,6 +79,7 @@ public abstract class Item {
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -86,6 +96,5 @@ public abstract class Item {
 			return false;
 		return true;
 	}
-	
 
 }

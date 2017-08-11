@@ -65,7 +65,7 @@ public class ItemController {
 		String mensagem = itens.get(0).toString();
 		
 		for (int i = 1; i < itens.size(); i++) {
-			mensagem += itens.get(i).toString();
+			mensagem += "|" + itens.get(i).toString();
 		}
 		return mensagem+"|";
 	}
@@ -74,7 +74,7 @@ public class ItemController {
 		itens.sort(new ItemPrecoComparator());
 		String mensagem = itens.get(0).toString();
 		for (int i = 1; i < itens.size(); i++) {
-			mensagem += itens.get(i).toString();
+			mensagem += "|" + itens.get(i).toString();
 		}
 		return mensagem+"|";
 	}

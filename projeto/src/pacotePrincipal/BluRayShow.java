@@ -59,7 +59,10 @@ public class BluRayShow extends BluRay {
 			info += this.getNumeroFaixas();
 			return info;
 		default:
-			throw new IllegalArgumentException();
+			if (info == "") {
+				throw new IllegalArgumentException();
+			}
+			return info;
 		}
 	}
 	

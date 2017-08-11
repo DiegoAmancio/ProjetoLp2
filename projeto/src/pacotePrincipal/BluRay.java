@@ -36,19 +36,19 @@ public class BluRay extends Item {
 			case "LIVRE":
 				this.classificacao = Classificacao.LIVRE;
 				break;
-			case "DEZ ANOS":
+			case "DEZ_ANOS":
 				this.classificacao = Classificacao.DEZ_ANOS;
 				break;
-			case "DOZE ANOS":
+			case "DOZE_ANOS":
 				this.classificacao = Classificacao.DOZE_ANOS;
 				break;
-			case "QUATORZE ANOS":
+			case "QUATORZE_ANOS":
 				this.classificacao = Classificacao.QUATORZE_ANOS;
 				break;
-			case "DEZESSEIS ANOS":
+			case "DEZESSEIS_ANOS":
 				this.classificacao = Classificacao.DEZESSEIS_ANOS;
 				break;
-			case "DEZOITO ANOS":
+			case "DEZOITO_ANOS":
 				this.classificacao = Classificacao.DEZOITO_ANOS;
 				break;
 			default:

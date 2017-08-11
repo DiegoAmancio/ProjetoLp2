@@ -71,14 +71,17 @@ public class Usuario {
 	}	
 	
 	public void adicionaItem(String nomeItem, Item item) {
-		itens.put(nomeItem, item);
+		if (!(itens.containsKey(nomeItem))) {
+			itens.put(nomeItem, item);
+		}		
 	}
 	
 	public Item getItem(String nomeItem) {
-		if (itens.containsKey(nomeItem)) {
-			return itens.get(nomeItem);
+		if (!(itens.containsKey(nomeItem))) {
+			throw new IllegalArgumentException("Item nao encontrado");
 		}
-		throw new IllegalArgumentException("Item nao encontrado");
+
+		return itens.get(nomeItem);
 	}
 
 	/**
