@@ -78,7 +78,7 @@ public class Usuario {
 		if (itens.containsKey(nomeItem)) {
 			return itens.get(nomeItem);
 		}
-		throw new IllegalArgumentException("Item nao cadastrado");
+		throw new IllegalArgumentException("Item nao encontrado");
 	}
 
 	/**

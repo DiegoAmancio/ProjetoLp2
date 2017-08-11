@@ -20,6 +20,7 @@ public abstract class Item {
 	 * @param preco2 valor de compra deste item
 	 */
 	public Item(String nome, double preco) {
+		verificaPreco(preco);
 		this.nome = nome;
 		this.preco = preco;
 		this.emprestado = Emprestado.NAO_EMPRESTADO;
@@ -38,7 +39,11 @@ public abstract class Item {
 	public void setEmprestado(boolean emprestado) {
 		this.emprestado = Emprestado.EMPRESTADO;
 	}
-	
+	public void verificaPreco(double preco){
+		if(preco <0){
+			throw new IllegalArgumentException("Preco invalido");
+		}
+	}
 	public String getInfo(String atributo) {
 		String info = "";
 		switch (atributo) {
@@ -55,7 +60,7 @@ public abstract class Item {
 	
 	@Override
 	public String toString() {
-		return nome + ", R$" + String.format("%.2f", preco) + ", " + emprestado.getMensagem();
+		return nome + ", R$ " + String.format("%.1f", preco).replace(",", ".") + ", " + emprestado.getMensagem();
 	}
 	
 	@Override

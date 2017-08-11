@@ -3,7 +3,7 @@ package Enums;
 public enum Completo {
 	
 	COMPLETO("COMPLETO", true),
-	NAO_COMPLETO("COM PECAS FALTANDO", false);
+	NAO_COMPLETO("COM PECAS PERDIDAS", false);
 	
 	private String mensagem;
 	private boolean valor;

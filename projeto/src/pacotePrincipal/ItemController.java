@@ -61,11 +61,13 @@ public class ItemController {
 	
 	public String listarItensOrdenadosPorNome() {		
 		itens.sort(new ItemNomeComparator());
+		
 		String mensagem = itens.get(0).toString();
+		
 		for (int i = 1; i < itens.size(); i++) {
 			mensagem += itens.get(i).toString();
 		}
-		return mensagem;
+		return mensagem+"|";
 	}
 	
 	public String listarItensOrdenadosPorValor() {
@@ -74,7 +76,7 @@ public class ItemController {
 		for (int i = 1; i < itens.size(); i++) {
 			mensagem += itens.get(i).toString();
 		}
-		return mensagem;
+		return mensagem+"|";
 	}
 	
 }

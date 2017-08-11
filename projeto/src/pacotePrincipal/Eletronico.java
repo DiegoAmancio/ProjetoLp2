@@ -86,6 +86,11 @@ public class Eletronico extends Item{
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "JOGO ELETRONICO:" + super.toString();
+	}
+	
 	
 	
 
