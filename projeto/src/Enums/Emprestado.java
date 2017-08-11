@@ -1,5 +1,10 @@
 package Enums;
 
+/**
+ * Representacao do estado de emprestimo de um Item.
+ * 
+ * @author Andre Azevedo - 116111248
+ */
 public enum Emprestado {
 	
 	EMPRESTADO("Emprestado", true),
