@@ -70,26 +70,14 @@ public class Usuario {
 		this.email = email;
 	}	
 	
-	
-
-	/**
-	 * cadastra o jogo eletronico
-	 * 
-	 * @param nomeItem
-	 *            nome do item
-	 * @param preco
-	 *            preco do item
-	 * @param plataforma
-	 *            plataforma do item
-	 */
-	public void cadastrarEletronico(String nomeItem, double preco, String plataforma) {
-		Item eletronico = new Eletronico(nomeItem, preco, plataforma);
-		if(!(itens.containsKey(nomeItem))){
-			itens.put(nomeItem, eletronico);
+	public String listarItensOrdenadosPorNome() {		
+		itens.sort(new ItemNomeComparator());
+		String mensagem = itens.get(0).toString();
+		for (int i = 1; i < itens.size(); i++) {
+			mensagem += "|" + itens.get(i).toString();
 		}
-		
+		return mensagem;
 	}
-	
 	
 	public void cadastrarJogoTabuleiro(String nomeItem, double preco){
 		Item novoTabuleiro = new JogoTabuleiro(nomeItem, preco);		

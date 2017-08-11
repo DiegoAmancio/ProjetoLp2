@@ -13,7 +13,6 @@ import java.util.Map;
  */
 public class UsuarioController {
 	private Map<String, Usuario> usuarios;
-	private ItemController itemController;
 
 	/**
 	 * constroi um controlador de usuarios
