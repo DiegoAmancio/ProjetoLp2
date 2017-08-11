@@ -7,7 +7,7 @@ import Enums.Classificacao;
  * @author Isaac Meneses - Mat.: 116.111.246
  *
  */
-public class BluRay extends Item {
+public abstract class BluRay extends Item {
 
 	private int duracao;
 	private Classificacao classificacao;
