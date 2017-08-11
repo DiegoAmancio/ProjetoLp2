@@ -24,9 +24,17 @@ public abstract class Item {
 	public String getNome() {
 		return nome;
 	}
+		
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 	
 	public double getPreco() {
 		return preco;
+	}
+	
+	public void setPreco(double preco) {
+		this.preco = preco;
 	}
 	
 	public boolean isEmprestado() {
@@ -36,17 +44,14 @@ public abstract class Item {
 		this.emprestado = emprestado;
 	}
 	
-	public String getInfo(String atributo) {
-		String info = "";
+	public String getInfoItem(String atributo) {
 		switch (atributo) {
 		case "Nome":
-			info += this.getNome();
-			return info;
+			return this.getNome();
 		case "Preco":
-			info += this.getPreco();
-			return info;
+			return Double.toString(this.getPreco());			
 		default:
-			return info;
+			throw new IllegalArgumentException();
 		}
 	}
 	

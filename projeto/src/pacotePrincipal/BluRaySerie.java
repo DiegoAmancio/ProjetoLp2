@@ -167,15 +167,14 @@ public class BluRaySerie extends BluRay {
 	}
 	
 	@Override
-	public String getInfo(String atributo) {
-		String info = super.getInfo(atributo);
-		switch (atributo) {
-		case "Genero":
-			info += this.getGenero();
-			return info;
-		case "Temporada":
-			info += this.getNumeroDaTemporada();
-			return info;
+	public String getInfoItem(String atributo) {
+		switch (atributo.trim().toUpperCase()) {
+		case "GENERO":
+			return this.getGenero();			
+		case "TEMPORADA":
+			return Integer.toString(this.getNumeroDaTemporada());
+		case "PRECO":
+			return Double.toString(this.getPreco());
 		default:
 			throw new IllegalArgumentException();
 		}

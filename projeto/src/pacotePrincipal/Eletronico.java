@@ -25,13 +25,13 @@ public class Eletronico extends Item{
 			case "PS4":
 				this.plataforma = Plataforma.PS4;
 				break;
-			case "XBOX 360":
+			case "XBOX_360":
 				this.plataforma = Plataforma.XBOX360;
 				break;
-			case "XBOX ONE":
+			case "XBOX_ONE":
 				this.plataforma = Plataforma.XBOX_ONE;
 				break;
-			case "NINTENDO 3DS":
+			case "NINTENDO_3DS":
 				this.plataforma = Plataforma.NINTENDO_3DS;
 				break;
 			case "OUTRO":
@@ -53,8 +53,8 @@ public class Eletronico extends Item{
 	}
 	
 	@Override
-	public String getInfo(String atributo) {
-		String info = super.getInfo(atributo);
+	public String getInfoItem(String atributo) {
+		String info = super.getInfoItem(atributo);
 		switch (atributo) {
 		case "Plataforma":
 			info += this.getPlataforma();

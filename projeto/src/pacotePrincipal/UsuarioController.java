@@ -13,6 +13,7 @@ import java.util.Map;
  */
 public class UsuarioController {
 	private Map<String, Usuario> usuarios;
+	private ItemController itemController;
 
 	/**
 	 * constroi um controlador de usuarios
@@ -67,7 +68,7 @@ public class UsuarioController {
 
 			}
 		} else {
-			throw new NullPointerException("Usuario invalido");
+			throw new IllegalArgumentException("Usuario invalido");
 		}
 
 	}
@@ -96,11 +97,69 @@ public class UsuarioController {
 		}
 	}
 	
+	public void removerItem(String nome, String telefone, String nomeItem){
+		String identificador = getToken(nome, telefone);
+		if(usuarios.containsKey(identificador)){
+			usuarios.get(identificador).removerItem(nomeItem);
+		}else{
+			throw new IllegalArgumentException("Usuario invalido");
+		}
+	}
+	
 	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma){
 		String identificador = getToken(nome, telefone);
 		usuarios.get(identificador).cadastrarEletronico(nomeItem, preco, plataforma);
 	}
-
+	
+	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor){
+		String identificador = getToken(nome, telefone);
+		if(usuarios.get(identificador) != null){
+			usuarios.get(identificador).atualizarItem(nomeItem, atributo, valor);
+		}else{
+			throw new NullPointerException("Usuario invalido");
+		}
+	}
+	
+	/**
+	 * Cadastra jogos de tabuleiro
+	 * @param nome
+	 * @param telefone
+	 * @param nomeItem
+	 * @param preco
+	 * @param plataforma
+	 */
+	
+	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, double preco){
+		String identificador = getToken(nome, telefone);
+		if(usuarios.get(identificador) != null){
+			usuarios.get(identificador).cadastrarJogoTabuleiro(nomeItem, preco);
+		}else{
+			throw new NullPointerException("Usuario invalido");
+		}
+	}
+	
+	public String listarItensOrdenadosPorNome() {
+		return itemController.listarItensOrdenadosPorNome();
+	}
+	
+	public String listarItensOrdenadosPorValor() {
+		return itemController.listarItensOrdenadosPorValor();
+	}
+	
+	public void cadastrarBluRayFilme(String nome, String telefone, String nomeItem, double preco, int duracao, String genero, String classificacao, int anoLancamento){
+		String identificador = getToken(nome, telefone);
+		usuarios.get(identificador).cadastrarBluRayFilme(nomeItem, preco, duracao, genero, classificacao, anoLancamento);
+	}
+	
+	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao, int numeroFaixas, String artista, String classificacao){
+		String identificador = getToken(nome, telefone);
+		usuarios.get(identificador).cadastrarBluRayShow(nomeItem, preco, duracao, classificacao, numeroFaixas, artista);
+	}
+	
+	public void cadastrarBluRaySerie(String nome, String telefone, String nomeItem, double preco, String descricao, int duracao, String classificacao, String genero, int numeroDaTemporada){
+		String identificador = getToken(nome, telefone);
+		usuarios.get(identificador).cadastrarBluRaySerie(nomeItem, preco, duracao, classificacao, genero, numeroDaTemporada);		
+	}
 	/**
 	 * modifica atributo do usuario ,ou seja,sua informações.
 	 * 

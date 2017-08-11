@@ -89,14 +89,79 @@ public class Usuario {
 		}
 		
 	}
+	
+	
 	public void cadastrarJogoTabuleiro(String nomeItem, double preco){
-		Item novoTabuleiro = new JogoTabuleiro(nomeItem, preco);
-		
+		Item novoTabuleiro = new JogoTabuleiro(nomeItem, preco);		
 		if(!(itens.containsKey(nomeItem))){
-			itens.put(nomeItem, novoTabuleiro);
+			if(preco > 0){
+				itens.put(nomeItem, novoTabuleiro);
+			}else{
+				throw new IllegalArgumentException("Preco invalido");
+			}
 		}
 	}
 	
+	public void cadastrarBluRayFilme(String nomeItem, double preco, int duracao, String genero, String classificacao, int anoLancamento){
+		Item novoBluRayFilme = new BluRayFilme(nomeItem, preco, duracao, classificacao, genero, anoLancamento);
+		if(!(itens.containsKey(nomeItem))){
+			itens.put(nomeItem, novoBluRayFilme);
+		}
+	}
+
+	
+	public void cadastrarBluRayShow(String nomeItem, double preco, int duracao, String classificacao, int numeroFaixas, String nomeArtista){
+		Item novoBluRayShow = new BluRayShow(nomeItem, preco, duracao, classificacao, numeroFaixas, nomeArtista);
+		if(!(itens.containsKey(nomeItem))){
+			itens.put(nomeItem, novoBluRayShow);
+		}
+	}
+	
+	public void cadastrarBluRaySerie(String nomeItem, double preco, int duracao, String classificacao, String genero, int numeroDaTemporada){
+		Item novoBluRaySerie = new BluRaySerie(nomeItem, preco, duracao, classificacao, genero, numeroDaTemporada);
+		if(!(itens.containsKey(nomeItem))){
+			itens.put(nomeItem, novoBluRaySerie);
+		}
+	}
+	
+	public void removerItem(String nomeItem){
+		if(itens.containsKey(nomeItem)){
+			itens.remove(nomeItem);
+		}else{
+			throw new NullPointerException("Item nao encontrado");			
+		}
+	} 
+	
+	//atualizarItem nome="Joao" telefone="98888-8888" nomeItem="Pokemon Emerald" atributo="Nome" valor="Pokemon Omega Ruby"
+	//expect "Pokemon Omega Ruby" getInfoItem nome="Joao" telefone="98888-8888" nomeItem="Pokemon Omega Ruby" atributo="Nome"
+	/**
+	 * atualiza o preco do item
+	 * @param nomeItem
+	 * @param atributo
+	 * @param valor
+	 * @param preco
+	 */
+	public void atualizarItem(String nomeItem, String atributo, String valor){
+		if(itens.containsKey(nomeItem)){
+			switch (atributo.trim().toUpperCase()) {
+			
+			case "PRECO":
+				double novoValor = Double.parseDouble(valor);
+				itens.get(nomeItem).setPreco(novoValor);
+				break;
+			case "NOME": 
+				Item item = itens.get(nomeItem);
+				itens.remove(nomeItem);
+				itens.put(valor, item);
+				itens.get(valor).setNome(valor);
+				break;
+			default:
+				throw new IllegalArgumentException();
+			}
+		}else{
+			throw new NullPointerException("Item nao encontrado");
+		}
+	}
 	/**
 	 * Retorna o preco do item
 	 * @param nomeItem
@@ -106,9 +171,16 @@ public class Usuario {
 	
 		public String getInfoItem(String nomeItem, String atributo){
 			if(itens.containsKey(nomeItem)){				
-				return String.format("%.2f", itens.get(nomeItem).getPreco());
+				switch (atributo.trim().toUpperCase()) {
+				case "PRECO":
+					return Double.toString(itens.get(nomeItem).getPreco());					
+				case "NOME":
+					return itens.get(nomeItem).getNome();
+				default:
+					throw new IllegalArgumentException();
+				}
 			}else{
-				throw new NullPointerException("Item invalido");
+				throw new IllegalArgumentException("Item nao encontrado");
 			}
 		}
 

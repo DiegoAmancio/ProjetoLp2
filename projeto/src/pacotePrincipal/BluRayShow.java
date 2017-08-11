@@ -26,7 +26,7 @@ public class BluRayShow extends BluRay {
 	 * @param nomeArtista
 	 *            (nome do artista do BRS)
 	 */
-	public BluRayShow(String nome, int preco, int duracao, String classificacao, int numeroFaixas, String nomeArtista) {
+	public BluRayShow(String nome, double preco, int duracao, String classificacao, int numeroFaixas, String nomeArtista) {
 		super(nome, preco, duracao, classificacao);
 		this.numeroFaixas = numeroFaixas;
 		this.nomeArtista = nomeArtista;
@@ -49,15 +49,14 @@ public class BluRayShow extends BluRay {
 	}
 	
 	@Override
-	public String getInfo(String atributo) {
-		String info = super.getInfo(atributo);
-		switch (atributo) {
-		case "Artista":
-			info += this.getNomeArtista();
-			return info;
-		case "Faixas":
-			info += this.getNumeroFaixas();
-			return info;
+	public String getInfoItem(String atributo) {
+		switch (atributo.trim().toUpperCase()) {
+		case "ARTISTA":
+			return this.getNomeArtista();			
+		case "FAIXAS":
+			return Integer.toString(this.getNumeroFaixas());			
+		case "PRECO":
+			return Double.toString(this.getPreco());
 		default:
 			throw new IllegalArgumentException();
 		}
