@@ -17,7 +17,7 @@ public class Usuario {
 	private String telefone;
 	private String email;
 	private Map<String, Item> itens;
-
+	
 	/**
 	 * 
 	 * @param nome
@@ -70,15 +70,19 @@ public class Usuario {
 		this.email = email;
 	}	
 	
-	public String listarItensOrdenadosPorNome() {		
-		itens.sort(new ItemNomeComparator());
-		String mensagem = itens.get(0).toString();
-		for (int i = 1; i < itens.size(); i++) {
-			mensagem += "|" + itens.get(i).toString();
-		}
-		return mensagem;
-	}
 	
+	public void cadastrarEletronico(String nomeItem, double preco, String plataforma){
+		Item novoEletronico = new Eletronico(nomeItem, preco, plataforma);		
+		if(!(itens.containsKey(nomeItem))){
+			if(preco > 0){
+				itens.put(nomeItem, novoEletronico);
+				
+			}else{
+				throw new IllegalArgumentException("Preco invalido");
+			}
+		}
+	}
+
 	public void cadastrarJogoTabuleiro(String nomeItem, double preco){
 		Item novoTabuleiro = new JogoTabuleiro(nomeItem, preco);		
 		if(!(itens.containsKey(nomeItem))){
@@ -94,6 +98,7 @@ public class Usuario {
 		Item novoBluRayFilme = new BluRayFilme(nomeItem, preco, duracao, classificacao, genero, anoLancamento);
 		if(!(itens.containsKey(nomeItem))){
 			itens.put(nomeItem, novoBluRayFilme);
+			
 		}
 	}
 

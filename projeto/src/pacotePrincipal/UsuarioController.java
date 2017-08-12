@@ -1,5 +1,7 @@
 package pacotePrincipal;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,12 +15,15 @@ import java.util.Map;
  */
 public class UsuarioController {
 	private Map<String, Usuario> usuarios;
-
+	private ItemController itemController;
+	
 	/**
 	 * constroi um controlador de usuarios
 	 */
 	public UsuarioController() {
 		this.usuarios = new HashMap<String, Usuario>();
+		this.itemController = new ItemController();
+		
 	}
 
 	public String getToken(String nome, String telefone){
@@ -108,8 +113,9 @@ public class UsuarioController {
 	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma){
 		String identificador = getToken(nome, telefone);
 		usuarios.get(identificador).cadastrarEletronico(nomeItem, preco, plataforma);
+		itemController.cadastrarEletronico(nomeItem, preco, plataforma);
 	}
-	
+
 	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor){
 		String identificador = getToken(nome, telefone);
 		if(usuarios.get(identificador) != null){
@@ -132,32 +138,44 @@ public class UsuarioController {
 		String identificador = getToken(nome, telefone);
 		if(usuarios.get(identificador) != null){
 			usuarios.get(identificador).cadastrarJogoTabuleiro(nomeItem, preco);
+			itemController.cadastrarJogoTabuleiro(nomeItem, preco);
 		}else{
 			throw new NullPointerException("Usuario invalido");
 		}
 	}
 	
-	public String listarItensOrdenadosPorNome() {
+	public String listarItensOrdenadosPorNome(){
 		return itemController.listarItensOrdenadosPorNome();
 	}
-	
-	public String listarItensOrdenadosPorValor() {
-		return itemController.listarItensOrdenadosPorValor();
-	}
-	
+		
 	public void cadastrarBluRayFilme(String nome, String telefone, String nomeItem, double preco, int duracao, String genero, String classificacao, int anoLancamento){
 		String identificador = getToken(nome, telefone);
-		usuarios.get(identificador).cadastrarBluRayFilme(nomeItem, preco, duracao, genero, classificacao, anoLancamento);
+		if(usuarios.get(identificador) != null){
+			usuarios.get(identificador).cadastrarBluRayFilme(nomeItem, preco, duracao, genero, classificacao, anoLancamento);
+			itemController.cadastrarBluRayFilme(nomeItem, preco, duracao, genero, classificacao, anoLancamento);
+		}else{
+			throw new NullPointerException();
+		}
 	}
 	
 	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao, int numeroFaixas, String artista, String classificacao){
 		String identificador = getToken(nome, telefone);
-		usuarios.get(identificador).cadastrarBluRayShow(nomeItem, preco, duracao, classificacao, numeroFaixas, artista);
+		if(usuarios.get(identificador) != null){
+			usuarios.get(identificador).cadastrarBluRayShow(nomeItem, preco, duracao, classificacao, numeroFaixas, artista);
+			itemController.cadastrarBluRayShow(nomeItem, preco, duracao, numeroFaixas, artista, classificacao);
+		}else{
+			throw new NullPointerException();
+		}
 	}
 	
 	public void cadastrarBluRaySerie(String nome, String telefone, String nomeItem, double preco, String descricao, int duracao, String classificacao, String genero, int numeroDaTemporada){
 		String identificador = getToken(nome, telefone);
-		usuarios.get(identificador).cadastrarBluRaySerie(nomeItem, preco, duracao, classificacao, genero, numeroDaTemporada);		
+		if(usuarios.get(identificador) != null){
+			usuarios.get(identificador).cadastrarBluRaySerie(nomeItem, preco, duracao, classificacao, genero, numeroDaTemporada);
+			itemController.cadastrarBluRaySerie(nomeItem, preco, descricao, duracao, classificacao, genero, numeroDaTemporada);
+		}else{
+			throw new NullPointerException();
+		}
 	}
 	/**
 	 * modifica atributo do usuario ,ou seja,sua informações.

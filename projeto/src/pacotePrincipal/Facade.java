@@ -70,12 +70,8 @@ public class Facade {
 		controllerUsuario.atualizarItem(nome, telefone, nomeItem, atributo, valor);
 	}
 	
-	public String listarItensOrdenadosPorNome() {
+	public String listarItensOrdenadosPorNome(){
 		return controllerUsuario.listarItensOrdenadosPorNome();
-	}
-	
-	public String listarItensOrdenadosPorValor() {
-		return controllerUsuario.listarItensOrdenadosPorValor();
-	}
-	
+	}  
+		
 }
