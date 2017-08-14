@@ -2,12 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="Testes"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-<<<<<<< HEAD
-	<classpathentry kind="lib" path="/home/diego/Downloads/easyaccept.jar"/>
-=======
-	<classpathentry kind="lib" path="/home/andrema/Downloads/easyaccept.jar"/>
->>>>>>> 8ef645a5628d6294c9d28e12b58890c80e1a31e8
 	<classpathentry kind="output" path="bin"/>
 </classpath>
