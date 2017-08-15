@@ -75,19 +75,21 @@ public class ItemController {
 
 	public void atualizarItem(String nomeItem, String atributo, String valor) {
 		int atualizou = 0;
+		
 		for (int i = 0; i < itens.size(); i++) {
 			if (itens.get(i).getNome().equals(nomeItem)) {
 				if (atributo.equals("Nome")) {
 					itens.get(i).setNome(atributo);
 					atualizou += 1;
 					break;
-				}else if(atributo.equals("Preco")) {
+				} else if (atributo.equals("Preco")) {
 
-					itens.get(i).setPreco(Integer.parseInt(atributo));
+					itens.get(i).setPreco(Double.parseDouble(valor));
 					atualizou += 1;
 					break;
 				}
-
+				
+				break;
 			}
 		}
 		if (atualizou == 0) {
@@ -224,7 +226,7 @@ public class ItemController {
 		String filmes = "FILME: ";
 		String jogosE = "JOGO ELETRONICO: ";
 		String series = "SERIE: ";
-		String show = "SHOW: " ;
+		String show = "SHOW: ";
 		String tabuleiro = "JOGO DE TABULEIRO: ";
 		for (int i = 0; i < itens.size(); i++) {
 			Item item = itens.get(i);
@@ -251,13 +253,13 @@ public class ItemController {
 	 *         ordenados pelo preco.
 	 */
 	public String listarItensOrdenadosPorValor() {
-		Collections.sort(itens,new ItemPrecoComparator());
+		Collections.sort(itens, new ItemPrecoComparator());
 		String filmes = "FILME: ";
 		String jogosE = "JOGO ELETRONICO: ";
 		String series = "SERIE: ";
-		String show = "SHOW: " ;
+		String show = "SHOW: ";
 		String tabuleiro = "JOGO DE TABULEIRO: ";
-		
+
 		for (int i = 0; i < itens.size(); i++) {
 			Item item = itens.get(i);
 			if (item instanceof JogoTabuleiro) {
