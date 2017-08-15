@@ -177,12 +177,7 @@ public class ItemController {
 	 *            Representacao em String de todos os objetos Item cadastrados, em ordem alfanumerica.
 	 */
 	public String listarItensOrdenadosPorNome() {		
-<<<<<<< HEAD:projeto/src/pacotePrincipal/ItemController.java
-		itens.sort(new ItemNomeComparator());
-		
-=======
-		itens.sort(new ItemNomeComparator());		
->>>>>>> d8406d058d52bf34bb0414e96702793ada5c1675:projeto/src/Item/ItemController.java
+		Collections.sort(itens,new ItemNomeComparator());		
 		String mensagem = itens.get(0).toString();
 		
 		for (int i = 1; i < itens.size(); i++) {

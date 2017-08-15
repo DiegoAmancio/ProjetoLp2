@@ -4,14 +4,6 @@
 	<classpathentry kind="src" path="Testes"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-<<<<<<< HEAD
-<<<<<<< HEAD
 	<classpathentry kind="lib" path="/home/diego/Área de Trabalho/workspace/ProjetoLp2/easyaccept.jar"/>
-=======
-	<classpathentry kind="lib" path="C:/Users/André/Downloads/easyaccept.jar"/>
->>>>>>> 9a853610d195bcff6ca7a987977f5b2c47ee6a6b
-=======
-	<classpathentry kind="lib" path="C:/Users/Mayra Pereira/workspace/EasyAcceptLab/EasyAcceptLab/lib/easyaccept.jar"/>
->>>>>>> d8406d058d52bf34bb0414e96702793ada5c1675
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -10,12 +10,8 @@ package Item;
 public abstract class Item {
 	protected String nome;
 	protected double preco;
-<<<<<<< HEAD:projeto/src/pacotePrincipal/Item.java
-	protected Emprestado emprestado;
 
-=======
 	protected boolean emprestado;
->>>>>>> d8406d058d52bf34bb0414e96702793ada5c1675:projeto/src/Item/Item.java
 	/**
 	 * constroi um item
 	 * 
@@ -34,13 +30,6 @@ public abstract class Item {
 	public String getNome() {
 		return nome;
 	}
-<<<<<<< HEAD:projeto/src/pacotePrincipal/Item.java
-
-	public double getPreco() {
-		return preco;
-	}
-
-=======
 		
 	public void setNome(String nome) {
 		this.nome = nome;
@@ -54,15 +43,10 @@ public abstract class Item {
 		this.preco = preco;
 	}
 	
->>>>>>> d8406d058d52bf34bb0414e96702793ada5c1675:projeto/src/Item/Item.java
 	public boolean isEmprestado() {
 		return emprestado;
 	}
 
-	public void setEmprestado(boolean emprestado) {
-		this.emprestado = emprestado;
-	}
-<<<<<<< HEAD:projeto/src/pacotePrincipal/Item.java
 
 	public void verificaPreco(double preco) {
 		if (preco < 0) {
@@ -70,12 +54,8 @@ public abstract class Item {
 		}
 	}
 
-	public String getInfo(String atributo) {
-		String info = "";
-=======
 	
 	public String getInfoItem(String atributo) {
->>>>>>> d8406d058d52bf34bb0414e96702793ada5c1675:projeto/src/Item/Item.java
 		switch (atributo) {
 		case "Nome":
 			return this.getNome();
@@ -87,15 +67,17 @@ public abstract class Item {
 	}
 
 	@Override
-<<<<<<< HEAD:projeto/src/pacotePrincipal/Item.java
 	public String toString() {
-
-		return nome + ", R$ " + Double.toString(preco) + ", " + emprestado.getMensagem();
+		String emprestado = "";
+		if (this.emprestado){
+			emprestado = "emprestado";
+		}else{
+			emprestado = "Nao emprestado";
+		}
+		return nome + ", R$ " + Double.toString(preco) + ", " + emprestado;
 	}
 
 	@Override
-=======
->>>>>>> d8406d058d52bf34bb0414e96702793ada5c1675:projeto/src/Item/Item.java
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;

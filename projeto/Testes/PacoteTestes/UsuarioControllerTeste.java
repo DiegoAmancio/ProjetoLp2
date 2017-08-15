@@ -4,8 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import pacotePrincipal.UsuarioController;
-
 /**
  * testa metodos da classe UsuarioController
  * 
@@ -18,7 +16,7 @@ public class UsuarioControllerTeste {
 	 */
 	@Test
 	public void testCadastrarUsuario() {
-		UsuarioController controlador = new UsuarioController();
+		Usuario.UsuarioController controlador = new Usuario.UsuarioController();
 
 		controlador.cadastrarUsuario("diego", "4002-8922", "diego.pereira@ccc.ufcg.edu.br");
 		controlador.cadastrarUsuario("as", "4034-4922", "as@ccc.ufcg.edu.br");
@@ -49,7 +47,7 @@ public class UsuarioControllerTeste {
 	 */
 	@Test(expected = NullPointerException.class)
 	public void usuariosInvalidosTest() {
-		UsuarioController controlador = new UsuarioController();
+		Usuario.UsuarioController controlador = new Usuario.UsuarioController();
 
 		controlador.cadastrarUsuario("diego", "4002-8922", "diego.pereira@ccc.ufcg.edu.br");
 		controlador.cadastrarUsuario("as", "4034-4922", "as@ccc.ufcg.edu.br");
@@ -67,7 +65,7 @@ public class UsuarioControllerTeste {
 	 */
 	@Test(expected = NullPointerException.class)
 	public void removeUsuarioTest() {
-		UsuarioController controlador = new UsuarioController();
+		Usuario.UsuarioController controlador = new Usuario.UsuarioController();
 
 		controlador.cadastrarUsuario("diego", "4002-8922", "diego.pereira@ccc.ufcg.edu.br");
 		controlador.cadastrarUsuario("as", "4034-4922", "as@ccc.ufcg.edu.br");
@@ -84,7 +82,7 @@ public class UsuarioControllerTeste {
 	 */
 	@Test(expected = NullPointerException.class)
 	public void atualizaUsuario() {
-		UsuarioController controlador = new UsuarioController();
+		Usuario.UsuarioController controlador = new Usuario.UsuarioController();
 
 		controlador.cadastrarUsuario("diego", "4002-8922", "diego.pereira@ccc.ufcg.edu.br");
 		controlador.cadastrarUsuario("as", "4034-4922", "as@ccc.ufcg.edu.br");
