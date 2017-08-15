@@ -1,10 +1,10 @@
-package pacotePrincipal;
+package Jogos;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import Enums.Completo;
-import pacotePrincipal.Item;
+import Item.Item;
 
 public class JogoTabuleiro extends Item{
 	private Completo jogoCompleto;
@@ -43,8 +43,8 @@ public class JogoTabuleiro extends Item{
 	}
 	
 	@Override
-	public String getInfo(String atributo) {
-		String info = super.getInfo(atributo);
+	public String getInfoItem(String atributo) {
+		String info = super.getInfoItem(atributo);
 		if (info.equals("")) {
 			throw new IllegalArgumentException();
 		}

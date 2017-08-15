@@ -1,12 +1,7 @@
-package pacotePrincipal;
+package Item;
 
 import java.util.Comparator;
 
-/**
- * 
- * @author Andre Azevedo - 116111248
- *
- */
 public class ItemPrecoComparator implements Comparator<Item> {
 
 	@Override

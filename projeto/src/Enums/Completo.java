@@ -1,10 +1,5 @@
 package Enums;
 
-/**
- * Representacao do estado de completude de um JogoTabuleiro.
- * 
- * @author Andre Azevedo - 116111248
- */
 public enum Completo {
 	
 	COMPLETO("COMPLETO", true),

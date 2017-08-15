@@ -1,4 +1,4 @@
-package pacotePrincipal;
+package BluRay;
 
 public class Episodio {
 	

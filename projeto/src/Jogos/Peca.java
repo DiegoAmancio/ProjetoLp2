@@ -1,4 +1,4 @@
-package pacotePrincipal;
+package Jogos;
 
 public class Peca {
 	

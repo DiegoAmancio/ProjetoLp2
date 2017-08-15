@@ -1,4 +1,4 @@
-package pacotePrincipal;
+package BluRay;
 
 /**
  * Representa o BluRayShow.
@@ -8,7 +8,7 @@ package pacotePrincipal;
  */
 public class BluRayShow extends BluRay {
 	private int numeroFaixas;
-	private String artista;
+	private String nomeArtista;
 
 	/**
 	 * Construtor de BluRayShow. Atribui-se BRS para BluRayShow
@@ -23,13 +23,13 @@ public class BluRayShow extends BluRay {
 	 *            (classificacao do BRS)
 	 * @param numeroFaixas
 	 *            (numero de faixas do BRS)
-	 * @param artista
+	 * @param nomeArtista
 	 *            (nome do artista do BRS)
 	 */
-	public BluRayShow(String nome, double preco, int duracao, String classificacao, int numeroFaixas, String artista) {
+	public BluRayShow(String nome, double preco, int duracao, String classificacao, int numeroFaixas, String nomeArtista) {
 		super(nome, preco, duracao, classificacao);
 		this.numeroFaixas = numeroFaixas;
-		this.artista = artista;
+		this.nomeArtista = nomeArtista;
 	}
 
 	public int getNumeroFaixas() {
@@ -40,42 +40,33 @@ public class BluRayShow extends BluRay {
 		this.numeroFaixas = numeroFaixas;
 	}
 
-	public String getArtista() {
-		return artista;
+	public String getNomeArtista() {
+		return nomeArtista;
 	}
 
-	public void setArtista(String nomeArtista) {
-		this.artista = nomeArtista;
+	public void setNomeArtista(String nomeArtista) {
+		this.nomeArtista = nomeArtista;
 	}
 	
 	@Override
-	public String getInfo(String atributo) {
-		String info = super.getInfo(atributo);
-		switch (atributo) {
-		case "Artista":
-			info += this.getArtista();
-			return info;
-		case "Faixas":
-			info += this.getNumeroFaixas();
-			return info;
+	public String getInfoItem(String atributo) {
+		switch (atributo.trim().toUpperCase()) {
+		case "ARTISTA":
+			return this.getNomeArtista();			
+		case "FAIXAS":
+			return Integer.toString(this.getNumeroFaixas());			
+		case "PRECO":
+			return Double.toString(this.getPreco());
 		default:
-			if (info == "") {
-				throw new IllegalArgumentException();
-			}
-			return info;
+			throw new IllegalArgumentException();
 		}
-	}
-	
-	@Override
-	public String toString() {
-		return "SHOW: " + super.toString() + ", " + artista + ", " + numeroFaixas + " faixas";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((artista == null) ? 0 : artista.hashCode());
+		result = prime * result + ((nomeArtista == null) ? 0 : nomeArtista.hashCode());
 		result = prime * result + numeroFaixas;
 		return result;
 	}
@@ -89,10 +80,10 @@ public class BluRayShow extends BluRay {
 		if (getClass() != obj.getClass())
 			return false;
 		BluRayShow other = (BluRayShow) obj;
-		if (artista == null) {
-			if (other.artista != null)
+		if (nomeArtista == null) {
+			if (other.nomeArtista != null)
 				return false;
-		} else if (!artista.equals(other.artista))
+		} else if (!nomeArtista.equals(other.nomeArtista))
 			return false;
 		if (numeroFaixas != other.numeroFaixas)
 			return false;

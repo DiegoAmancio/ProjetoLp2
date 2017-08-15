@@ -1,4 +1,4 @@
-package pacotePrincipal;
+package BluRay;
 
 import Enums.Genero;
 
@@ -101,13 +101,8 @@ public class BluRayFilme extends BluRay {
 	}
 	
 	@Override
-	public String toString() {
-		return "FILME: " + super.toString() + ", " + genero.getMensagem() + ", " + anoLancamento;
-	}
-	
-	@Override
-	public String getInfo(String atributo) {
-		String info = super.getInfo(atributo);
+	public String getInfoItem(String atributo) {
+		String info = super.getInfoItem(atributo);
 		switch (atributo) {
 		case "Genero":
 			info += this.getGenero();
@@ -116,10 +111,7 @@ public class BluRayFilme extends BluRay {
 			info += this.getAnoLancamento();
 			return info;
 		default:
-			if (info == "") {
-				throw new IllegalArgumentException();
-			}
-			return info;
+			throw new IllegalArgumentException();
 		}
 	}
 	

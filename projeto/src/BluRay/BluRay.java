@@ -1,13 +1,14 @@
-package pacotePrincipal;
+package BluRay;
 
 import Enums.Classificacao;
+import Item.Item;
 
 /**	representa a classe BluRay. Esta classe é subclasse de Item
  * 
  * @author Isaac Meneses - Mat.: 116.111.246
  *
  */
-public abstract class BluRay extends Item {
+public class BluRay extends Item {
 
 	private int duracao;
 	private Classificacao classificacao;
@@ -75,8 +76,8 @@ public abstract class BluRay extends Item {
 	}
 	
 	@Override
-	public String getInfo(String atributo) {
-		String info = super.getInfo(atributo);
+	public String getInfoItem(String atributo) {
+		String info = super.getInfoItem(atributo);
 		switch (atributo) {
 		case "Duracao":
 			info += this.getDuracao();
@@ -87,11 +88,6 @@ public abstract class BluRay extends Item {
 		default:
 			return info;
 		}
-	}
-	
-	@Override
-	public String toString() {
-		return super.toString() + ", " + duracao + " min, " + classificacao.getMensagem();
 	}
 	
 }

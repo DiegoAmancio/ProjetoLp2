@@ -1,12 +1,12 @@
-package pacotePrincipal;
+package Jogos;
 
 import Enums.Plataforma;
-import pacotePrincipal.Item;
+import Item.Item;
 
-public class Eletronico extends Item{
+public class JogoEletronico extends Item{
 	private Plataforma plataforma;	
 	
-	public Eletronico(String nome, double preco, String plataforma) {
+	public JogoEletronico(String nome, double preco, String plataforma) {
 		super(nome, preco);
 		verificaPlataforma(plataforma);
 	}
@@ -53,17 +53,14 @@ public class Eletronico extends Item{
 	}
 	
 	@Override
-	public String getInfo(String atributo) {
-		String info = super.getInfo(atributo);
+	public String getInfoItem(String atributo) {
+		String info = super.getInfoItem(atributo);
 		switch (atributo) {
 		case "Plataforma":
 			info += this.getPlataforma();
 			return info;
 		default:
-			if (info == "") {
-				throw new IllegalArgumentException();
-			}
-			return info;
+			throw new IllegalArgumentException();
 		}
 	}
 
@@ -83,7 +80,7 @@ public class Eletronico extends Item{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Eletronico other = (Eletronico) obj;
+		JogoEletronico other = (JogoEletronico) obj;
 		if (plataforma != other.plataforma)
 			return false;
 		return true;

@@ -1,7 +1,14 @@
-package pacotePrincipal;
+package Item;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import BluRay.BluRayFilme;
+import BluRay.BluRaySerie;
+import BluRay.BluRayShow;
+import Jogos.JogoEletronico;
+import Jogos.JogoTabuleiro;
 
 /**
  * Controlador de objetos tipo Item.
@@ -34,7 +41,7 @@ public class ItemController {
 	 *            retorna o objeto Eletronico que foi cadastrado.
 	 */
 	public Item cadastrarEletronico(String nome, double preco, String plataforma) {
-		Item item = new Eletronico(nome, preco, plataforma);
+		Item item = new JogoEletronico(nome, preco, plataforma);
 		itens.add(item);
 		return item;
 	}
@@ -123,8 +130,8 @@ public class ItemController {
 	 * @return
 	 *            retorna o objeto BluRaySerie que foi cadastrado.
 	 */
-	public Item cadastrarBluRaySerie(String nome, double preco, String descricao, int duracao, String classificacao, String genero, int temporada) {
-		Item item = new BluRaySerie(nome, preco, descricao, duracao, classificacao, genero, temporada);
+	public Item cadastrarBluRaySerie(String nome, double preco, String descricao, int duracao, String classificacao, String genero, int numeroDaTemporada) {
+		Item item = new BluRaySerie(nome, preco, duracao, classificacao, genero, numeroDaTemporada);
 		itens.add(item);
 		return item;
 	}
@@ -170,8 +177,12 @@ public class ItemController {
 	 *            Representacao em String de todos os objetos Item cadastrados, em ordem alfanumerica.
 	 */
 	public String listarItensOrdenadosPorNome() {		
+<<<<<<< HEAD:projeto/src/pacotePrincipal/ItemController.java
 		itens.sort(new ItemNomeComparator());
 		
+=======
+		itens.sort(new ItemNomeComparator());		
+>>>>>>> d8406d058d52bf34bb0414e96702793ada5c1675:projeto/src/Item/ItemController.java
 		String mensagem = itens.get(0).toString();
 		
 		for (int i = 1; i < itens.size(); i++) {
