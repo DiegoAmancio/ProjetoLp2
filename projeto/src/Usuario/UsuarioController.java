@@ -162,8 +162,7 @@ public class UsuarioController {
 			String genero, String classificacao, int anoLancamento) {
 		String identificador = getToken(nome, telefone);
 		if (usuarios.get(identificador) != null) {
-			Item BluRayFilme = itemController.cadastrarBluRayFilme(nomeItem, preco, duracao, genero, classificacao,
-					anoLancamento);
+			Item BluRayFilme = itemController.cadastrarBluRayFilme(nomeItem, preco, duracao, genero, classificacao, anoLancamento);
 			usuarios.get(identificador).adicionaItem(nomeItem, BluRayFilme);
 		} else {
 			throw new NullPointerException("Usuario invalido");
@@ -175,8 +174,6 @@ public class UsuarioController {
 		if (usuarios.get(identificador) != null) {
 			Item item = itemController.getItem(nomeItem);
 			itemController.adicionarPecaPerdida(item, nomePeca);
-			usuarios.get(identificador).adicionaPecaPerdida(nomeItem, nomePeca);
-			;
 		} else {
 			throw new NullPointerException("Usuario invalido");
 		}
@@ -186,8 +183,7 @@ public class UsuarioController {
 			int numeroFaixas, String artista, String classificacao) {
 		String identificador = getToken(nome, telefone);
 		if (usuarios.get(identificador) != null) {
-			Item BluRayFilme = itemController.cadastrarBluRayShow(nomeItem, preco, duracao, numeroFaixas, artista,
-					classificacao);
+			Item BluRayFilme = itemController.cadastrarBluRayShow(nomeItem, preco, duracao, numeroFaixas, artista, classificacao);
 			usuarios.get(identificador).adicionaItem(nomeItem, BluRayFilme);
 		} else {
 			throw new NullPointerException("Usuario invalido");
@@ -198,8 +194,7 @@ public class UsuarioController {
 			int duracao, String classificacao, String genero, int numeroDaTemporada) {
 		String identificador = getToken(nome, telefone);
 		if (usuarios.get(identificador) != null) {
-			Item BluRayFilme = itemController.cadastrarBluRaySerie(nomeItem, preco, descricao, duracao, classificacao,
-					genero, numeroDaTemporada);
+			Item BluRayFilme = itemController.cadastrarBluRaySerie(nomeItem, preco, descricao, duracao, classificacao, genero, numeroDaTemporada);
 			usuarios.get(identificador).adicionaItem(nomeItem, BluRayFilme);
 		} else {
 			throw new NullPointerException("Usuario invalido");

@@ -71,7 +71,6 @@ public abstract class Item {
 
 	@Override
 	public String toString() {
-		
 		return this.nome + ", R$ " + Double.toString(preco) + ", " + emprestado.getEmprestado();
 	}
 	
