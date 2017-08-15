@@ -18,9 +18,7 @@ public class JogoTabuleiro extends Item{
 
 	public boolean isJogoCompleto() {
 		return jogoCompleto.getValor();
-	}
-
-	
+	}	
 
 	public List<Peca> getPecasPerdidas() {
 		return pecasPerdidas;

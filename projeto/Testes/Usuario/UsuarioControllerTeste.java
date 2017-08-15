@@ -1,7 +1,8 @@
-package PacoteTestes;
+package Usuario;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -11,13 +12,19 @@ import org.junit.Test;
  *
  */
 public class UsuarioControllerTeste {
+	
+	UsuarioController controlador;
+	
+	@Before
+	public void setup() {
+		controlador = new UsuarioController();
+	}
+		
 	/**
 	 * testa o cadastramento de usuarios no sistema
 	 */
 	@Test
 	public void testCadastrarUsuario() {
-		Usuario.UsuarioController controlador = new Usuario.UsuarioController();
-
 		controlador.cadastrarUsuario("diego", "4002-8922", "diego.pereira@ccc.ufcg.edu.br");
 		controlador.cadastrarUsuario("as", "4034-4922", "as@ccc.ufcg.edu.br");
 		controlador.cadastrarUsuario("birl", "4034-4022", "bl@ccc.ufcg.edu.br");
@@ -47,8 +54,6 @@ public class UsuarioControllerTeste {
 	 */
 	@Test(expected = NullPointerException.class)
 	public void usuariosInvalidosTest() {
-		Usuario.UsuarioController controlador = new Usuario.UsuarioController();
-
 		controlador.cadastrarUsuario("diego", "4002-8922", "diego.pereira@ccc.ufcg.edu.br");
 		controlador.cadastrarUsuario("as", "4034-4922", "as@ccc.ufcg.edu.br");
 		controlador.cadastrarUsuario("birl", "4034-4022", "bl@ccc.ufcg.edu.br");
@@ -65,8 +70,6 @@ public class UsuarioControllerTeste {
 	 */
 	@Test(expected = NullPointerException.class)
 	public void removeUsuarioTest() {
-		Usuario.UsuarioController controlador = new Usuario.UsuarioController();
-
 		controlador.cadastrarUsuario("diego", "4002-8922", "diego.pereira@ccc.ufcg.edu.br");
 		controlador.cadastrarUsuario("as", "4034-4922", "as@ccc.ufcg.edu.br");
 		controlador.cadastrarUsuario("birl", "4034-4022", "bl@ccc.ufcg.edu.br");
@@ -82,8 +85,6 @@ public class UsuarioControllerTeste {
 	 */
 	@Test(expected = NullPointerException.class)
 	public void atualizaUsuario() {
-		Usuario.UsuarioController controlador = new Usuario.UsuarioController();
-
 		controlador.cadastrarUsuario("diego", "4002-8922", "diego.pereira@ccc.ufcg.edu.br");
 		controlador.cadastrarUsuario("as", "4034-4922", "as@ccc.ufcg.edu.br");
 		controlador.cadastrarUsuario("birl", "4034-4022", "bl@ccc.ufcg.edu.br");

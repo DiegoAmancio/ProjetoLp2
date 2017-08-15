@@ -4,12 +4,7 @@ package Usuario;
 import java.util.HashMap;
 import java.util.Map;
 
-import BluRay.BluRayFilme;
-import BluRay.BluRaySerie;
-import BluRay.BluRayShow;
 import Item.Item;
-import Jogos.JogoEletronico;
-import Jogos.JogoTabuleiro;
 
 /**
  * representacao de um usuario
@@ -83,53 +78,6 @@ public class Usuario {
 			itens.put(nomeItem, item);
 		}		
 	}
-
-	
-	public void cadastrarEletronico(String nomeItem, double preco, String plataforma){
-		Item novoEletronico = new JogoEletronico(nomeItem, preco, plataforma);		
-		if(!(itens.containsKey(nomeItem))){
-			if(preco > 0){
-				itens.put(nomeItem, novoEletronico);
-				
-			}else{
-				throw new IllegalArgumentException("Preco invalido");
-			}
-		}
-	}
-
-	public void cadastrarJogoTabuleiro(String nomeItem, double preco){
-		Item novoTabuleiro = new JogoTabuleiro(nomeItem, preco);		
-		if(!(itens.containsKey(nomeItem))){
-			if(preco > 0){
-				itens.put(nomeItem, novoTabuleiro);
-			}else{
-				throw new IllegalArgumentException("Preco invalido");
-			}
-		}
-	}
-	
-	public void cadastrarBluRayFilme(String nomeItem, double preco, int duracao, String genero, String classificacao, int anoLancamento){
-		Item novoBluRayFilme = new BluRayFilme(nomeItem, preco, duracao, classificacao, genero, anoLancamento);
-		if(!(itens.containsKey(nomeItem))){
-			itens.put(nomeItem, novoBluRayFilme);
-			
-		}
-	}
-
-	
-	public void cadastrarBluRayShow(String nomeItem, double preco, int duracao, String classificacao, int numeroFaixas, String nomeArtista){
-		Item novoBluRayShow = new BluRayShow(nomeItem, preco, duracao, classificacao, numeroFaixas, nomeArtista);
-		if(!(itens.containsKey(nomeItem))){
-			itens.put(nomeItem, novoBluRayShow);
-		}
-	}
-	
-	public void cadastrarBluRaySerie(String nomeItem, double preco, int duracao, String classificacao, String genero, int numeroDaTemporada){
-		Item novoBluRaySerie = new BluRaySerie(nomeItem, preco, duracao, classificacao, genero, numeroDaTemporada);
-		if(!(itens.containsKey(nomeItem))){
-			itens.put(nomeItem, novoBluRaySerie);
-		}
-	}
 	
 	public void removerItem(String nomeItem){
 		if(itens.containsKey(nomeItem)){
@@ -137,13 +85,7 @@ public class Usuario {
 		}else{
 			throw new NullPointerException("Item nao encontrado");			
 		}
-	} 
-	public void adicionaPecaPerdida(String nomeItem,String nomePeca){
-		if(itens.containsKey(nomeItem)){
-			JogoTabuleiro tabuleiro = (JogoTabuleiro) itens.get(nomeItem);
-			tabuleiro.adicionaPecaPerdida(nomePeca);
-		}
-	}
+	}	
 	
 	/**
 	 * atualiza o preco do item
@@ -207,7 +149,7 @@ public class Usuario {
 	 */
 	@Override
 	public String toString() {
-		return nome + " , " + telefone + " , " + email;
+		return nome + ", " + telefone + ", " + email;
 	}
 
 	/**

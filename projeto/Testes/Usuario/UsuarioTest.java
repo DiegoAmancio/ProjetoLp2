@@ -1,5 +1,6 @@
-package PacoteTestes;
+package Usuario;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import Usuario.Usuario;
@@ -12,7 +13,12 @@ import Usuario.Usuario;
  */
 public class UsuarioTest {
 	
-	private Usuario usuarioInvalido;
+	Usuario usuarioInvalido;
+	
+	@Before
+	public void setup() {
+		usuarioInvalido = new Usuario(null, null, null);
+	}
 	
 	/**
 	 * testa criaçao de usuarios invalidos
