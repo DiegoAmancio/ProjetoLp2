@@ -91,7 +91,7 @@ public class BluRayShow extends BluRay {
 	}
 	@Override
 	public String toString() {
-		return  super.toString() +this.numeroFaixas +" faixas";
+		return "SHOW: " + super.toString() + this.nomeArtista + ", " + this.numeroFaixas +" faixas";
 	}
 
 }
