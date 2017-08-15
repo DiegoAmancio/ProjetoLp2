@@ -187,12 +187,15 @@ public class ItemController {
 	 */
 	public String listarItensOrdenadosPorNome() {		
 		Collections.sort(itens,new ItemNomeComparator());		
-		String mensagem = itens.get(0).toString();
-		
+		String filmes = "FILME: "+"|";
+		String jogosE = "JOGO ELETRONICO: "+"|";
+		String outro = "OUTRO"+"|";
+		String show = "SHOW:"+"|";
+		String tabuleiro = "JOGO TABULEIRO: " +"|";
 		for (int i = 1; i < itens.size(); i++) {
-			mensagem += "|" + itens.get(i).toString();
+			
 		}
-		return mensagem+"|";
+		return "|";
 	}
 	
 	/**

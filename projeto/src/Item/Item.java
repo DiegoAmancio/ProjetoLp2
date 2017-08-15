@@ -74,7 +74,7 @@ public abstract class Item {
 		
 		return this.nome + ", R$ " + Double.toString(preco) + ", " + emprestado.getEmprestado();
 	}
-	 public int compareTo(Item item) {
+	 public int compareToPreco(Item item) {
 	        if (this.preco < item.getPreco()) {
 	            return -1;
 	        }
