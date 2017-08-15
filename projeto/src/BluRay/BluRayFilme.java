@@ -114,6 +114,10 @@ public class BluRayFilme extends BluRay {
 			throw new IllegalArgumentException();
 		}
 	}
+	@Override
+	public String toString() {
+		return "Filme: " + super.toString() + this.genero.getMensagem()+", "+ this.anoLancamento ;
+	}
 	
 }
 

@@ -20,14 +20,7 @@ public class JogoTabuleiro extends Item{
 		return jogoCompleto.getValor();
 	}
 
-	public void setJogoCompleto(boolean jogoCompleto) {
-		if (jogoCompleto) {
-			this.jogoCompleto = Completo.COMPLETO;
-		} else {
-			this.jogoCompleto = Completo.NAO_COMPLETO;
-		}
-		
-	}
+	
 
 	public List<Peca> getPecasPerdidas() {
 		return pecasPerdidas;

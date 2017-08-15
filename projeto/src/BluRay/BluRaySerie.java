@@ -179,5 +179,9 @@ public class BluRaySerie extends BluRay {
 			throw new IllegalArgumentException();
 		}
 	}
+	@Override
+	public String toString() {
+		return "Serie: " + super.toString()+ this.genero.getMensagem()+", "+"Temporada"+this.numeroDaTemporada;
+	}
 	
 }

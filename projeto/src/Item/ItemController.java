@@ -135,6 +135,15 @@ public class ItemController {
 		itens.add(item);
 		return item;
 	}
+	public Item getItem(String nomeItem){
+		for (int i = 0; i < itens.size(); i++) {
+			if(itens.get(i).getNome().equals(nomeItem)){
+				return itens.get(i);
+			}
+			
+		}
+		throw new NullPointerException("Item nao encontrado");
+	}
 	
 	/**
 	 * Adiciona uma Peca a lista de pecas perdidas de um determinado JogoTabuleiro.
@@ -177,12 +186,13 @@ public class ItemController {
 	 *            Representacao em String de todos os objetos Item cadastrados, em ordem alfanumerica.
 	 */
 	public String listarItensOrdenadosPorNome() {		
-		itens.sort(new ItemNomeComparator());		
+		Collections.sort(itens,new ItemNomeComparator());		
 		String mensagem = itens.get(0).toString();
+		
 		for (int i = 1; i < itens.size(); i++) {
 			mensagem += "|" + itens.get(i).toString();
 		}
-		return mensagem;
+		return mensagem+"|";
 	}
 	
 	/**
@@ -197,7 +207,7 @@ public class ItemController {
 		for (int i = 1; i < itens.size(); i++) {
 			mensagem += "|" + itens.get(i).toString();
 		}
-		return mensagem;
+		return mensagem+"|";
 	}
 	
 }

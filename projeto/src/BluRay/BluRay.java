@@ -89,5 +89,9 @@ public class BluRay extends Item {
 			return info;
 		}
 	}
+	@Override
+	public String toString() {
+		return super.toString() + ", " + this.duracao +" min, "+ this.classificacao.getMensagem()+", ";
+	}
 	
 }

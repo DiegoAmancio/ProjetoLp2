@@ -138,9 +138,13 @@ public class Usuario {
 			throw new NullPointerException("Item nao encontrado");			
 		}
 	} 
+	public void adicionaPecaPerdida(String nomeItem,String nomePeca){
+		if(itens.containsKey(nomeItem)){
+			JogoTabuleiro tabuleiro = (JogoTabuleiro) itens.get(nomeItem);
+			tabuleiro.adicionaPecaPerdida(nomePeca);
+		}
+	}
 	
-	//atualizarItem nome="Joao" telefone="98888-8888" nomeItem="Pokemon Emerald" atributo="Nome" valor="Pokemon Omega Ruby"
-	//expect "Pokemon Omega Ruby" getInfoItem nome="Joao" telefone="98888-8888" nomeItem="Pokemon Omega Ruby" atributo="Nome"
 	/**
 	 * atualiza o preco do item
 	 * @param nomeItem
@@ -191,7 +195,12 @@ public class Usuario {
 			}
 		}
 
-	
+	public String getDetalhes(String nomeItem){
+		if(itens.containsKey(nomeItem)){
+			return itens.get(nomeItem).toString();
+		}
+		throw new NullPointerException("Item nao encontrado");
+	}
 
 	/**
 	 * representacao de um usuario
