@@ -135,6 +135,15 @@ public class ItemController {
 		itens.add(item);
 		return item;
 	}
+	public Item getItem(String nomeItem){
+		for (int i = 0; i < itens.size(); i++) {
+			if(itens.get(i).getNome().equals(nomeItem)){
+				return itens.get(i);
+			}
+			
+		}
+		throw new NullPointerException("Item nao encontrado");
+	}
 	
 	/**
 	 * Adiciona uma Peca a lista de pecas perdidas de um determinado JogoTabuleiro.

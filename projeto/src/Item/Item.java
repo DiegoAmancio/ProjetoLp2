@@ -1,4 +1,7 @@
 package Item;
+
+import Enums.Emprestado;
+
 /**
  * representacao de um item
  * 
@@ -11,7 +14,7 @@ public abstract class Item {
 	protected String nome;
 	protected double preco;
 
-	protected boolean emprestado;
+	protected Emprestado emprestado;
 	/**
 	 * constroi um item
 	 * 
@@ -23,8 +26,8 @@ public abstract class Item {
 	public Item(String nome, double preco) {
 		verificaPreco(preco);
 		this.nome = nome;
-		this.preco = preco;
-		this.emprestado = false;
+		this.preco = preco;	
+		this.emprestado = Emprestado.NAO_EMPRESTADO;
 	}
 
 	public String getNome() {
@@ -43,8 +46,8 @@ public abstract class Item {
 		this.preco = preco;
 	}
 	
-	public boolean isEmprestado() {
-		return emprestado;
+	public String isEmprestado() {
+		return emprestado.getEmprestado();
 	}
 
 
@@ -68,15 +71,18 @@ public abstract class Item {
 
 	@Override
 	public String toString() {
-		String emprestado = "";
-		if (this.emprestado){
-			emprestado = "emprestado";
-		}else{
-			emprestado = "Nao emprestado";
-		}
-		return nome + ", R$ " + Double.toString(preco) + ", " + emprestado;
+		
+		return this.nome + ", R$ " + Double.toString(preco) + ", " + emprestado.getEmprestado();
 	}
-
+	 public int compareTo(Item item) {
+	        if (this.preco < item.getPreco()) {
+	            return -1;
+	        }
+	        if (this.preco > item.getPreco()) {
+	            return 1;
+	        }
+	        return 0;
+	    }
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -101,5 +107,6 @@ public abstract class Item {
 			return false;
 		return true;
 	}
+	
 
 }

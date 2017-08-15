@@ -17,19 +17,19 @@ import Item.ItemController;
 public class UsuarioController {
 	private Map<String, Usuario> usuarios;
 	private ItemController itemController;
-	
+
 	/**
 	 * constroi um controlador de usuarios
 	 */
 	public UsuarioController() {
 		this.usuarios = new HashMap<String, Usuario>();
-		this.itemController = new ItemController();		
+		this.itemController = new ItemController();
 	}
 
-	public String getToken(String nome, String telefone){
+	public String getToken(String nome, String telefone) {
 		return nome + telefone;
 	}
-	
+
 	/**
 	 * cadastra um usuario
 	 * 
@@ -76,14 +76,13 @@ public class UsuarioController {
 		}
 
 	}
-	
-	public String getInfoItem(String nome, String telefone, String nomeItem, String atributo){
+
+	public String getInfoItem(String nome, String telefone, String nomeItem, String atributo) {
 		String identificador = getToken(nome, telefone);
 		Usuario usuario = usuarios.get(identificador);
-		return usuario.getInfoItem(nomeItem, atributo);		
+		return usuario.getInfoItem(nomeItem, atributo);
 	}
-	
-	
+
 	/**
 	 * remove um usuario cadastrado
 	 * 
@@ -100,88 +99,112 @@ public class UsuarioController {
 			throw new IllegalArgumentException("Usuario invalido");
 		}
 	}
-	
-	public void removerItem(String nome, String telefone, String nomeItem){
+
+	public void removerItem(String nome, String telefone, String nomeItem) {
 		String identificador = getToken(nome, telefone);
-		if(usuarios.containsKey(identificador)){
+		if (usuarios.containsKey(identificador)) {
 			usuarios.get(identificador).removerItem(nomeItem);
-		}else{
+		} else {
 			throw new IllegalArgumentException("Usuario invalido");
 		}
 	}
-	
-	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma){
+
+	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma) {
 		String identificador = getToken(nome, telefone);
-		if(usuarios.get(identificador) != null){
+		if (usuarios.get(identificador) != null) {
 			Item eletronico = itemController.cadastrarEletronico(nomeItem, preco, plataforma);
-			usuarios.get(identificador).adicionaItem(nomeItem, eletronico);			
-		}else{
+			usuarios.get(identificador).adicionaItem(nomeItem, eletronico);
+		} else {
 			throw new NullPointerException("Usuario invalido no eletronico");
 		}
-		
+
 	}
 
-	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor){
+	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor) {
 		String identificador = getToken(nome, telefone);
-		if(usuarios.get(identificador) != null){
+		if (usuarios.get(identificador) != null) {
 			usuarios.get(identificador).atualizarItem(nomeItem, atributo, valor);
-		}else{
+		} else {
 			throw new NullPointerException("Usuario invalido");
 		}
 	}
-	
+
 	/**
 	 * Cadastra jogos de tabuleiro
+	 * 
 	 * @param nome
 	 * @param telefone
 	 * @param nomeItem
 	 * @param preco
 	 * @param plataforma
 	 */
-	
-	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, double preco){
+
+	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, double preco) {
 		String identificador = getToken(nome, telefone);
-		if(usuarios.get(identificador) != null){
+		if (usuarios.get(identificador) != null) {
 			Item jogoTabuleiro = itemController.cadastrarJogoTabuleiro(nomeItem, preco);
-			usuarios.get(identificador).adicionaItem(nomeItem, jogoTabuleiro);			
-		}else{
+			usuarios.get(identificador).adicionaItem(nomeItem, jogoTabuleiro);
+		} else {
 			throw new NullPointerException("Usuario invalido");
 		}
 	}
-	
-	public String listarItensOrdenadosPorNome(){
+
+	public String listarItensOrdenadosPorNome() {
 		return itemController.listarItensOrdenadosPorNome();
 	}
-		
-	public void cadastrarBluRayFilme(String nome, String telefone, String nomeItem, double preco, int duracao, String genero, String classificacao, int anoLancamento){
+
+	public String listarItensOrdenadosPorValor() {
+		return itemController.listarItensOrdenadosPorValor();
+	}
+
+	public void cadastrarBluRayFilme(String nome, String telefone, String nomeItem, double preco, int duracao,
+			String genero, String classificacao, int anoLancamento) {
 		String identificador = getToken(nome, telefone);
-		if(usuarios.get(identificador) != null){
-			Item BluRayFilme = itemController.cadastrarBluRayFilme(nomeItem, preco, duracao, genero, classificacao, anoLancamento);
+		if (usuarios.get(identificador) != null) {
+			Item BluRayFilme = itemController.cadastrarBluRayFilme(nomeItem, preco, duracao, genero, classificacao,
+					anoLancamento);
 			usuarios.get(identificador).adicionaItem(nomeItem, BluRayFilme);
-		}else{
+		} else {
 			throw new NullPointerException("Usuario invalido");
 		}
 	}
-	
-	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao, int numeroFaixas, String artista, String classificacao){
+
+	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) {
 		String identificador = getToken(nome, telefone);
-		if(usuarios.get(identificador) != null){
-			Item BluRayFilme = itemController.cadastrarBluRayShow(nome, preco, duracao, numeroFaixas, artista, classificacao);
-			usuarios.get(identificador).adicionaItem(nomeItem, BluRayFilme);			
-		}else{
+		if (usuarios.get(identificador) != null) {
+			Item item = itemController.getItem(nomeItem);
+			itemController.adicionarPecaPerdida(item, nomePeca);
+			usuarios.get(identificador).adicionaPecaPerdida(nomeItem, nomePeca);
+			;
+		} else {
 			throw new NullPointerException("Usuario invalido");
 		}
 	}
-	
-	public void cadastrarBluRaySerie(String nome, String telefone, String nomeItem, double preco, String descricao, int duracao, String classificacao, String genero, int numeroDaTemporada){
+
+	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao,
+			int numeroFaixas, String artista, String classificacao) {
 		String identificador = getToken(nome, telefone);
-		if(usuarios.get(identificador) != null){
-			Item BluRayFilme = itemController.cadastrarBluRaySerie(nome, preco, descricao, duracao, classificacao, genero, numeroDaTemporada);
-			usuarios.get(identificador).adicionaItem(nomeItem, BluRayFilme);			
-		}else{
+		if (usuarios.get(identificador) != null) {
+			Item BluRayFilme = itemController.cadastrarBluRayShow(nomeItem, preco, duracao, numeroFaixas, artista,
+					classificacao);
+			usuarios.get(identificador).adicionaItem(nomeItem, BluRayFilme);
+		} else {
 			throw new NullPointerException("Usuario invalido");
 		}
 	}
+
+	public void cadastrarBluRaySerie(String nome, String telefone, String nomeItem, double preco, String descricao,
+			int duracao, String classificacao, String genero, int numeroDaTemporada) {
+		String identificador = getToken(nome, telefone);
+		if (usuarios.get(identificador) != null) {
+			Item BluRayFilme = itemController.cadastrarBluRaySerie(nomeItem, preco, descricao, duracao, classificacao,
+					genero, numeroDaTemporada);
+			usuarios.get(identificador).adicionaItem(nomeItem, BluRayFilme);
+		} else {
+			throw new NullPointerException("Usuario invalido");
+		}
+	}
+
 	/**
 	 * modifica atributo do usuario ,ou seja,sua informacoes.
 	 * 
@@ -195,26 +218,26 @@ public class UsuarioController {
 	 *            nova informacao para o atributo do usuario
 	 */
 	public void atualizarUsuario(String nome, String telefone, String atributo, String valor) {
-		
+
 		String identificador = getToken(nome, telefone);
-		
+
 		if (usuarios.containsKey(identificador)) {
 			Usuario usuario = usuarios.get(identificador);
-			
+
 			switch (atributo.trim().toUpperCase()) {
 
 			case "NOME":
-				cadastrarUsuario(valor, telefone, usuario.getEmail()); 
+				cadastrarUsuario(valor, telefone, usuario.getEmail());
 				removerUsuario(nome, telefone);
-				 break;
+				break;
 			case "TELEFONE":
-				cadastrarUsuario(nome, valor, usuario.getEmail()); 
+				cadastrarUsuario(nome, valor, usuario.getEmail());
 				removerUsuario(nome, telefone);
-				 break;
+				break;
 
 			case "EMAIL":
 				usuario.setEmail(valor);
-				 break;
+				break;
 
 			default:
 				throw new IllegalArgumentException("Atributo invalido");
@@ -225,6 +248,14 @@ public class UsuarioController {
 
 		}
 	}
-	
-	
+
+	public String pesquisarDetalhesItem(String nome, String telefone, String nomeItem) {
+		String identificador = getToken(nome, telefone);
+		if (usuarios.get(identificador) != null) {
+			usuarios.get(identificador).getDetalhes(nomeItem);
+		}
+		throw new NullPointerException("Usuario invalido");
+
+	}
+
 }

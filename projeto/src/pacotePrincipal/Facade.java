@@ -42,7 +42,8 @@ public class Facade {
 	}
 
 	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) {
-
+		controllerUsuario.adicionarPecaPerdida(nome, telefone, nomeItem, nomePeca);
+		
 	}
 
 	public void cadastrarBluRayFilme(String nome, String telefone, String nomeItem, double preco, int duracao, String genero,
@@ -74,6 +75,12 @@ public class Facade {
 	
 	public String listarItensOrdenadosPorNome(){
 		return controllerUsuario.listarItensOrdenadosPorNome();
-	}  
+	} 
+	public String listarItensOrdenadosPorValor(){
+		return controllerUsuario.listarItensOrdenadosPorValor();
+	}
+	public String pesquisarDetalhesItem(String nome ,String telefone,String nomeItem){
+		return controllerUsuario.pesquisarDetalhesItem( nome ,telefone,nomeItem);
+	}
 		
 }
