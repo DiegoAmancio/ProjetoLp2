@@ -104,6 +104,7 @@ public class UsuarioController {
 		String identificador = getToken(nome, telefone);
 		if (usuarios.containsKey(identificador)) {
 			usuarios.get(identificador).removerItem(nomeItem);
+			itemController.removerItem(nomeItem);
 		} else {
 			throw new IllegalArgumentException("Usuario invalido");
 		}
@@ -111,19 +112,22 @@ public class UsuarioController {
 
 	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma) {
 		String identificador = getToken(nome, telefone);
-		if (usuarios.get(identificador) != null) {
+		if (usuarios.containsKey(identificador)) {
 			Item eletronico = itemController.cadastrarEletronico(nomeItem, preco, plataforma);
 			usuarios.get(identificador).adicionaItem(nomeItem, eletronico);
 		} else {
-			throw new NullPointerException("Usuario invalido no eletronico");
+			throw new NullPointerException("Usuario invalido");
 		}
 
 	}
 
 	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor) {
 		String identificador = getToken(nome, telefone);
-		if (usuarios.get(identificador) != null) {
+		if (usuarios.containsKey(identificador)) {
+			
 			usuarios.get(identificador).atualizarItem(nomeItem, atributo, valor);
+			itemController.atualizarItem(nomeItem, atributo, valor);
+		
 		} else {
 			throw new NullPointerException("Usuario invalido");
 		}

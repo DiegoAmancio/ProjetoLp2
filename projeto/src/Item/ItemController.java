@@ -18,16 +18,16 @@ import Jogos.JogoTabuleiro;
  */
 
 public class ItemController {
-	
+
 	private List<Item> itens;
-	
+
 	/**
 	 * Construtor de ItemController.
 	 */
 	public ItemController() {
 		itens = new ArrayList<Item>();
 	}
-	
+
 	/**
 	 * Cadastra um Item de subtipo Eletronico.
 	 * 
@@ -37,15 +37,14 @@ public class ItemController {
 	 *            preco do Eletronico a ser cadastrado.
 	 * @param plataforma
 	 *            plataforma do Eletronico a ser cadastrado.
-	 * @return
-	 *            retorna o objeto Eletronico que foi cadastrado.
+	 * @return retorna o objeto Eletronico que foi cadastrado.
 	 */
 	public Item cadastrarEletronico(String nome, double preco, String plataforma) {
 		Item item = new JogoEletronico(nome, preco, plataforma);
 		itens.add(item);
 		return item;
 	}
-	
+
 	/**
 	 * Cadastra um Item de subtipo JogoTabuleiro.
 	 * 
@@ -53,18 +52,54 @@ public class ItemController {
 	 *            nome do JogoTabuleiro a ser cadastrado.
 	 * @param preco
 	 *            preco do JogoTabuleiro a ser cadastrado.
-	 * @return
-	 *            retorna o objeto JogoTabuleiro que foi cadastrado.
+	 * @return retorna o objeto JogoTabuleiro que foi cadastrado.
 	 */
 	public Item cadastrarJogoTabuleiro(String nome, double preco) {
 		Item item = new JogoTabuleiro(nome, preco);
 		itens.add(item);
 		return item;
 	}
-	
+
+	public void removerItem(String nomeItem) {
+		int removeu = 0;
+		for (int i = 0; i < itens.size(); i++) {
+			if (itens.get(i).getNome().equals(nomeItem)) {
+				itens.remove(i);
+				removeu += 1;
+			}
+		}
+		if (removeu == 0) {
+			throw new NullPointerException("Item nao encontrado");
+		}
+	}
+
+	public void atualizarItem(String nomeItem, String atributo, String valor) {
+		int atualizou = 0;
+		
+		for (int i = 0; i < itens.size(); i++) {
+			if (itens.get(i).getNome().equals(nomeItem)) {
+				if (atributo.equals("Nome")) {
+					itens.get(i).setNome(atributo);
+					atualizou += 1;
+					break;
+				} else if (atributo.equals("Preco")) {
+
+					itens.get(i).setPreco(Double.parseDouble(valor));
+					atualizou += 1;
+					break;
+				}
+				
+				break;
+			}
+		}
+		if (atualizou == 0) {
+			throw new NullPointerException("Item nao encontrado");
+		}
+	}
+
 	/**
 	 * Cadastra um Item de subtipo BluRayFilme.
-	 * 	
+	 * 
 	 * @param nome
 	 *            nome do BluRayFilme a ser cadastrado.
 	 * @param preco
@@ -77,15 +112,15 @@ public class ItemController {
 	 *            classificacao indicativa do BluRayFilme a ser cadastrado.
 	 * @param anoLancamento
 	 *            ano de lancamento do BluRayFilme a ser cadastrado.
-	 * @return
-	 *            retorna o objeto BluRayFilme que foi cadastrado.
+	 * @return retorna o objeto BluRayFilme que foi cadastrado.
 	 */
-	public Item cadastrarBluRayFilme(String nome, double preco, int duracao, String genero, String classificacao, int anoLancamento) {
+	public Item cadastrarBluRayFilme(String nome, double preco, int duracao, String genero, String classificacao,
+			int anoLancamento) {
 		Item item = new BluRayFilme(nome, preco, duracao, classificacao, genero, anoLancamento);
 		itens.add(item);
 		return item;
 	}
-	
+
 	/**
 	 * Cadastra um Item de subtipo BluRayShow.
 	 * 
@@ -101,15 +136,15 @@ public class ItemController {
 	 *            nome do artista do BluRayShow a ser cadastrado.
 	 * @param classificacao
 	 *            classificacao indicativa do BluRayShow a ser cadastrado.
-	 * @return
-	 *            retorna o objeto BluRayShow que foi cadastrado.
+	 * @return retorna o objeto BluRayShow que foi cadastrado.
 	 */
-	public Item cadastrarBluRayShow(String nome, double preco, int duracao, int numeroFaixas, String artista, String classificacao) {
+	public Item cadastrarBluRayShow(String nome, double preco, int duracao, int numeroFaixas, String artista,
+			String classificacao) {
 		Item item = new BluRayShow(nome, preco, duracao, classificacao, numeroFaixas, artista);
 		itens.add(item);
 		return item;
 	}
-	
+
 	/**
 	 * Cadastra um Item de subtipo BluRaySerie.
 	 * 
@@ -127,24 +162,25 @@ public class ItemController {
 	 *            genero do BluRaySerie a ser cadastrado.
 	 * @param temporada
 	 *            numero da temporada do BluRaySerie a ser cadastrado.
-	 * @return
-	 *            retorna o objeto BluRaySerie que foi cadastrado.
+	 * @return retorna o objeto BluRaySerie que foi cadastrado.
 	 */
-	public Item cadastrarBluRaySerie(String nome, double preco, String descricao, int duracao, String classificacao, String genero, int numeroDaTemporada) {
+	public Item cadastrarBluRaySerie(String nome, double preco, String descricao, int duracao, String classificacao,
+			String genero, int numeroDaTemporada) {
 		Item item = new BluRaySerie(nome, preco, duracao, classificacao, genero, numeroDaTemporada);
 		itens.add(item);
 		return item;
 	}
-	public Item getItem(String nomeItem){
+
+	public Item getItem(String nomeItem) {
 		for (int i = 0; i < itens.size(); i++) {
-			if(itens.get(i).getNome().equals(nomeItem)){
+			if (itens.get(i).getNome().equals(nomeItem)) {
 				return itens.get(i);
 			}
-			
+
 		}
 		throw new NullPointerException("Item nao encontrado");
 	}
-	
+
 	/**
 	 * Adiciona uma Peca a lista de pecas perdidas de um determinado JogoTabuleiro.
 	 * 
@@ -161,7 +197,7 @@ public class ItemController {
 			throw new IllegalArgumentException("Esse item nao se trata de um Jogo de Tabuleiro");
 		}
 	}
-	
+
 	/**
 	 * Adicona um Episodio a lista de episodios de um determinado BluRaySerie.
 	 * 
@@ -178,39 +214,68 @@ public class ItemController {
 			throw new IllegalArgumentException("Esse item nao se trata de uma Serie");
 		}
 	}
-	
+
 	/**
 	 * Ordena a lista de objetos Item e concatena os componentes em uma so String.
 	 * 
-	 * @return
-	 *            Representacao em String de todos os objetos Item cadastrados, em ordem alfanumerica.
+	 * @return Representacao em String de todos os objetos Item cadastrados, em
+	 *         ordem alfanumerica.
 	 */
-	public String listarItensOrdenadosPorNome() {		
-		Collections.sort(itens,new ItemNomeComparator());		
-		String filmes = "FILME: "+"|";
-		String jogosE = "JOGO ELETRONICO: "+"|";
-		String outro = "OUTRO"+"|";
-		String show = "SHOW:"+"|";
-		String tabuleiro = "JOGO TABULEIRO: " +"|";
-		for (int i = 1; i < itens.size(); i++) {
-			
+	public String listarItensOrdenadosPorNome() {
+		Collections.sort(itens, new ItemNomeComparator());
+		String filmes = "FILME: ";
+		String jogosE = "JOGO ELETRONICO: ";
+		String series = "SERIE: ";
+		String show = "SHOW: ";
+		String tabuleiro = "JOGO DE TABULEIRO: ";
+		for (int i = 0; i < itens.size(); i++) {
+			Item item = itens.get(i);
+			if (item instanceof JogoTabuleiro) {
+				tabuleiro += item.toString();
+			} else if (item instanceof BluRayShow) {
+				show += item.toString();
+			} else if (item instanceof JogoEletronico) {
+				jogosE += item.toString();
+			} else if (item instanceof BluRaySerie) {
+				series += item.toString();
+			} else {
+				filmes += item.toString();
+			}
+
 		}
-		return "|";
+		return filmes + "|" + jogosE + "|" + show + "|" + series + "|" + tabuleiro + "|";
 	}
-	
+
 	/**
 	 * Ordena a lista de objetos Item e concatena os componentes em uma so String.
 	 * 
-	 * @return
-	 *            Representacao em String de todos os objetos Item cadastrados, ordenados pelo preco.
+	 * @return Representacao em String de todos os objetos Item cadastrados,
+	 *         ordenados pelo preco.
 	 */
 	public String listarItensOrdenadosPorValor() {
-		itens.sort(new ItemPrecoComparator());
-		String mensagem = itens.get(0).toString();
-		for (int i = 1; i < itens.size(); i++) {
-			mensagem += "|" + itens.get(i).toString();
+		Collections.sort(itens, new ItemPrecoComparator());
+		String filmes = "FILME: ";
+		String jogosE = "JOGO ELETRONICO: ";
+		String series = "SERIE: ";
+		String show = "SHOW: ";
+		String tabuleiro = "JOGO DE TABULEIRO: ";
+
+		for (int i = 0; i < itens.size(); i++) {
+			Item item = itens.get(i);
+			if (item instanceof JogoTabuleiro) {
+				tabuleiro += item.toString();
+			} else if (item instanceof BluRayShow) {
+				show += item.toString();
+			} else if (item instanceof JogoEletronico) {
+				jogosE += item.toString();
+			} else if (item instanceof BluRaySerie) {
+				series += item.toString();
+			} else {
+				filmes += item.toString();
+			}
+
 		}
-		return mensagem+"|";
+		return filmes + "|" + jogosE + "|" + show + "|" + series + "|" + tabuleiro + "|";
 	}
-	
+
 }

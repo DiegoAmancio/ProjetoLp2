@@ -197,7 +197,18 @@ public class Usuario {
 
 	public String getDetalhes(String nomeItem){
 		if(itens.containsKey(nomeItem)){
-			return itens.get(nomeItem).toString();
+			Item item = itens.get(nomeItem);
+			if(item instanceof JogoTabuleiro){
+				return  "JOGO DE TABULEIRO: " +item.toString();
+			}else if(item instanceof BluRayShow){
+				return "SHOW: " + item.toString();
+			}else if(item instanceof JogoEletronico){
+				return "JOGO ELETRONICO:" +item.toString();
+			}else if(item instanceof BluRaySerie){
+				return "SERIE: " +item.toString();
+			}else{
+				return "FILME: " +item.toString();
+			}
 		}
 		throw new NullPointerException("Item nao encontrado");
 	}
