@@ -181,7 +181,7 @@ public class BluRaySerie extends BluRay {
 	}
 	@Override
 	public String toString() {
-		return "SERIE: " + super.toString()+ this.genero.getMensagem()+", "+"Temporada "+this.numeroDaTemporada;
+		return  super.toString()+ this.genero.getMensagem()+", "+"Temporada "+this.numeroDaTemporada;
 	}
 	
 }

@@ -251,8 +251,10 @@ public class UsuarioController {
 
 	public String pesquisarDetalhesItem(String nome, String telefone, String nomeItem) {
 		String identificador = getToken(nome, telefone);
-		if (usuarios.get(identificador) != null) {
-			usuarios.get(identificador).getDetalhes(nomeItem);
+		
+		if (usuarios.containsKey(identificador)) {
+			return usuarios.get(identificador).getDetalhes(nomeItem);
+			
 		}
 		throw new NullPointerException("Usuario invalido");
 
