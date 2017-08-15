@@ -187,15 +187,27 @@ public class ItemController {
 	 */
 	public String listarItensOrdenadosPorNome() {		
 		Collections.sort(itens,new ItemNomeComparator());		
-		String filmes = "FILME: "+"|";
-		String jogosE = "JOGO ELETRONICO: "+"|";
-		String outro = "OUTRO"+"|";
+		String filmes = "FILME: ";
+		String jogosE = "JOGO ELETRONICO: ";
+		String series = "SERIE: ";
 		String show = "SHOW:"+"|";
-		String tabuleiro = "JOGO TABULEIRO: " +"|";
-		for (int i = 1; i < itens.size(); i++) {
+		String tabuleiro = "JOGO DE TABULEIRO: ";
+		for (int i = 0; i < itens.size(); i++) {
+			Item item = itens.get(i);
+			if(item instanceof JogoTabuleiro){
+				tabuleiro += item.toString();
+			}else if(item instanceof BluRayShow){
+				show += item.toString();
+			}else if(item instanceof JogoEletronico){
+				jogosE += item.toString();
+			}else if(item instanceof BluRaySerie){
+				series += item.toString();
+			}else{
+				filmes += item.toString();
+			}
 			
 		}
-		return "|";
+		return filmes+"|" + jogosE+"|" +show+"|" +series + "|"+tabuleiro+"|" ;
 	}
 	
 	/**
