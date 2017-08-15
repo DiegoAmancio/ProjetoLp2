@@ -74,15 +74,17 @@ public abstract class Item {
 		
 		return this.nome + ", R$ " + Double.toString(preco) + ", " + emprestado.getEmprestado();
 	}
-	 public int compareToPreco(Item item) {
-	        if (this.preco < item.getPreco()) {
-	            return -1;
-	        }
-	        if (this.preco > item.getPreco()) {
-	            return 1;
-	        }
-	        return 0;
-	    }
+	
+	public int compareToPreco(Item item) {
+	       if (this.preco < item.getPreco()) {
+	           return -1;
+	       }
+	       if (this.preco > item.getPreco()) {
+	           return 1;
+	       }
+	       return 0;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -108,6 +108,23 @@ public class ItemController {
 		Item item = new BluRayShow(nome, preco, duracao, classificacao, numeroFaixas, artista);
 		itens.add(item);
 		return item;
+	}	
+
+	/**
+	 * Adicona um Episodio a lista de episodios de um determinado BluRaySerie.
+	 * 
+	 * @param item
+	 *            Item que recebe o Episodio caso seja um BluRaySerie.
+	 * @param duracao
+	 *            duracao do objeto Episodio.
+	 */
+	public void adicionarBluRay(Item item, int duracao) {
+		if (item instanceof BluRaySerie) {
+			BluRaySerie bluRaySerie = (BluRaySerie) item;
+			bluRaySerie.adicionaEpisodio(duracao);
+		} else {
+			throw new IllegalArgumentException("Esse item nao se trata de uma Serie");
+		}
 	}
 	
 	/**
@@ -135,6 +152,7 @@ public class ItemController {
 		itens.add(item);
 		return item;
 	}
+	
 	public Item getItem(String nomeItem){
 		for (int i = 0; i < itens.size(); i++) {
 			if(itens.get(i).getNome().equals(nomeItem)){
@@ -162,21 +180,9 @@ public class ItemController {
 		}
 	}
 	
-	/**
-	 * Adicona um Episodio a lista de episodios de um determinado BluRaySerie.
-	 * 
-	 * @param item
-	 *            Item que recebe o Episodio caso seja um BluRaySerie.
-	 * @param duracao
-	 *            duracao do objeto Episodio.
-	 */
-	public void adicionarBluRay(Item item, int duracao) {
-		if (item instanceof BluRaySerie) {
-			BluRaySerie bluRaySerie = (BluRaySerie) item;
-			bluRaySerie.adicionaEpisodio(duracao);
-		} else {
-			throw new IllegalArgumentException("Esse item nao se trata de uma Serie");
-		}
+	public void removeItem(String nomeItem) {
+		Item item = getItem(nomeItem);
+		itens.remove(item);
 	}
 	
 	/**
@@ -186,16 +192,12 @@ public class ItemController {
 	 *            Representacao em String de todos os objetos Item cadastrados, em ordem alfanumerica.
 	 */
 	public String listarItensOrdenadosPorNome() {		
-		Collections.sort(itens,new ItemNomeComparator());		
-		String filmes = "FILME: "+"|";
-		String jogosE = "JOGO ELETRONICO: "+"|";
-		String outro = "OUTRO"+"|";
-		String show = "SHOW:"+"|";
-		String tabuleiro = "JOGO TABULEIRO: " +"|";
-		for (int i = 1; i < itens.size(); i++) {
-			
+		Collections.sort(itens,new ItemNomeComparator());
+		String mensagem = "";
+		for (int i = 0; i < itens.size(); i++) {
+			mensagem += itens.get(i).toString() + "|";
 		}
-		return "|";
+		return mensagem;
 	}
 	
 	/**
@@ -206,11 +208,11 @@ public class ItemController {
 	 */
 	public String listarItensOrdenadosPorValor() {
 		itens.sort(new ItemPrecoComparator());
-		String mensagem = itens.get(0).toString();
-		for (int i = 1; i < itens.size(); i++) {
-			mensagem += "|" + itens.get(i).toString();
+		String mensagem = "";
+		for (int i = 0; i < itens.size(); i++) {
+			mensagem += itens.get(i).toString() + "|";
 		}
-		return mensagem+"|";
+		return mensagem;
 	}
 	
 }

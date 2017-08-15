@@ -104,6 +104,7 @@ public class UsuarioController {
 		String identificador = getToken(nome, telefone);
 		if (usuarios.containsKey(identificador)) {
 			usuarios.get(identificador).removerItem(nomeItem);
+			itemController.removeItem(nomeItem);
 		} else {
 			throw new IllegalArgumentException("Usuario invalido");
 		}
