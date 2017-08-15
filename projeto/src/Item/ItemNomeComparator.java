@@ -2,7 +2,7 @@ package Item;
 
 import java.util.Comparator;
 
-public class ItemNomeComparator implements Comparable<Item>{
+public class ItemNomeComparator implements Comparator<Item>{
 	
 	
 	public int compare(Item item1, Item item2) {

@@ -10,17 +10,23 @@ package Item;
 public abstract class Item {
 	protected String nome;
 	protected double preco;
+
 	protected boolean emprestado;
 	/**
 	 * constroi um item
-	 * @param nome nome do item
-	 * @param preco2 valor de compra deste item
+	 * 
+	 * @param nome
+	 *            nome do item
+	 * @param preco2
+	 *            valor de compra deste item
 	 */
 	public Item(String nome, double preco) {
+		verificaPreco(preco);
 		this.nome = nome;
 		this.preco = preco;
 		this.emprestado = false;
 	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -40,9 +46,14 @@ public abstract class Item {
 	public boolean isEmprestado() {
 		return emprestado;
 	}
-	public void setEmprestado(boolean emprestado) {
-		this.emprestado = emprestado;
+
+
+	public void verificaPreco(double preco) {
+		if (preco < 0) {
+			throw new IllegalArgumentException("Preco invalido");
+		}
 	}
+
 	
 	public String getInfoItem(String atributo) {
 		switch (atributo) {
@@ -54,7 +65,18 @@ public abstract class Item {
 			throw new IllegalArgumentException();
 		}
 	}
-	
+
+	@Override
+	public String toString() {
+		String emprestado = "";
+		if (this.emprestado){
+			emprestado = "emprestado";
+		}else{
+			emprestado = "Nao emprestado";
+		}
+		return nome + ", R$ " + Double.toString(preco) + ", " + emprestado;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -62,6 +84,7 @@ public abstract class Item {
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -78,6 +101,5 @@ public abstract class Item {
 			return false;
 		return true;
 	}
-	
 
 }
