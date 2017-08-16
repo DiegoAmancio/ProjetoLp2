@@ -50,6 +50,7 @@ public class Usuario {
 			throw new IllegalArgumentException(qualAtributo+"invalido,vazio");
 		}
 	}
+	
 	public String getNome() {
 		return nome;
 	}
@@ -77,14 +78,25 @@ public class Usuario {
 	public Map<String, Item> getItens() {
 		return itens;
 	}
+	
+	public boolean existeItem(String nomeItem){
+		if(itens.get(nomeItem) != null){
+			return true;
+		}else{
+			return false;
+		}			
+	}
+	
 	public void setItens(Map<String, Item> itens) {
 		this.itens = itens;
 	}
+	
 	public List<Emprestimo> getEmprestimos() {
 		return emprestimos;
 	}
-	public void setEmprestimos(List<Emprestimo> emprestimos) {
-		this.emprestimos = emprestimos;
+	
+	public void registraEmprestimo(Emprestimo novoEmprestimo) {
+		emprestimos.add(novoEmprestimo);
 	}
 	public void adicionaItem(String nomeItem, Item item) {
 		if (!(itens.containsKey(nomeItem))) {

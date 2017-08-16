@@ -255,5 +255,36 @@ public class UsuarioController {
 		throw new NullPointerException("Usuario invalido");
 
 	}
+	/**
+	 * Registra emprestimos, passos:
+	 * Primeiro, checa se o usuario tem determinado item para emprestar, se sim, verifica o status do item (se está emprestado ou 
+	 * nao), se não estiver emprestado, realiza emprestimo.
+	 * 
+	 * @param nomeDono
+	 * @param telefoneDono
+	 * @param nomeRequerente
+	 * @param telefoneRequerente
+	 * @param itemEmprestado
+	 * @param dataEmprestimo
+	 * @param periodo
+	 * @return
+	 */
+	public String registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente, String itemEmprestado, String dataEmprestimo, int periodo){
+		String identificadorDono = getToken(nomeDono, telefoneDono);
+		String identificadorRequerente = getToken(nomeRequerente, telefoneRequerente);
+		
+		if(usuarios.get(identificadorDono).existeItem(itemEmprestado)){
+			if(usuarios.get(identificadorDono).getItens().get(itemEmprestado).isEmprestado().equals("Nao emprestado")){
+				Emprestimo novoEmprestimo = new Emprestimo(nomeDono, nomeRequerente, itemEmprestado, dataEmprestimo, periodo);
+				usuarios.get(identificadorRequerente).registraEmprestimo(novoEmprestimo);
+				return "Item emprestado com sucesso";
+			}else{
+				throw new IllegalArgumentException("Item emprestado no momento");
+			}
+		}else{
+			throw new NullPointerException("O item não foi encontrado");
+		}	
+		
+	}
 
 }
