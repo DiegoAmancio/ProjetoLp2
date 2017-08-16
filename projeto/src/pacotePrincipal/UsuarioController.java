@@ -266,6 +266,19 @@ public class UsuarioController {
 		itemController.adicionarBluRay(item, duracao);
 	}
 	
+	public void removerItem(String nome, String telefone, String nomeItem) {
+		Usuario usuario = getUsuario(nome, telefone);
+		Item item = usuario.getItem(nomeItem);
+		usuario.removeItem(nomeItem);
+		itemController.removerItem(item);
+	}
+	
+	public void atualizarItem(String nome, String telefone,String nomeItem, String atributo, String valor) {
+		Usuario usuario = getUsuario(nome, telefone);
+		Item item = usuario.getItem(nomeItem);
+		itemController.atualizarItem(item, atributo, valor);
+	}
+	
 	/**
 	 * Informacao especifica sobre um certo objeto Item sobe posse de um objeto Usuario.
 	 * 

@@ -82,6 +82,10 @@ public class Usuario {
 		}
 		return itens.get(nomeItem);
 	}
+	
+	public void removeItem(String nomeItem) {
+		itens.remove(nomeItem);
+	}
 
 	/**
 	 * representacao de um usuario

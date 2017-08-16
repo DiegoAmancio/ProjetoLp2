@@ -27,8 +27,8 @@ public class Facade {
 		controllerUsuario.atualizarUsuario(nome, telefone, atributo, valor);
 	}
 	
-	public void getInfoItem(String nome, String telefone, String nomeItem, String atributo){
-		controllerUsuario.getInfoItem(nome, telefone, nomeItem, atributo);
+	public String getInfoItem(String nome, String telefone, String nomeItem, String atributo){
+		return controllerUsuario.getInfoItem(nome, telefone, nomeItem, atributo);
 	}
 	
 	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma) {
@@ -60,11 +60,11 @@ public class Facade {
 	}
 	
 	public void removerItem(String nome, String telefone, String nomeItem) {
-		
+		controllerUsuario.removerItem(nome, telefone, nomeItem);
 	}
 	
 	public void atualizarItem(String nome, String telefone,String nomeItem, String atributo, String valor) {
-		
+		controllerUsuario.atualizarItem(nome, telefone, nomeItem, atributo, valor);
 	}
 	
 	public String pesquisarDetalhesItem(String nome, String telefone, String nomeItem) {

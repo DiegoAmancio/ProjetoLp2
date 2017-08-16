@@ -163,6 +163,21 @@ public class ItemController {
 		}
 	}
 	
+	public void removerItem(Item item) {
+		
+	}
+	
+	public void atualizarItem(Item item, String atributo, Object valor) {
+		Object objeto = (Object) (valor);
+		switch (atributo) {
+		case "Nome":
+			item.setNome((String) (objeto));
+		case "Preco":
+			item.setPreco((Double) (objeto));
+		default:
+		}
+	}
+	
 	/**
 	 * Ordena a lista de objetos Item e concatena os componentes em uma so String.
 	 * 

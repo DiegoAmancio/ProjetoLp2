@@ -57,10 +57,10 @@ public class Eletronico extends Item{
 		String info = super.getInfo(atributo);
 		switch (atributo) {
 		case "Plataforma":
-			info += this.getPlataforma();
+			info = this.getPlataforma().getValor();
 			return info;
 		default:
-			if (info == "") {
+			if (info.trim().equals("")) {
 				throw new IllegalArgumentException();
 			}
 			return info;

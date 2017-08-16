@@ -32,9 +32,18 @@ public abstract class Item {
 		return preco;
 	}
 	
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
+	public void setPreco(double preco) {
+		this.preco = preco;
+	}
+	
 	public boolean isEmprestado() {
 		return emprestado.getValor();
 	}
+	
 	public void setEmprestado(boolean emprestado) {
 		this.emprestado = Emprestado.EMPRESTADO;
 	}
@@ -46,7 +55,7 @@ public abstract class Item {
 			info += this.getNome();
 			return info;
 		case "Preco":
-			info += String.format("%.2f", this.getPreco());
+			info += this.getPreco();
 			return info;
 		default:
 			return info;
