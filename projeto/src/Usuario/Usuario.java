@@ -2,6 +2,7 @@ package Usuario;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import Item.Item;
@@ -19,6 +20,7 @@ public class Usuario {
 	private String telefone;
 	private String email;
 	private Map<String, Item> itens;
+	private List<Emprestimo> emprestimos; // lista de emprestimos que realizou de itens de outros usuarios
 	
 	/**
 	 * 
@@ -71,8 +73,19 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}	
-	
-	
+		
+	public Map<String, Item> getItens() {
+		return itens;
+	}
+	public void setItens(Map<String, Item> itens) {
+		this.itens = itens;
+	}
+	public List<Emprestimo> getEmprestimos() {
+		return emprestimos;
+	}
+	public void setEmprestimos(List<Emprestimo> emprestimos) {
+		this.emprestimos = emprestimos;
+	}
 	public void adicionaItem(String nomeItem, Item item) {
 		if (!(itens.containsKey(nomeItem))) {
 			itens.put(nomeItem, item);

@@ -11,10 +11,10 @@ import Enums.Emprestado;
  * @author Diego Amancio - 116210716
  */
 public abstract class Item {
-	protected String nome;
-	protected double preco;
+	private String nome;
+	private double preco;
 
-	protected Emprestado emprestado;
+	private Emprestado emprestado;
 	/**
 	 * constroi um item
 	 * 

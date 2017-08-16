@@ -1,21 +1,26 @@
 package Usuario;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-
-
 public class Emprestimo {
 	private String nomeDono;
 	private String nomeRequerente;
-	private String dataEmprestimo;
-	private String dataDevolucao;
-	private int periodo;
+	private String dataEmprestimo;	
 	private String itemEmprestado;
+	private int periodo;
 	
-	public Emprestimo() {
-				
+	public Emprestimo(String nomeDono, String nomeRequerente, String itemEmprestado, String dataEmprestimo, int periodo) {
+		this.nomeDono = nomeDono;
+		this.nomeRequerente = nomeRequerente;
+		this.itemEmprestado = itemEmprestado;
+		this.dataEmprestimo = dataEmprestimo;				
+		this.periodo = periodo;
+	}
+	
+	public int getPeriodo() {
+		return periodo;
+	}
+
+	public void setPeriodo(int periodo) {
+		this.periodo = periodo;
 	}
 
 	public String getNomeDono() {
@@ -40,22 +45,6 @@ public class Emprestimo {
 
 	public void setDataEmprestimo(String dataEmprestimo) {
 		this.dataEmprestimo = dataEmprestimo;
-	}
-
-	public String getDataDevolucao() {
-		return dataDevolucao;
-	}
-
-	public void setDataDevolucao(String dataDevolucao) {
-		this.dataDevolucao = dataDevolucao;
-	}
-
-	public int getPeriodo() {
-		return periodo;
-	}
-
-	public void setPeriodo(int periodo) {
-		this.periodo = periodo;
 	}
 
 	public String getItemEmprestado() {
