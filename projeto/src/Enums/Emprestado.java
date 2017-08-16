@@ -1,29 +1,18 @@
 package Enums;
 
-/**
- * Representacao do estado de emprestimo de um Item.
- * 
- * @author Andre Azevedo - 116111248
- */
 public enum Emprestado {
+	EMPRESTADO("Emprestado"),
+	NAO_EMPRESTADO("Nao emprestado");
 	
-	EMPRESTADO("Emprestado", true),
-	NAO_EMPRESTADO("Nao emprestado", false);
-	
-	private String mensagem;
-	private boolean valor;
-	
-	Emprestado(String mensagem, boolean valor) {
-		this.mensagem = mensagem;
-		this.valor = valor;
+	private String emprestado;
+
+	private Emprestado(String emprestado) {
+		this.emprestado = emprestado;
 	}
-	
-	public String getMensagem() {
-		return mensagem;
+
+	public String getEmprestado() {
+		return emprestado;
 	}
-	
-	public boolean getValor() {
-		return valor;
-	}
+
 	
 }

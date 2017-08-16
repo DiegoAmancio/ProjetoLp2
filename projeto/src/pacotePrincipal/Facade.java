@@ -1,5 +1,7 @@
 package pacotePrincipal;
 
+import Usuario.UsuarioController;
+
 public class Facade {
 	UsuarioController controllerUsuario;
 	
@@ -41,22 +43,26 @@ public class Facade {
 
 	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) {
 		controllerUsuario.adicionarPecaPerdida(nome, telefone, nomeItem, nomePeca);
+		
 	}
 
-	public void cadastrarBluRayFilme(String nome, String telefone, String nomeItem, double preco, int duracao, String genero, String classificacao, int anoLancamento) {
+	public void cadastrarBluRayFilme(String nome, String telefone, String nomeItem, double preco, int duracao, String genero,
+			String classificacao, int anoLancamento) {
 		controllerUsuario.cadastrarBluRayFilme(nome, telefone, nomeItem, preco, duracao, genero, classificacao, anoLancamento);
 	}
-
-	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao, int numeroFaixas, String artista, String classificacao) {
+	
+	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao, int numeroFaixas,
+			String artista, String classificacao) {
 		controllerUsuario.cadastrarBluRayShow(nome, telefone, nomeItem, preco, duracao, numeroFaixas, artista, classificacao);
 	}
 
-	public void cadastrarBluRaySerie(String nome, String telefone, String nomeItem, double preco, String descricao, int duracao, String classificacao, String genero, int temporada) {
-		controllerUsuario.cadastrarBluRaySerie(nome, telefone, nomeItem, preco, descricao, duracao, classificacao, genero, temporada);
+	public void cadastrarBluRaySerie(String nome, String telefone, String nomeItem, double preco, String descricao,
+			int duracao, String classificacao, String genero, int numeroDaTemporada) {
+		controllerUsuario.cadastrarBluRaySerie(nome, telefone, nomeItem, preco, descricao, duracao, classificacao, genero, numeroDaTemporada);
 	}
 	
-	public void adicionarBluRay(String nome, String telefone, String nomeItem, int duracao) {
-		controllerUsuario.adicionarBluRay(nome, telefone, nomeItem, duracao);
+	public void adicionarBluRay(String nome, String telefone, String nomeBlueRayTemporada, int duracao) {
+
 	}
 	
 	public void removerItem(String nome, String telefone, String nomeItem) {
@@ -67,16 +73,14 @@ public class Facade {
 		controllerUsuario.atualizarItem(nome, telefone, nomeItem, atributo, valor);
 	}
 	
-	public String pesquisarDetalhesItem(String nome, String telefone, String nomeItem) {
-		return controllerUsuario.pesquisarDetalhesItem(nome, telefone, nomeItem);
-	}
-	
-	public String listarItensOrdenadosPorNome() {
+	public String listarItensOrdenadosPorNome(){
 		return controllerUsuario.listarItensOrdenadosPorNome();
-	}
-	
-	public String listarItensOrdenadosPorValor() {
+	} 
+	public String listarItensOrdenadosPorValor(){
 		return controllerUsuario.listarItensOrdenadosPorValor();
 	}
-	
+	public String pesquisarDetalhesItem(String nome ,String telefone,String nomeItem){
+		return controllerUsuario.pesquisarDetalhesItem( nome ,telefone,nomeItem);
+	}
+		
 }
