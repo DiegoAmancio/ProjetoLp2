@@ -55,15 +55,13 @@ public abstract class Item {
 	}
 
 	/**
-	 * Set status de emprestimo, se o parametro de entrada for true, o item será emprestado, se não, o item estará livre
+	 * Set status de emprestimo, se o parametro de entrada for true, o item serï¿½ emprestado, se nï¿½o, o item estarï¿½ livre
 	 * para ser emprestado
 	 * @param estaEmprestado
 	 */
-	public void setEmprestado(boolean estaEmprestado) {
-		if(estaEmprestado){
-			this.emprestado = Emprestado.EMPRESTADO;
-		}else{
-			this.emprestado = Emprestado.NAO_EMPRESTADO;
+	public void setEmprestado(Emprestado estaEmprestado) {
+		if (this.emprestado != estaEmprestado) {
+			this.emprestado = estaEmprestado;		
 		}
 	}
 

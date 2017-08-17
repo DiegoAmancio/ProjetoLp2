@@ -3,6 +3,7 @@ package Usuario;
 import java.util.HashMap;
 import java.util.Map;
 
+import Enums.Emprestado;
 import Item.Item;
 import Item.ItemController;
 
@@ -257,8 +258,8 @@ public class UsuarioController {
 	}
 	/**
 	 * Registra emprestimos, passos:
-	 * Primeiro, checa se o usuario tem determinado item para emprestar, se sim, verifica o status do item (se está emprestado ou 
-	 * nao), se não estiver emprestado, realiza emprestimo.
+	 * Primeiro, checa se o usuario tem determinado item para emprestar, se sim, verifica o status do item (se estï¿½ emprestado ou 
+	 * nao), se nï¿½o estiver emprestado, realiza emprestimo.
 	 * 
 	 * @param nomeDono
 	 * @param telefoneDono
@@ -274,14 +275,15 @@ public class UsuarioController {
 		String identificadorRequerente = getToken(nomeRequerente, telefoneRequerente);
 		
 		if(usuarios.get(identificadorDono).existeItem(itemEmprestado)){
-			if(usuarios.get(identificadorDono).getItens().get(itemEmprestado).isEmprestado().equals("Nao emprestado")){
+			if(usuarios.get(identificadorDono).getItem(itemEmprestado).getEmprestado() == Emprestado.NAO_EMPRESTADO){
 				Emprestimo novoEmprestimo = new Emprestimo(nomeDono, nomeRequerente, itemEmprestado, dataEmprestimo, periodo);
-				return usuarios.get(identificadorRequerente).registraEmprestimo(novoEmprestimo);
+				usuarios.get(identificadorDono).registraEmprestimo(novoEmprestimo, itemEmprestado);
+				return usuarios.get(identificadorRequerente).registraEmprestimo(novoEmprestimo, itemEmprestado);
 			}else{
 				return "Item emprestado no momento";				
 			}
 		}else{
-			throw new NullPointerException("O item não foi encontrado");
+			throw new NullPointerException("O item nao foi encontrado");
 		}	
 		
 	}

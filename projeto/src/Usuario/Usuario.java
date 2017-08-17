@@ -1,10 +1,12 @@
 package Usuario;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import Enums.Emprestado;
 import Item.Item;
 
 /**
@@ -41,6 +43,7 @@ public class Usuario {
 		this.telefone = telefone;
 		this.email = email;
 		this.itens = new HashMap<String, Item>();
+		emprestimos = new ArrayList<Emprestimo>();
 	}
 	public void validaUsuarioAtributo(String atributo,String qualAtributo){
 		if(atributo == null){
@@ -94,13 +97,13 @@ public class Usuario {
 	public List<Emprestimo> getEmprestimos() {
 		return emprestimos;
 	}
-	
-	public String registraEmprestimo(Emprestimo novoEmprestimo) {
+	//TODO requerente nao tem item
+	public String registraEmprestimo(Emprestimo novoEmprestimo, String nomeItem) {
+		
 		try {
 			emprestimos.add(novoEmprestimo);
-			String nomeItem = novoEmprestimo.getItemEmprestado();
-			itens.get(nomeItem).setEmprestado(true);
-			return "Item cadastrado com sucesso";
+			itens.get(nomeItem).setEmprestado(Emprestado.EMPRESTADO);
+			return "Emprestimo cadastrado com sucesso";
 		} catch (Exception e) {
 			return "Erro ao cadastrar emprestimo";
 		}
@@ -200,6 +203,10 @@ public class Usuario {
 			}
 		}
 		return saida;
+	}
+	
+	public Item getItem(String itemEmprestado) {
+		return itens.get(itemEmprestado);		
 	}
 	
 	
