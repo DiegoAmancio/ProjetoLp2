@@ -95,9 +95,17 @@ public class Usuario {
 		return emprestimos;
 	}
 	
-	public void registraEmprestimo(Emprestimo novoEmprestimo) {
-		emprestimos.add(novoEmprestimo);
+	public String registraEmprestimo(Emprestimo novoEmprestimo) {
+		try {
+			emprestimos.add(novoEmprestimo);
+			String nomeItem = novoEmprestimo.getItemEmprestado();
+			itens.get(nomeItem).setEmprestado(true);
+			return "Item cadastrado com sucesso";
+		} catch (Exception e) {
+			return "Erro ao cadastrar emprestimo";
+		}
 	}
+	
 	public void adicionaItem(String nomeItem, Item item) {
 		if (!(itens.containsKey(nomeItem))) {
 			itens.put(nomeItem, item);

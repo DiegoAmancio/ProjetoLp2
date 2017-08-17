@@ -276,10 +276,9 @@ public class UsuarioController {
 		if(usuarios.get(identificadorDono).existeItem(itemEmprestado)){
 			if(usuarios.get(identificadorDono).getItens().get(itemEmprestado).isEmprestado().equals("Nao emprestado")){
 				Emprestimo novoEmprestimo = new Emprestimo(nomeDono, nomeRequerente, itemEmprestado, dataEmprestimo, periodo);
-				usuarios.get(identificadorRequerente).registraEmprestimo(novoEmprestimo);
-				return "Item emprestado com sucesso";
+				return usuarios.get(identificadorRequerente).registraEmprestimo(novoEmprestimo);
 			}else{
-				throw new IllegalArgumentException("Item emprestado no momento");
+				return "Item emprestado no momento";				
 			}
 		}else{
 			throw new NullPointerException("O item não foi encontrado");

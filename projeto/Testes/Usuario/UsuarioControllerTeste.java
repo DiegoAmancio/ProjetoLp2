@@ -49,10 +49,10 @@ public class UsuarioControllerTeste {
 	}
 
 	/**
-	 * testa se o programa lança exceções caso o seja requisitado informações de
-	 * um usuario não cadastrado.
+	 * testa se o programa lanÃ§a exceÃ§Ãµes caso o seja requisitado informaÃ§Ãµes de
+	 * um usuario nÃ£o cadastrado.
 	 */
-	@Test(expected = NullPointerException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void usuariosInvalidosTest() {
 		controlador.cadastrarUsuario("diego", "4002-8922", "diego.pereira@ccc.ufcg.edu.br");
 		controlador.cadastrarUsuario("as", "4034-4922", "as@ccc.ufcg.edu.br");
@@ -65,10 +65,10 @@ public class UsuarioControllerTeste {
 	}
 
 	/**
-	 * testa se o programa para quando tenta pegar infomaçṍes de um usuario que
+	 * testa se o programa para quando tenta pegar infomaÃ§á¹�es de um usuario que
 	 * antes tinha sido removido do sistema.
 	 */
-	@Test(expected = NullPointerException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void removeUsuarioTest() {
 		controlador.cadastrarUsuario("diego", "4002-8922", "diego.pereira@ccc.ufcg.edu.br");
 		controlador.cadastrarUsuario("as", "4034-4922", "as@ccc.ufcg.edu.br");
@@ -80,10 +80,10 @@ public class UsuarioControllerTeste {
 	}
 
 	/**
-	 * testa o metodo de atualizar o usuario quando a operação e valida e quando
-	 * não é.
+	 * testa o metodo de atualizar o usuario quando a operaÃ§Ã£o e valida e quando
+	 * nÃ£o Ã©.
 	 */
-	@Test(expected = NullPointerException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void atualizaUsuario() {
 		controlador.cadastrarUsuario("diego", "4002-8922", "diego.pereira@ccc.ufcg.edu.br");
 		controlador.cadastrarUsuario("as", "4034-4922", "as@ccc.ufcg.edu.br");
@@ -96,4 +96,44 @@ public class UsuarioControllerTeste {
 		assertEquals("Ser trevoso", controlador.getInfoUsuario("Ser trevoso", "4002-8922", "Nome"));
 
 	}
+	
+//	public String registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente, 
+	//String telefoneRequerente, String itemEmprestado, String dataEmprestimo, int periodo){
+	@Test
+	public void registraEmprestimo(){
+		String nomeDono = "Isaac";
+		String telefoneDono = "1234-1234";
+		
+		String nomeRequerente = "Jose";
+		String telefoneRequerente = "3456-3456";
+		
+		String itemEmprestado = "Xuxa";
+		String dataEmprestimo = "66/66/6666";
+		int periodo = 3;
+		
+		controlador.cadastrarUsuario("Jose", "3456-3456", "jose.pereira@ccc.ufcg.edu.br");
+		controlador.cadastrarUsuario("Isaac", "1234-1234", "isaac.pereira@ccc.ufcg.edu.br");
+		controlador.cadastrarUsuario("Joao", "7890-7890", "joao.pereira@ccc.ufcg.edu.br");
+		
+		double preco = 15.50;
+		int duracao = 60;
+		int numeroFaixas = 10;
+		String artista = "Xuxa Meneghel";
+		String classificacao = "livre";
+		// testa sucesso de emprestimo
+		controlador.cadastrarBluRayShow(nomeDono, telefoneDono, itemEmprestado, preco, duracao, numeroFaixas, artista, classificacao);
+		String msgRetornada = controlador.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, itemEmprestado, dataEmprestimo, periodo);
+		
+		assertEquals("Item emprestado com sucesso", msgRetornada);
+		
+		// teste item indisponivel para emprestimo
+		String nomeRequerente2 = "Joao";
+		String telefoneRequerente2 = "7890-7890";
+		
+		String msgErro = controlador.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente2, telefoneRequerente2, itemEmprestado, dataEmprestimo, periodo);
+		
+		assertEquals("Item emprestado no momento", msgErro);
+	}
+
+	
 }

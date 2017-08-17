@@ -49,7 +49,23 @@ public abstract class Item {
 	public String isEmprestado() {
 		return emprestado.getEmprestado();
 	}
+	
+	public Emprestado getEmprestado() {
+		return emprestado;
+	}
 
+	/**
+	 * Set status de emprestimo, se o parametro de entrada for true, o item será emprestado, se não, o item estará livre
+	 * para ser emprestado
+	 * @param estaEmprestado
+	 */
+	public void setEmprestado(boolean estaEmprestado) {
+		if(estaEmprestado){
+			this.emprestado = Emprestado.EMPRESTADO;
+		}else{
+			this.emprestado = Emprestado.NAO_EMPRESTADO;
+		}
+	}
 
 	public void verificaPreco(double preco) {
 		if (preco < 0) {
