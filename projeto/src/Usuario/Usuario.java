@@ -84,11 +84,9 @@ public class Usuario {
 		return itens;
 	}
 
-	public boolean existeItem(String nomeItem) {
-		if (itens.get(nomeItem) != null) {
-			return true;
-		} else {
-			return false;
+	public void existeItem(String nomeItem) {
+		if(!itens.containsKey(nomeItem)){
+			throw new NullPointerException("Item nao encontrado");
 		}
 	}
 
@@ -206,13 +204,18 @@ public class Usuario {
 		return itens.get(itemEmprestado);
 	}
 
-	public boolean existeEmprestimo(String nomeItem) {
+	public void existeEmprestimo(String nomeItem, String nomeRequerente) {
+		boolean existe = false;
+		
 		for (Emprestimo emprestimo : emprestou) {
-			if(emprestimo.getItemEmprestado().equals(nomeItem)) {
-				return true;
-			}
+			if(emprestimo.getItemEmprestado().equals(nomeItem) && emprestimo.getNomeRequerente().equals(nomeRequerente)) {
+				existe = true;
+			}			
 		}
-		return false;
+		if(!existe) {
+			throw new NullPointerException("Emprestimo nao encontrado");
+		}
+		
 	}
 
 }

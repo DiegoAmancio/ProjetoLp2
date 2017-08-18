@@ -126,13 +126,27 @@ public class UsuarioControllerTeste {
 		
 		assertEquals("Item emprestado com sucesso", msgRetornada);
 		
+		
 		// teste item indisponivel para emprestimo
 		String nomeRequerente2 = "Joao";
 		String telefoneRequerente2 = "7890-7890";
 		
-		String msgErro = controlador.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente2, telefoneRequerente2, itemEmprestado, dataEmprestimo, periodo);
+		try {
+			controlador.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente2, telefoneRequerente2, itemEmprestado, dataEmprestimo, periodo);
+			fail("nao rodar essa linha");
+		} catch (Exception e) {
+			assertEquals("Item emprestado no momento", e.getMessage());
+		}
 		
-		assertEquals("Item emprestado no momento", msgErro);
+		//expectError "Emprestimo nao encontrado" devolverItem nomeDono="Joao" telefoneDono="98888-8888" nomeRequerente="Vilmar" 
+		//telefoneRequerente="55555-9999" nomeItem="War" dataEmprestimo="01/01/2018" dataDevolucao="06/01/2018"
+		try {
+			controlador.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, "War para meninas", dataEmprestimo, "06/01/2018");
+			fail("nao passa essa linha");
+		} catch (Exception e) {
+			assertEquals("Emprestimo nao encontrado", e.getMessage());
+		}
+		
 	}
 
 	
