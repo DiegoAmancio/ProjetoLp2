@@ -250,16 +250,15 @@ public class UsuarioController {
 		String identificador = getToken(nome, telefone);
 		
 		if (usuarios.containsKey(identificador)) {
-			return usuarios.get(identificador).getDetalhes(nomeItem);
-			
+			return usuarios.get(identificador).getDetalhes(nomeItem);			
 		}
 		throw new NullPointerException("Usuario invalido");
 
 	}
 	/**
 	 * Registra emprestimos, passos:
-	 * Primeiro, checa se o usuario tem determinado item para emprestar, se sim, verifica o status do item (se est� emprestado ou 
-	 * nao), se n�o estiver emprestado, realiza emprestimo.
+	 * Primeiro, checa se o usuario tem determinado item para emprestar, se sim, verifica o status do item (se esta emprestado ou 
+	 * nao), se nao estiver emprestado, realiza emprestimo.
 	 * 
 	 * @param nomeDono
 	 * @param telefoneDono
@@ -277,15 +276,46 @@ public class UsuarioController {
 		if(usuarios.get(identificadorDono).existeItem(itemEmprestado)){
 			if(usuarios.get(identificadorDono).getItem(itemEmprestado).getEmprestado() == Emprestado.NAO_EMPRESTADO){
 				Emprestimo novoEmprestimo = new Emprestimo(nomeDono, nomeRequerente, itemEmprestado, dataEmprestimo, periodo);
-				usuarios.get(identificadorDono).registraEmprestimo(novoEmprestimo, itemEmprestado);
-				return usuarios.get(identificadorRequerente).registraEmprestimo(novoEmprestimo, itemEmprestado);
+				usuarios.get(identificadorDono).empresta(novoEmprestimo, itemEmprestado);
+				usuarios.get(identificadorRequerente).pegaEmprestado(novoEmprestimo, itemEmprestado);
+				return "Item emprestado com sucesso";
 			}else{
-				return "Item emprestado no momento";				
+				throw new IllegalArgumentException("Item emprestado no momento");				
 			}
 		}else{
 			throw new NullPointerException("O item nao foi encontrado");
 		}	
 		
+	}
+	
+	//devolverItem nomeDono="Joao" telefoneDono="98888-8888" nomeRequerente="Carlos" telefoneRequerente="89999-9999" 
+		//nomeItem="War" dataEmprestimo="01/01/2018" dataDevolucao="06/01/2018"
+	/***
+	 * Devolve item e muda o status do item para NAO EMPRESTADO. 
+
+	 * @param nomeDono
+	 * @param telefoneDono
+	 * @param nomeRequerente
+	 * @param telefoneRequerente
+	 * @param nomeItem
+	 * @param dataEmprestimo
+	 * @param dataDevolucao
+	 * @return
+	 */
+	public String devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente, String nomeItem, String dataEmprestimo, String dataDevolucao) {
+		String identificadorDono = getToken(nomeDono, telefoneDono);
+		String identificadorRequerente = getToken(nomeRequerente, telefoneRequerente);
+		
+		if(usuarios.get(identificadorDono).existeItem(nomeItem)) { // checa se o item existe
+			if(usuarios.get(identificadorDono).existeEmprestimo(nomeItem)) {
+				usuarios.get(identificadorDono).getItem(nomeItem).setEmprestado(Emprestado.EMPRESTADO);
+				return "Item devolvido com sucesso";				
+			}else {
+				throw new NullPointerException("Emprestimo nao encontrado");
+			}
+		}else {
+			return "O item nao existe";
+		}
 	}
 
 }

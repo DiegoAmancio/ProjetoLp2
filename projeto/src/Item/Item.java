@@ -1,6 +1,9 @@
 package Item;
 
 import Enums.Emprestado;
+import Usuario.Emprestimo;
+
+import java.util.List;
 
 /**
  * representacao de um item
@@ -13,7 +16,8 @@ import Enums.Emprestado;
 public abstract class Item {
 	private String nome;
 	private double preco;
-
+	private List<Emprestimo> historicoDeEmprestimos;
+	
 	private Emprestado emprestado;
 	/**
 	 * constroi um item
@@ -122,6 +126,13 @@ public abstract class Item {
 			return false;
 		return true;
 	}
-	
+
+	public List<Emprestimo> getHistoricoDeEmprestimos() {
+		return historicoDeEmprestimos;
+	}
+
+	public void setHistoricoDeEmprestimos(List<Emprestimo> historicoDeEmprestimos) {
+		this.historicoDeEmprestimos = historicoDeEmprestimos;
+	}	
 
 }
