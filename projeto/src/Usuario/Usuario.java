@@ -1,10 +1,11 @@
 package Usuario;
 
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import Enums.Emprestado;
 import Item.Item;
 
 /**
@@ -20,8 +21,9 @@ public class Usuario {
 	private String telefone;
 	private String email;
 	private Map<String, Item> itens;
-	private List<Emprestimo> emprestimos; // lista de emprestimos que realizou de itens de outros usuarios
-	
+	private List<Emprestimo> emprestou; // lista de emprestimos que realizou de itens de outros usuarios
+	private List<Emprestimo> pegouEmprestado;
+
 	/**
 	 * 
 	 * @param nome
@@ -32,28 +34,32 @@ public class Usuario {
 	 *            email do usuario
 	 */
 	public Usuario(String nome, String telefone, String email) {
-		
+
 		validaUsuarioAtributo(nome, "Nome");
 		validaUsuarioAtributo(telefone, "Telefone");
 		validaUsuarioAtributo(email, "Email");
-		
+
 		this.nome = nome;
 		this.telefone = telefone;
 		this.email = email;
 		this.itens = new HashMap<String, Item>();
+		emprestou = new ArrayList<Emprestimo>();
+		pegouEmprestado = new ArrayList<Emprestimo>();
 	}
-	public void validaUsuarioAtributo(String atributo,String qualAtributo){
-		if(atributo == null){
-			throw new NullPointerException(qualAtributo+"invalido,nulo");
+
+	public void validaUsuarioAtributo(String atributo, String qualAtributo) {
+		if (atributo == null) {
+			throw new NullPointerException(qualAtributo + "invalido,nulo");
 		}
-		if(atributo.trim().equals("")){
-			throw new IllegalArgumentException(qualAtributo+"invalido,vazio");
+		if (atributo.trim().equals("")) {
+			throw new IllegalArgumentException(qualAtributo + "invalido,vazio");
 		}
 	}
+
 	public String getNome() {
 		return nome;
 	}
-	
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
@@ -72,50 +78,60 @@ public class Usuario {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}	
-		
+	}
+
 	public Map<String, Item> getItens() {
 		return itens;
 	}
-	public void setItens(Map<String, Item> itens) {
-		this.itens = itens;
+
+	public void existeItem(String nomeItem) {
+		if(!itens.containsKey(nomeItem)){
+			throw new NullPointerException("Item nao encontrado");
+		}
 	}
-	public List<Emprestimo> getEmprestimos() {
-		return emprestimos;
+
+	// TODO requerente nao tem item
+	public void empresta(Emprestimo novoEmprestimo, String nomeItem) {
+		emprestou.add(novoEmprestimo);
+		itens.get(nomeItem).setEmprestado(Emprestado.EMPRESTADO);
 	}
-	public void setEmprestimos(List<Emprestimo> emprestimos) {
-		this.emprestimos = emprestimos;
+
+	// TODO requerente nao tem item
+	public void pegaEmprestado(Emprestimo novoEmprestimo, String nomeItem) {
+		pegouEmprestado.add(novoEmprestimo);
 	}
+
 	public void adicionaItem(String nomeItem, Item item) {
 		if (!(itens.containsKey(nomeItem))) {
 			itens.put(nomeItem, item);
-		}		
-	}
-	
-	public void removerItem(String nomeItem){
-		if(itens.containsKey(nomeItem)){
-			itens.remove(nomeItem);
-		}else{
-			throw new NullPointerException("Item nao encontrado");			
 		}
-	}	
-	
+	}
+
+	public void removerItem(String nomeItem) {
+		if (itens.containsKey(nomeItem)) {
+			itens.remove(nomeItem);
+		} else {
+			throw new NullPointerException("Item nao encontrado");
+		}
+	}
+
 	/**
 	 * atualiza o preco do item
+	 * 
 	 * @param nomeItem
 	 * @param atributo
 	 * @param valor
 	 * @param preco
 	 */
-	public void atualizarItem(String nomeItem, String atributo, String valor){
-		if(itens.containsKey(nomeItem)){
+	public void atualizarItem(String nomeItem, String atributo, String valor) {
+		if (itens.containsKey(nomeItem)) {
 			switch (atributo.trim().toUpperCase()) {
-			
+
 			case "PRECO":
 				double novoValor = Double.parseDouble(valor);
 				itens.get(nomeItem).setPreco(novoValor);
 				break;
-			case "NOME": 
+			case "NOME":
 				Item item = itens.get(nomeItem);
 				itens.remove(nomeItem);
 				itens.put(valor, item);
@@ -124,34 +140,36 @@ public class Usuario {
 			default:
 				throw new IllegalArgumentException();
 			}
-		}else{
+		} else {
 			throw new NullPointerException("Item nao encontrado");
 		}
 	}
+
 	/**
 	 * Retorna o preco do item
+	 * 
 	 * @param nomeItem
 	 * @param atributo
 	 * @return
 	 */
-	
-		public String getInfoItem(String nomeItem, String atributo){
-			if(itens.containsKey(nomeItem)){				
-				switch (atributo.trim().toUpperCase()) {
-				case "PRECO":
-					return Double.toString(itens.get(nomeItem).getPreco());					
-				case "NOME":
-					return itens.get(nomeItem).getNome();
-				default:
-					throw new IllegalArgumentException();
-				}
-			}else{
-				throw new IllegalArgumentException("Item nao encontrado");
-			}
-		}
 
-	public String getDetalhes(String nomeItem){
-		if(itens.containsKey(nomeItem)){
+	public String getInfoItem(String nomeItem, String atributo) {
+		if (itens.containsKey(nomeItem)) {
+			switch (atributo.trim().toUpperCase()) {
+			case "PRECO":
+				return Double.toString(itens.get(nomeItem).getPreco());
+			case "NOME":
+				return itens.get(nomeItem).getNome();
+			default:
+				throw new IllegalArgumentException();
+			}
+		} else {
+			throw new IllegalArgumentException("Item nao encontrado");
+		}
+	}
+
+	public String getDetalhes(String nomeItem) {
+		if (itens.containsKey(nomeItem)) {
 			return itens.get(nomeItem).toString();
 		}
 		throw new NullPointerException("Item nao encontrado");
@@ -181,7 +199,23 @@ public class Usuario {
 		}
 		return saida;
 	}
-	
-	
-	
+
+	public Item getItem(String itemEmprestado) {
+		return itens.get(itemEmprestado);
+	}
+
+	public void existeEmprestimo(String nomeItem, String nomeRequerente) {
+		boolean existe = false;
+		
+		for (Emprestimo emprestimo : emprestou) {
+			if(emprestimo.getItemEmprestado().equals(nomeItem) && emprestimo.getNomeRequerente().equals(nomeRequerente)) {
+				existe = true;
+			}			
+		}
+		if(!existe) {
+			throw new NullPointerException("Emprestimo nao encontrado");
+		}
+		
+	}
+
 }

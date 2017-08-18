@@ -82,5 +82,13 @@ public class Facade {
 	public String pesquisarDetalhesItem(String nome ,String telefone,String nomeItem){
 		return controllerUsuario.pesquisarDetalhesItem( nome ,telefone,nomeItem);
 	}
+	
+	public String registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente, String itemEmprestado, String dataEmprestimo, int periodo){
+		return controllerUsuario.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, itemEmprestado, dataEmprestimo, periodo);
+	}
 		
+	public String devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente, String nomeItem, String dataEmprestimo, String dataDevolucao) {
+		return controllerUsuario.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
+	}
+	
 }

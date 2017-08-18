@@ -1,6 +1,9 @@
 package Item;
 
 import Enums.Emprestado;
+import Usuario.Emprestimo;
+
+import java.util.List;
 
 /**
  * representacao de um item
@@ -13,7 +16,8 @@ import Enums.Emprestado;
 public abstract class Item {
 	private String nome;
 	private double preco;
-
+	private List<Emprestimo> historicoDeEmprestimos;
+	
 	private Emprestado emprestado;
 	/**
 	 * constroi um item
@@ -49,7 +53,21 @@ public abstract class Item {
 	public String isEmprestado() {
 		return emprestado.getEmprestado();
 	}
+	
+	public Emprestado getEmprestado() {
+		return emprestado;
+	}
 
+	/**
+	 * Set status de emprestimo, se o parametro de entrada for true, o item ser� emprestado, se n�o, o item estar� livre
+	 * para ser emprestado
+	 * @param estaEmprestado
+	 */
+	public void setEmprestado(Emprestado estaEmprestado) {
+		if (this.emprestado != estaEmprestado) {
+			this.emprestado = estaEmprestado;		
+		}
+	}
 
 	public void verificaPreco(double preco) {
 		if (preco < 0) {
@@ -108,6 +126,13 @@ public abstract class Item {
 			return false;
 		return true;
 	}
-	
+
+	public List<Emprestimo> getHistoricoDeEmprestimos() {
+		return historicoDeEmprestimos;
+	}
+
+	public void setHistoricoDeEmprestimos(List<Emprestimo> historicoDeEmprestimos) {
+		this.historicoDeEmprestimos = historicoDeEmprestimos;
+	}	
 
 }
