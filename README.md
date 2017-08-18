@@ -1,7 +1,7 @@
 # ProjetoLp2
 Equipe:
 
- - Andre
+ - André
  - Diego
  - Isaac
  
