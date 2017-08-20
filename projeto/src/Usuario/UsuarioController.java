@@ -294,12 +294,8 @@ public class UsuarioController {
 		}
 	}
 
-	
 
-	// devolverItem nomeDono="Joao" telefoneDono="98888-8888"
-	// nomeRequerente="Carlos" telefoneRequerente="89999-9999"
-	// nomeItem="War" dataEmprestimo="01/01/2018" dataDevolucao="06/01/2018"
-	/***
+	/**
 	 * Devolve item e muda o status do item para NAO EMPRESTADO.
 	 * 
 	 * @param nomeDono
