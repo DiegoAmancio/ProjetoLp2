@@ -90,5 +90,13 @@ public class Facade {
 	public String devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente, String nomeItem, String dataEmprestimo, String dataDevolucao) {
 		return controllerUsuario.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
 	}
+	public String listarEmprestimosUsuarioEmprestando(String nome,String telefone){
+		return controllerUsuario.listarEmprestimosUsuarioEmprestando(nome, telefone);
+	}
+
+	public String listarEmprestimosUsuarioPegandoEmprestado(String nome,String telefone){
+		return controllerUsuario.listarEmprestimosUsuarioPegandoEmprestado(nome, telefone)
+	}
+
 	
 }

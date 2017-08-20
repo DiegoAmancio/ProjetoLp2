@@ -312,7 +312,7 @@ public class UsuarioController {
 	 * @return
 	 */
 	public String devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
-			String nomeItem, String dataEmprestimo, String dataDevolucao) {
+		String nomeItem, String dataEmprestimo, String dataDevolucao) {
 		String identificadorDono = getToken(nomeDono, telefoneDono);
 
 		usuarios.get(identificadorDono).existeEmprestimo(nomeItem, nomeRequerente);
@@ -324,5 +324,12 @@ public class UsuarioController {
 		if (!usuarios.containsKey(tokenUsuario)) {
 			throw new NullPointerException("Usuario invalido");
 		}
+	}
+
+	public String listarEmprestimosUsuarioEmprestando(String nome, String telefone) {
+		
+		String identificadorDono = getToken(nome, telefone);
+		existeUsuario(identificadorDono);
+		return usuarios.get(identificadorDono).listarItensEmprestados();
 	}
 }

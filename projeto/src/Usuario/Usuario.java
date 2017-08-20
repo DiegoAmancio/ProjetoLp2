@@ -80,9 +80,6 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public Map<String, Item> getItens() {
-		return itens;
-	}
 
 	public void existeItem(String nomeItem) {
 		if(!itens.containsKey(nomeItem)){
@@ -216,6 +213,11 @@ public class Usuario {
 			throw new NullPointerException("Emprestimo nao encontrado");
 		}
 		
+	}
+
+	public String listarItensEmprestados() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
