@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
 /**
  * representacao de um item
  * 
@@ -22,7 +21,7 @@ public abstract class Item {
 	private String nome;
 	private double preco;
 	private List<Emprestimo> historicoDeEmprestimos;
-
+	
 	private Emprestado emprestado;
 
 	/**
@@ -33,7 +32,7 @@ public abstract class Item {
 	 * @param preco2
 	 *            valor de compra deste item
 	 */
-	public Item(String donoItem,String nome, double preco) {
+	public Item(String donoItem, String nome, double preco) {
 		verificaPreco(preco);
 		this.donoItem = donoItem;
 		this.nome = nome;
@@ -45,6 +44,7 @@ public abstract class Item {
 	public String getNome() {
 		return nome;
 	}
+	
 
 	public void setNome(String nome) {
 		this.nome = nome;
@@ -65,7 +65,9 @@ public abstract class Item {
 	public Emprestado getEmprestado() {
 		return emprestado;
 	}
-
+	public int numeroEmprestimos() {
+		return historicoDeEmprestimos.size();
+	}
 	/**
 	 * Set status de emprestimo, se o parametro de entrada for true, o item ser�
 	 * emprestado, se n�o, o item estar� livre para ser emprestado
@@ -144,27 +146,26 @@ public abstract class Item {
 	}
 
 	public void adicionarHistorico(Emprestimo novoEmprestimo) {
-		boolean s = false;
+		
+		boolean temEmprestimo = false;
 		for (int i = 0; i < historicoDeEmprestimos.size(); i++) {
-			if (historicoDeEmprestimos.get(i).getItemEmprestado().equals(novoEmprestimo.getItemEmprestado())) {
-				s = true;
+			if (historicoDeEmprestimos.get(i).equals(novoEmprestimo)) {
+				temEmprestimo = true;
 
 			}
 
 		}
-		if (!(s)) {
+		if (!(temEmprestimo)) {
 			historicoDeEmprestimos.add(novoEmprestimo);
-	}
+		}
 	}
 
 	public void atualizandoEmprestimo(Emprestimo emprestimo, String dataDevolucao) {
-		if (historicoDeEmprestimos.size() > 0) {
-			if (historicoDeEmprestimos.contains(emprestimo)) {
-				for (int i = 0; i < historicoDeEmprestimos.size(); i++) {
-					if (historicoDeEmprestimos.get(i).equals(emprestimo)) {
-						historicoDeEmprestimos.get(i).devolveu(dataDevolucao);
-						;
-					}
+		if (historicoDeEmprestimos.contains(emprestimo)) {
+			for (int i = 0; i < historicoDeEmprestimos.size(); i++) {
+				if (historicoDeEmprestimos.get(i).equals(emprestimo)) {
+					historicoDeEmprestimos.get(i).devolveu(dataDevolucao);
+					
 				}
 			}
 		}

@@ -106,5 +106,8 @@ public class Facade {
 	public String listarItensEmprestados(){
 		return controllerUsuario.listarItensEmprestados();
 	}
+	public String listarTop10Itens() {
+		return controllerUsuario.listarTop10Itens();
+	}
 	
 }

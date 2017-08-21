@@ -24,8 +24,7 @@ public class Usuario {
 	private String telefone;
 	private String email;
 	private Map<String, Item> itens;
-	private List<Emprestimo> emprestou; // lista de emprestimos que realizou de
-										// itens de outros usuarios
+	private List<Emprestimo> emprestou; 
 	private List<Emprestimo> pegouEmprestado;
 
 	/**

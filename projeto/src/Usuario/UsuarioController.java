@@ -115,7 +115,7 @@ public class UsuarioController {
 	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma) {
 		String identificador = getToken(nome, telefone);
 		if (usuarios.get(identificador) != null) {
-			Item eletronico = itemController.cadastrarEletronico(nome,nomeItem, preco, plataforma);
+			Item eletronico = itemController.cadastrarEletronico(nome, nomeItem, preco, plataforma);
 			usuarios.get(identificador).adicionaItem(nomeItem, eletronico);
 		} else {
 			throw new NullPointerException("Usuario invalido no eletronico");
@@ -145,7 +145,7 @@ public class UsuarioController {
 	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, double preco) {
 		String identificador = getToken(nome, telefone);
 		if (usuarios.get(identificador) != null) {
-			Item jogoTabuleiro = itemController.cadastrarJogoTabuleiro(nome,nomeItem, preco);
+			Item jogoTabuleiro = itemController.cadastrarJogoTabuleiro(nome, nomeItem, preco);
 			usuarios.get(identificador).adicionaItem(nomeItem, jogoTabuleiro);
 		} else {
 			throw new NullPointerException("Usuario invalido");
@@ -164,8 +164,8 @@ public class UsuarioController {
 			String genero, String classificacao, int anoLancamento) {
 		String identificador = getToken(nome, telefone);
 		if (usuarios.get(identificador) != null) {
-			Item BluRayFilme = itemController.cadastrarBluRayFilme(nome,nomeItem, preco, duracao, genero, classificacao,
-					anoLancamento);
+			Item BluRayFilme = itemController.cadastrarBluRayFilme(nome, nomeItem, preco, duracao, genero,
+					classificacao, anoLancamento);
 			usuarios.get(identificador).adicionaItem(nomeItem, BluRayFilme);
 		} else {
 			throw new NullPointerException("Usuario invalido");
@@ -186,7 +186,7 @@ public class UsuarioController {
 			int numeroFaixas, String artista, String classificacao) {
 		String identificador = getToken(nome, telefone);
 		if (usuarios.get(identificador) != null) {
-			Item BluRayFilme = itemController.cadastrarBluRayShow(nome,nomeItem, preco, duracao, numeroFaixas, artista,
+			Item BluRayFilme = itemController.cadastrarBluRayShow(nome, nomeItem, preco, duracao, numeroFaixas, artista,
 					classificacao);
 			usuarios.get(identificador).adicionaItem(nomeItem, BluRayFilme);
 		} else {
@@ -198,8 +198,8 @@ public class UsuarioController {
 			int duracao, String classificacao, String genero, int numeroDaTemporada) {
 		String identificador = getToken(nome, telefone);
 		if (usuarios.get(identificador) != null) {
-			Item BluRayFilme = itemController.cadastrarBluRaySerie(nome,nomeItem, preco, descricao, duracao, classificacao,
-					genero, numeroDaTemporada);
+			Item BluRayFilme = itemController.cadastrarBluRaySerie(nome, nomeItem, preco, descricao, duracao,
+					classificacao, genero, numeroDaTemporada);
 			usuarios.get(identificador).adicionaItem(nomeItem, BluRayFilme);
 		} else {
 			throw new NullPointerException("Usuario invalido");
@@ -283,19 +283,18 @@ public class UsuarioController {
 		existeUsuario(identificadorRequerente);
 
 		usuarios.get(identificadorDono).existeItem(itemEmprestado);
-
-		if (usuarios.get(identificadorDono).getItem(itemEmprestado).getEmprestado() == Emprestado.NAO_EMPRESTADO) {
+		
+		if ((usuarios.get(identificadorDono).getItem(itemEmprestado).getEmprestado() == Emprestado.NAO_EMPRESTADO)) {
 			Emprestimo novoEmprestimo = new Emprestimo(nomeDono, nomeRequerente, itemEmprestado, dataEmprestimo,
 					periodo);
 			usuarios.get(identificadorDono).empresta(novoEmprestimo, itemEmprestado);
 			usuarios.get(identificadorRequerente).pegaEmprestado(novoEmprestimo, itemEmprestado);
-			itemController.adicionarHistorico(itemEmprestado,novoEmprestimo);
+			itemController.adicionarHistorico(itemEmprestado, novoEmprestimo);
 			return "Item emprestado com sucesso";
 		} else {
 			throw new IllegalArgumentException("Item emprestado no momento");
 		}
 	}
-
 
 	/**
 	 * Devolve item e muda o status do item para NAO EMPRESTADO.
@@ -310,14 +309,14 @@ public class UsuarioController {
 	 * @return
 	 */
 	public String devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
-		String nomeItem, String dataEmprestimo, String dataDevolucao) {
+			String nomeItem, String dataEmprestimo, String dataDevolucao) {
 		String identificadorDono = getToken(nomeDono, telefoneDono);
 
 		usuarios.get(identificadorDono).existeEmprestimo(nomeItem, nomeRequerente);
-		usuarios.get(identificadorDono).getItem(nomeItem).setEmprestado(Emprestado.EMPRESTADO);
+		usuarios.get(identificadorDono).getItem(nomeItem).setEmprestado(Emprestado.NAO_EMPRESTADO);
 		
 		Emprestimo emprestimo = usuarios.get(identificadorDono).fechandoEmprestimo(dataDevolucao, nomeItem);
-		if(emprestimo != null){
+		if (emprestimo != null) {
 			itemController.adicionarHistorico(emprestimo.getItemEmprestado(), emprestimo);
 		}
 		return "Item devolvido com sucesso";
@@ -330,7 +329,7 @@ public class UsuarioController {
 	}
 
 	public String listarEmprestimosUsuarioEmprestando(String nome, String telefone) {
-		
+
 		String identificadorDono = getToken(nome, telefone);
 		existeUsuario(identificadorDono);
 		return usuarios.get(identificadorDono).listarItensEmprestados();
@@ -341,14 +340,22 @@ public class UsuarioController {
 		existeUsuario(identificadorDono);
 		return usuarios.get(identificadorDono).listarItensPegouEmprestado();
 	}
-	public String listarEmprestimosItem(String nomeItem){
+
+	public String listarEmprestimosItem(String nomeItem) {
 		return itemController.historicoEmprestimosItem(nomeItem);
 	}
-	public String listarItensNaoEmprestados(){
+
+	public String listarItensNaoEmprestados() {
 		return itemController.listarItensNaoEmprestados();
 	}
-	public String listarItensEmprestados(){
+
+	public String listarItensEmprestados() {
 		return itemController.listarItensEmprestados();
 	}
-	
+
+	public String listarTop10Itens() {
+		
+		return itemController.top10();
+	}
+
 }

@@ -35,3 +35,4 @@ expectError "Usuario invalido" listarEmprestimosUsuarioEmprestando nome="Paulo" 
 
 fecharSistema
 
+

@@ -27,6 +27,7 @@ public class Emprestimo {
 		this.atrasou = false;
 		this.dataEntrega = "Emprestimo em andamento";
 		this.devolveu = false;
+		
 	}
 
 	public void fechandoEmprestimo(String dataEntrega) {
@@ -34,13 +35,13 @@ public class Emprestimo {
 		df.setLenient(false);
 		Date d1 = null;
 		try {
-			d1 = df.parse("07/09/1822");
+			d1 = df.parse(dataEmprestimo);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		Date d2 = null;
 		try {
-			d2 = df.parse("05/06/2006");
+			d2 = df.parse(dataEntrega);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -52,7 +53,9 @@ public class Emprestimo {
 		devolveu = true;
 		this.dataEntrega = dataEntrega;
 	}
-	
+	public boolean getAtrasou() {
+		return atrasou;
+	}
 
 	public int getPeriodo() {
 		return periodo;

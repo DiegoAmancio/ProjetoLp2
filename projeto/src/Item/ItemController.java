@@ -23,6 +23,7 @@ public class ItemController {
 	
 	private List<Item> itens;
 	
+	
 	/**
 	 * Construtor de ItemController.
 	 */
@@ -241,14 +242,50 @@ public class ItemController {
 		return saida;
 	}
 	public String listarItensEmprestados(){
-		
+		ArrayList<Item> itensEmprestados = retornarArray();
 		String saida = "";
-		for (int i = 0; i < itens.size(); i++) {
-			if(itens.get(i).getEmprestado().equals(Emprestado.EMPRESTADO)){
-				saida += "Dono do item: "+itens.get(i).getDonoItem()+", Nome do item emprestado: "+itens.get(i).getNome()+"|";
+		
+		for (int i = 0; i < itensEmprestados.size(); i++) {
+			if(itensEmprestados.get(i).getEmprestado().equals(Emprestado.EMPRESTADO)){
+				saida += "Dono do item: "+itensEmprestados.get(i).getDonoItem()+", Nome do item emprestado: "+itensEmprestados.get(i).getNome()+"|";
 			}
 		}
 		return saida;
 	}
+
+	private ArrayList<Item> retornarArray() {
+		ArrayList<Item> itensEmprestados = new ArrayList<>();
+		Collections.sort(itens,new ItemNomeComparator());
+		for (int i = 0; i < itens.size(); i++) {
+			if(itens.get(i).getEmprestado().equals(Emprestado.EMPRESTADO)){
+				itensEmprestados.add(itens.get(i));
+			}
+		}
+		return itensEmprestados;
+		
+	}
+	public String top10() {
+		String saida = "";
+		ArrayList<Item> itens = ordenarPorEmprestimos();
+		for (int i = 0; i < this.itens.size(); i++) {
+			Item item = this.itens.get(i);
+			saida += (i+1) + ") " + item.numeroEmprestimos() + " emprestimos" + item.toString() + "|";
+		}
+		return saida;
+		
+	}
+	public ArrayList<Item> ordenarPorEmprestimos(){
+		ArrayList<Item> itens = new ArrayList<>();
+		
+		for (int i = 0; i <this.itens.size(); i++) {
+			if(this.itens.get(i).numeroEmprestimos() == 0) {
+				break;
+			}
+			itens.add(this.itens.get(i));
+		}
+		Collections.sort(itens,new ItemCompararNumeroEmprestimos());
+		return itens;
+	}
+	
 	
 }
