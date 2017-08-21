@@ -1,5 +1,6 @@
 package Usuario;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -272,9 +273,10 @@ public class UsuarioController {
 	 * @param dataEmprestimo
 	 * @param periodo
 	 * @return
+	 * @throws ParseException 
 	 */
 	public String registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente,
-			String telefoneRequerente, String itemEmprestado, String dataEmprestimo, int periodo) {
+			String telefoneRequerente, String itemEmprestado, String dataEmprestimo, int periodo) throws ParseException {
 
 		String identificadorDono = getToken(nomeDono, telefoneDono);
 		String identificadorRequerente = getToken(nomeRequerente, telefoneRequerente);
@@ -320,5 +322,15 @@ public class UsuarioController {
 		if (!usuarios.containsKey(tokenUsuario)) {
 			throw new NullPointerException("Usuario invalido");
 		}
+	}
+	
+
+	//expect "Emprestimos: EMPRESTIMO - De: Joao, Para: Carlos, War, 01/01/2018, 7 dias, ENTREGA: 06/01/2018|EMPRESTIMO"
+	// + " - De: Joao, Para: Josefina, Xadrez de Bruxo, 15/01/2018, 5 dias, ENTREGA: Emprestimo em andamento|" 
+	// listarEmprestimosUsuarioEmprestando nome="Joao" telefone="98888-8888"
+	
+	public String listarEmprestimoUsuarioEmprestado(String nomeDono, String telefoneDono){
+		String identificador = getToken(nomeDono, telefoneDono);
+		return usuarios.get(identificador).listarEmprestimoUsuarioEmprestado();		
 	}
 }

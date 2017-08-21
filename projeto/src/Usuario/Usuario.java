@@ -1,6 +1,7 @@
 package Usuario;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,13 +91,12 @@ public class Usuario {
 		}
 	}
 
-	// TODO requerente nao tem item
+
 	public void empresta(Emprestimo novoEmprestimo, String nomeItem) {
 		emprestou.add(novoEmprestimo);
 		itens.get(nomeItem).setEmprestado(Emprestado.EMPRESTADO);
 	}
-
-	// TODO requerente nao tem item
+	
 	public void pegaEmprestado(Emprestimo novoEmprestimo, String nomeItem) {
 		pegouEmprestado.add(novoEmprestimo);
 	}
@@ -216,6 +216,19 @@ public class Usuario {
 			throw new NullPointerException("Emprestimo nao encontrado");
 		}
 		
+	}
+	
+	/**
+	 * Retorna a lista de emprestimos realizado pelo usuario
+	 * @return
+	 */
+	public String listarEmprestimoUsuarioEmprestado(){
+		Collections.sort(emprestou,new EmprestimoComparator());
+		String lista = "";
+		for (Emprestimo emprestimo : emprestou) {
+			lista += emprestimo.toStringEmprestou() + "|";
+		}
+		return lista;
 	}
 
 }

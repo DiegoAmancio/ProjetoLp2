@@ -2,6 +2,8 @@ package Usuario;
 
 import static org.junit.Assert.*;
 
+import java.text.ParseException;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -100,7 +102,7 @@ public class UsuarioControllerTeste {
 //	public String registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente, 
 	//String telefoneRequerente, String itemEmprestado, String dataEmprestimo, int periodo){
 	@Test
-	public void registraEmprestimo(){
+	public void registraEmprestimo() throws ParseException{
 		String nomeDono = "Isaac";
 		String telefoneDono = "1234-1234";
 		

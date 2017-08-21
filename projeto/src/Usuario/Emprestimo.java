@@ -3,16 +3,17 @@ package Usuario;
 public class Emprestimo {
 	private String nomeDono;
 	private String nomeRequerente;
-	private String dataEmprestimo;	
+	private String dataEmprestimo;
 	private String itemEmprestado;
 	private int periodo;
-	
+	private String dataDevolucao; 
+
 	public Emprestimo(String nomeDono, String nomeRequerente, String itemEmprestado, String dataEmprestimo, int periodo) {
 		this.nomeDono = nomeDono;
 		this.nomeRequerente = nomeRequerente;
 		this.itemEmprestado = itemEmprestado;
-		this.dataEmprestimo = dataEmprestimo;				
 		this.periodo = periodo;
+		this.dataEmprestimo = dataEmprestimo;
 	}
 	
 	public int getPeriodo() {
@@ -40,7 +41,7 @@ public class Emprestimo {
 	}
 
 	public String getDataEmprestimo() {
-		return dataEmprestimo;
+		return dataEmprestimo.toString();
 	}
 
 	public void setDataEmprestimo(String dataEmprestimo) {
@@ -53,6 +54,18 @@ public class Emprestimo {
 
 	public void setItemEmprestado(String itemEmprestado) {
 		this.itemEmprestado = itemEmprestado;
+	}
+
+	public String toStringEmprestou(){
+		return "EMPRESTIMO - De: " + this.nomeDono + ", " + " Para: " + this.nomeRequerente + ", " + this.itemEmprestado + ", " + this.dataEmprestimo + ", " + this.periodo + ", ENTREGA: " + this.dataDevolucao;
+	}	
+	
+	public String getDataDevolucao() {
+		return dataDevolucao;
+	}
+
+	public void setDataDevolucao(String dataDevolucao) {
+		this.dataDevolucao = dataDevolucao;
 	}
 
 	@Override
@@ -97,7 +110,5 @@ public class Emprestimo {
 			return false;
 		return true;
 	}
-	
-	
-	
+
 }

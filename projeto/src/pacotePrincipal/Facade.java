@@ -1,5 +1,7 @@
 package pacotePrincipal;
 
+import java.text.ParseException;
+
 import Usuario.UsuarioController;
 
 public class Facade {
@@ -83,10 +85,14 @@ public class Facade {
 		return controllerUsuario.pesquisarDetalhesItem( nome ,telefone,nomeItem);
 	}
 	
-	public String registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente, String itemEmprestado, String dataEmprestimo, int periodo){
+	public String registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente, String itemEmprestado, String dataEmprestimo, int periodo) throws ParseException{
 		return controllerUsuario.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, itemEmprestado, dataEmprestimo, periodo);
 	}
 		
+	public String listarEmprestimosUsuarioEmprestando(String nomeDono, String telefoneDono){
+		return listarEmprestimosUsuarioEmprestando(nomeDono, telefoneDono);
+	}
+	
 	public String devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente, String nomeItem, String dataEmprestimo, String dataDevolucao) {
 		return controllerUsuario.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
 	}
