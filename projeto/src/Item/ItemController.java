@@ -242,7 +242,6 @@ public class ItemController {
 	}
 	public String listarItensEmprestados(){
 		
-		
 		String saida = "";
 		for (int i = 0; i < itens.size(); i++) {
 			if(itens.get(i).getEmprestado().equals(Emprestado.EMPRESTADO)){
