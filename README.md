@@ -10,4 +10,5 @@ Monitora:
  - Mariana
 
 Professor:
+
  - Matheus Gaudencio
