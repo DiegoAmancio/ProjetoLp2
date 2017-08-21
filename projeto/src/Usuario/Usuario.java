@@ -1,12 +1,15 @@
 package Usuario;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import Enums.Emprestado;
 import Item.Item;
+import emprestismo.Emprestimo;
+import emprestismo.EmprestimoComparator;
 
 /**
  * representacao de um usuario
@@ -21,7 +24,8 @@ public class Usuario {
 	private String telefone;
 	private String email;
 	private Map<String, Item> itens;
-	private List<Emprestimo> emprestou; // lista de emprestimos que realizou de itens de outros usuarios
+	private List<Emprestimo> emprestou; // lista de emprestimos que realizou de
+										// itens de outros usuarios
 	private List<Emprestimo> pegouEmprestado;
 
 	/**
@@ -80,9 +84,8 @@ public class Usuario {
 		this.email = email;
 	}
 
-
 	public void existeItem(String nomeItem) {
-		if(!itens.containsKey(nomeItem)){
+		if (!itens.containsKey(nomeItem)) {
 			throw new NullPointerException("Item nao encontrado");
 		}
 	}
@@ -203,21 +206,60 @@ public class Usuario {
 
 	public void existeEmprestimo(String nomeItem, String nomeRequerente) {
 		boolean existe = false;
-		
+
 		for (Emprestimo emprestimo : emprestou) {
-			if(emprestimo.getItemEmprestado().equals(nomeItem) && emprestimo.getNomeRequerente().equals(nomeRequerente)) {
+			if (emprestimo.getItemEmprestado().equals(nomeItem)
+					&& emprestimo.getNomeRequerente().equals(nomeRequerente)) {
 				existe = true;
-			}			
+			}
 		}
-		if(!existe) {
+		if (!existe) {
 			throw new NullPointerException("Emprestimo nao encontrado");
 		}
-		
+
 	}
 
 	public String listarItensEmprestados() {
-		// TODO Auto-generated method stub
-		return null;
+		String saida = "Emprestimos: ";
+		Collections.sort(emprestou, new EmprestimoComparator());
+		if (emprestou.size() > 0) {
+			for (int i = 0; i < emprestou.size(); i++) {
+				saida += emprestou.get(i).toString();
+			}
+			return saida;
+		} else {
+			return ("Nenhum item emprestado");
+		}
 	}
 
+	public String listarItensPegouEmprestado() {
+		String saida = "Emprestimos pegos: ";
+		Collections.sort(emprestou, new EmprestimoComparator());
+		if (pegouEmprestado.size() > 0) {
+			for (int i = 0; i < pegouEmprestado.size(); i++) {
+				saida += pegouEmprestado.get(i).toString();
+			}
+			return saida;
+		} else {
+			return ("Nenhum item pego emprestado");
+		}
+	}
+	public void devolvendoItem(String nomeItem,String data){
+		for (int i = 0; i < emprestou.size(); i++) {
+			if(emprestou.get(i).getItemEmprestado().equals(nomeItem)){
+				emprestou.get(i).devolveu(data);
+				break;
+			}
+		}
+	}
+	public Emprestimo fechandoEmprestimo(String dataEntrega,String nomeItem){
+		for (int i = 0; i < emprestou.size(); i++) {
+			if(emprestou.get(i).getItemEmprestado().equals(nomeItem)){
+				emprestou.get(i).devolveu(dataEntrega);
+				return emprestou.get(i);
+			}
+		}
+		return null;
+	}
+	
 }

@@ -26,8 +26,8 @@ public class BluRayShow extends BluRay {
 	 * @param nomeArtista
 	 *            (nome do artista do BRS)
 	 */
-	public BluRayShow(String nome, double preco, int duracao, String classificacao, int numeroFaixas, String nomeArtista) {
-		super(nome, preco, duracao, classificacao);
+	public BluRayShow(String donoItem,String nome, double preco, int duracao, String classificacao, int numeroFaixas, String nomeArtista) {
+		super(donoItem,nome, preco, duracao, classificacao);
 		this.numeroFaixas = numeroFaixas;
 		this.nomeArtista = nomeArtista;
 	}

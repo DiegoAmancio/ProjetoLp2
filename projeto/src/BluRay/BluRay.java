@@ -21,8 +21,8 @@ public class BluRay extends Item {
 	 * @param duracao (duracao do Bluray)
 	 * @param classificacao (classificacao do BluRay)
 	 */
-	public BluRay(String nome, double preco, int duracao, String classificacao) {
-		super(nome, preco);
+	public BluRay(String donoItem,String nome, double preco, int duracao, String classificacao) {
+		super(donoItem,nome, preco);
 		verificaClassificacao(classificacao);
 		this.duracao = duracao;
 	}

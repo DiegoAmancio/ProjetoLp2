@@ -6,6 +6,7 @@ import java.util.Map;
 import Enums.Emprestado;
 import Item.Item;
 import Item.ItemController;
+import emprestismo.Emprestimo;
 
 /**
  * representacao de um controlador de usuarios
@@ -114,7 +115,7 @@ public class UsuarioController {
 	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma) {
 		String identificador = getToken(nome, telefone);
 		if (usuarios.get(identificador) != null) {
-			Item eletronico = itemController.cadastrarEletronico(nomeItem, preco, plataforma);
+			Item eletronico = itemController.cadastrarEletronico(nome,nomeItem, preco, plataforma);
 			usuarios.get(identificador).adicionaItem(nomeItem, eletronico);
 		} else {
 			throw new NullPointerException("Usuario invalido no eletronico");
@@ -144,7 +145,7 @@ public class UsuarioController {
 	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, double preco) {
 		String identificador = getToken(nome, telefone);
 		if (usuarios.get(identificador) != null) {
-			Item jogoTabuleiro = itemController.cadastrarJogoTabuleiro(nomeItem, preco);
+			Item jogoTabuleiro = itemController.cadastrarJogoTabuleiro(nome,nomeItem, preco);
 			usuarios.get(identificador).adicionaItem(nomeItem, jogoTabuleiro);
 		} else {
 			throw new NullPointerException("Usuario invalido");
@@ -163,7 +164,7 @@ public class UsuarioController {
 			String genero, String classificacao, int anoLancamento) {
 		String identificador = getToken(nome, telefone);
 		if (usuarios.get(identificador) != null) {
-			Item BluRayFilme = itemController.cadastrarBluRayFilme(nomeItem, preco, duracao, genero, classificacao,
+			Item BluRayFilme = itemController.cadastrarBluRayFilme(nome,nomeItem, preco, duracao, genero, classificacao,
 					anoLancamento);
 			usuarios.get(identificador).adicionaItem(nomeItem, BluRayFilme);
 		} else {
@@ -185,7 +186,7 @@ public class UsuarioController {
 			int numeroFaixas, String artista, String classificacao) {
 		String identificador = getToken(nome, telefone);
 		if (usuarios.get(identificador) != null) {
-			Item BluRayFilme = itemController.cadastrarBluRayShow(nomeItem, preco, duracao, numeroFaixas, artista,
+			Item BluRayFilme = itemController.cadastrarBluRayShow(nome,nomeItem, preco, duracao, numeroFaixas, artista,
 					classificacao);
 			usuarios.get(identificador).adicionaItem(nomeItem, BluRayFilme);
 		} else {
@@ -197,7 +198,7 @@ public class UsuarioController {
 			int duracao, String classificacao, String genero, int numeroDaTemporada) {
 		String identificador = getToken(nome, telefone);
 		if (usuarios.get(identificador) != null) {
-			Item BluRayFilme = itemController.cadastrarBluRaySerie(nomeItem, preco, descricao, duracao, classificacao,
+			Item BluRayFilme = itemController.cadastrarBluRaySerie(nome,nomeItem, preco, descricao, duracao, classificacao,
 					genero, numeroDaTemporada);
 			usuarios.get(identificador).adicionaItem(nomeItem, BluRayFilme);
 		} else {
@@ -288,6 +289,7 @@ public class UsuarioController {
 					periodo);
 			usuarios.get(identificadorDono).empresta(novoEmprestimo, itemEmprestado);
 			usuarios.get(identificadorRequerente).pegaEmprestado(novoEmprestimo, itemEmprestado);
+			itemController.adicionarHistorico(itemEmprestado,novoEmprestimo);
 			return "Item emprestado com sucesso";
 		} else {
 			throw new IllegalArgumentException("Item emprestado no momento");
@@ -317,6 +319,11 @@ public class UsuarioController {
 
 		usuarios.get(identificadorDono).existeEmprestimo(nomeItem, nomeRequerente);
 		usuarios.get(identificadorDono).getItem(nomeItem).setEmprestado(Emprestado.EMPRESTADO);
+		
+		Emprestimo emprestimo = usuarios.get(identificadorDono).fechandoEmprestimo(dataDevolucao, nomeItem);
+		if(emprestimo != null){
+			itemController.adicionarHistorico(emprestimo.getItemEmprestado(), emprestimo);
+		}
 		return "Item devolvido com sucesso";
 	}
 
@@ -332,4 +339,20 @@ public class UsuarioController {
 		existeUsuario(identificadorDono);
 		return usuarios.get(identificadorDono).listarItensEmprestados();
 	}
+
+	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) {
+		String identificadorDono = getToken(nome, telefone);
+		existeUsuario(identificadorDono);
+		return usuarios.get(identificadorDono).listarItensPegouEmprestado();
+	}
+	public String listarEmprestimosItem(String nomeItem){
+		return itemController.historicoEmprestimosItem(nomeItem);
+	}
+	public String listarItensNaoEmprestados(){
+		return itemController.listarItensNaoEmprestados();
+	}
+	public String listarItensEmprestados(){
+		return itemController.listarItensEmprestados();
+	}
+	
 }

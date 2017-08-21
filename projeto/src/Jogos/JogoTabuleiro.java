@@ -10,8 +10,8 @@ public class JogoTabuleiro extends Item{
 	private Completo jogoCompleto;
 	private List<Peca> pecasPerdidas;
 	
-	public JogoTabuleiro(String nome, double preco) {
-		super(nome, preco);
+	public JogoTabuleiro(String donoItem,String nome, double preco) {
+		super(donoItem,nome, preco);
 		pecasPerdidas = new ArrayList<>();
 		this.jogoCompleto = Completo.COMPLETO;
 	}

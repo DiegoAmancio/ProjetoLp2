@@ -95,8 +95,16 @@ public class Facade {
 	}
 
 	public String listarEmprestimosUsuarioPegandoEmprestado(String nome,String telefone){
-		return controllerUsuario.listarEmprestimosUsuarioPegandoEmprestado(nome, telefone)
+		return controllerUsuario.listarEmprestimosUsuarioPegandoEmprestado(nome, telefone);
 	}
-
+	public String listarEmprestimosItem(String nomeItem){
+		return controllerUsuario.listarEmprestimosItem(nomeItem);
+	}
+	public String listarItensNaoEmprestados(){
+		return controllerUsuario.listarItensNaoEmprestados();
+	}
+	public String listarItensEmprestados(){
+		return controllerUsuario.listarItensEmprestados();
+	}
 	
 }

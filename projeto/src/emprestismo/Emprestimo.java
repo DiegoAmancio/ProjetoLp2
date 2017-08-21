@@ -1,20 +1,59 @@
-package Usuario;
+package emprestismo;
+
+import java.util.*;
+import java.text.*;
+
 
 public class Emprestimo {
 	private String nomeDono;
 	private String nomeRequerente;
-	private String dataEmprestimo;	
+	private String dataEmprestimo;
+	private String dataEntrega;
 	private String itemEmprestado;
 	private int periodo;
+	private int devolveuDias;
+	private boolean atrasou;
+	private boolean devolveu;
 	
-	public Emprestimo(String nomeDono, String nomeRequerente, String itemEmprestado, String dataEmprestimo, int periodo) {
+
+	public Emprestimo(String nomeDono, String nomeRequerente, String itemEmprestado, String dataEmprestimo,
+			int periodo) {
 		this.nomeDono = nomeDono;
 		this.nomeRequerente = nomeRequerente;
 		this.itemEmprestado = itemEmprestado;
-		this.dataEmprestimo = dataEmprestimo;				
+		this.dataEmprestimo = dataEmprestimo;
 		this.periodo = periodo;
+		this.devolveuDias = periodo;
+		this.atrasou = false;
+		this.dataEntrega = "Emprestimo em andamento";
+		this.devolveu = false;
+	}
+
+	public void fechandoEmprestimo(String dataEntrega) {
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		df.setLenient(false);
+		Date d1 = null;
+		try {
+			d1 = df.parse("07/09/1822");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		Date d2 = null;
+		try {
+			d2 = df.parse("05/06/2006");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		long dt = (d2.getTime() - d1.getTime()) + 3600000; 
+		devolveuDias = (int) (dt / 86400000L);
+		if(devolveuDias > periodo){
+			atrasou = true;
+		}
+		devolveu = true;
+		this.dataEntrega = dataEntrega;
 	}
 	
+
 	public int getPeriodo() {
 		return periodo;
 	}
@@ -22,7 +61,6 @@ public class Emprestimo {
 	public void setPeriodo(int periodo) {
 		this.periodo = periodo;
 	}
-
 	public String getNomeDono() {
 		return nomeDono;
 	}
@@ -38,7 +76,9 @@ public class Emprestimo {
 	public void setNomeRequerente(String nomeRequerente) {
 		this.nomeRequerente = nomeRequerente;
 	}
-
+	public void devolveu(String dataDevolucao){
+		this.dataEntrega = dataDevolucao;
+	}
 	public String getDataEmprestimo() {
 		return dataEmprestimo;
 	}
@@ -97,7 +137,12 @@ public class Emprestimo {
 			return false;
 		return true;
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+
+		return "EMPRESTIMO - De: " + nomeDono + ", Para: " + nomeRequerente + ", " + itemEmprestado + ", "
+				+ dataEmprestimo + ", " + devolveuDias + " dias, ENTREGA: " +dataEntrega+ "|";
+	}
+
 }
