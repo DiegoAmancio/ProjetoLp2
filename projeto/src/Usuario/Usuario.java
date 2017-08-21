@@ -222,13 +222,22 @@ public class Usuario {
 	 * Retorna a lista de emprestimos realizado pelo usuario
 	 * @return
 	 */
-	public String listarEmprestimoUsuarioEmprestado(){
+	public String listarEmprestimoUsuarioEmprestando(){
 		Collections.sort(emprestou,new EmprestimoComparator());
 		String lista = "";
 		for (Emprestimo emprestimo : emprestou) {
 			lista += emprestimo.toStringEmprestou() + "|";
 		}
-		return lista;
+		return "Emprestimos: " + lista;
+	}
+
+	public void devolverItem(String dataDevolucao, String nomeItem) {
+		for (Emprestimo emprestimo : emprestou) {
+			if(emprestimo.getItemEmprestado().equals(nomeItem)){
+				emprestimo.setDataDevolucao(dataDevolucao);
+				break;
+			}
+		}
 	}
 
 }

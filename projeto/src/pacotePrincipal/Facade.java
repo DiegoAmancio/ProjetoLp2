@@ -90,7 +90,7 @@ public class Facade {
 	}
 		
 	public String listarEmprestimosUsuarioEmprestando(String nomeDono, String telefoneDono){
-		return listarEmprestimosUsuarioEmprestando(nomeDono, telefoneDono);
+		return controllerUsuario.listarEmprestimosUsuarioEmprestando(nomeDono, telefoneDono);
 	}
 	
 	public String devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente, String nomeItem, String dataEmprestimo, String dataDevolucao) {

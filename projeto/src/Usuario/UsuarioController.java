@@ -312,9 +312,10 @@ public class UsuarioController {
 	public String devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
 			String nomeItem, String dataEmprestimo, String dataDevolucao) {
 		String identificadorDono = getToken(nomeDono, telefoneDono);
-
+		
 		usuarios.get(identificadorDono).existeEmprestimo(nomeItem, nomeRequerente);
 		usuarios.get(identificadorDono).getItem(nomeItem).setEmprestado(Emprestado.EMPRESTADO);
+		usuarios.get(identificadorDono).devolverItem(dataDevolucao, nomeItem);
 		return "Item devolvido com sucesso";
 	}
 
@@ -329,8 +330,8 @@ public class UsuarioController {
 	// + " - De: Joao, Para: Josefina, Xadrez de Bruxo, 15/01/2018, 5 dias, ENTREGA: Emprestimo em andamento|" 
 	// listarEmprestimosUsuarioEmprestando nome="Joao" telefone="98888-8888"
 	
-	public String listarEmprestimoUsuarioEmprestado(String nomeDono, String telefoneDono){
+	public String listarEmprestimosUsuarioEmprestando(String nomeDono, String telefoneDono){
 		String identificador = getToken(nomeDono, telefoneDono);
-		return usuarios.get(identificador).listarEmprestimoUsuarioEmprestado();		
+		return usuarios.get(identificador).listarEmprestimoUsuarioEmprestando();		
 	}
 }

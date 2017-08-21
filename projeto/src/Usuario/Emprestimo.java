@@ -14,6 +14,7 @@ public class Emprestimo {
 		this.itemEmprestado = itemEmprestado;
 		this.periodo = periodo;
 		this.dataEmprestimo = dataEmprestimo;
+		this.dataDevolucao = "Emprestimo em andamento";
 	}
 	
 	public int getPeriodo() {
@@ -55,9 +56,9 @@ public class Emprestimo {
 	public void setItemEmprestado(String itemEmprestado) {
 		this.itemEmprestado = itemEmprestado;
 	}
-
+		
 	public String toStringEmprestou(){
-		return "EMPRESTIMO - De: " + this.nomeDono + ", " + " Para: " + this.nomeRequerente + ", " + this.itemEmprestado + ", " + this.dataEmprestimo + ", " + this.periodo + ", ENTREGA: " + this.dataDevolucao;
+		return "EMPRESTIMO - De: " + this.nomeDono + ", " + " Para: " + this.nomeRequerente + ", " + this.itemEmprestado + ", " + this.dataEmprestimo + ", " + this.periodo + " dias, ENTREGA: " + this.dataDevolucao;
 	}	
 	
 	public String getDataDevolucao() {
