@@ -8,6 +8,8 @@ import java.util.Map;
 
 import emprestismo.Emprestimo;
 import emprestismo.EmprestimoComparator;
+import enums.CartaoFidelidade;
+
 import enums.Emprestado;
 import item.Item;
 
@@ -27,6 +29,7 @@ public class Usuario {
 	private List<Emprestimo> emprestou;
 	private List<Emprestimo> pegouEmprestado;
 	private double reputacao;
+	private CartaoFidelidade cartao;
 
 	/**
 	 * 
@@ -50,6 +53,7 @@ public class Usuario {
 		emprestou = new ArrayList<Emprestimo>();
 		pegouEmprestado = new ArrayList<Emprestimo>();
 		this.reputacao = 0;
+		this.cartao = CartaoFidelidade.NOOB;
 	}
 
 	public void validaUsuarioAtributo(String atributo, String qualAtributo) {
@@ -61,6 +65,29 @@ public class Usuario {
 		}
 	}
 
+	public void calcularTipoCartao() {
+		if (itens.size() == 0) {
+			setCartao(CartaoFidelidade.FREE_RIDER);
+		} else if (this.reputacao >= 0 && this.reputacao <= 100) {
+			setCartao(CartaoFidelidade.NOOB);
+		} else if (this.reputacao > 100) {
+			setCartao(CartaoFidelidade.BOM_AMIGO);
+		} else if (this.reputacao < 0) {
+			setCartao(CartaoFidelidade.CALOTEIRO);
+		}
+	}
+
+	public CartaoFidelidade getCartao() {
+		return cartao;
+	}
+	public String getCartaoTxt() {
+		return cartao.getMensagem();
+	}
+
+	public void setCartao(CartaoFidelidade cartao) {
+		this.cartao = cartao;
+	}
+
 	public void sobeReputacao(double preco, String situacao) {
 		double valor = 0;
 		if (situacao.equals("Emprestou")) {
@@ -69,12 +96,16 @@ public class Usuario {
 			valor = this.reputacao + (preco * 0.05);
 		}
 		setReputacao(valor);
+		calcularTipoCartao();
+
 	}
 
 	public void abaixaReputacao(double preco, int diasAtrasados) {
 
 		double diminuir = (preco * (diasAtrasados * 0.01));
 		setReputacao(this.reputacao - diminuir);
+		calcularTipoCartao();
+
 
 	}
 
@@ -131,7 +162,9 @@ public class Usuario {
 		if (!(itens.containsKey(nomeItem))) {
 			sobeReputacao(item.getPreco(), "");
 			itens.put(nomeItem, item);
+			
 		}
+		calcularTipoCartao();
 	}
 
 	public void removerItem(String nomeItem) {
@@ -275,7 +308,7 @@ public class Usuario {
 			Emprestimo emprestimo = emprestou.get(i);
 			if (emprestimo.equals(ee)) {
 				emprestimo.fechandoEmprestimo(dataEntrega);
-				
+
 			}
 		}
 	}

@@ -243,6 +243,7 @@ public class ItemController {
 	}
 	public String listarItensEmprestados(){
 		ArrayList<Item> itensEmprestados = retornarArray();
+		Collections.sort(itensEmprestados,new ItemNomeDonoComparator());
 		String saida = "";
 		
 		for (int i = 0; i < itensEmprestados.size(); i++) {

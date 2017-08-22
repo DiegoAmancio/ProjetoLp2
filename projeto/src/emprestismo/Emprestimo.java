@@ -17,7 +17,7 @@ public class Emprestimo {
 	private boolean atrasou;
 
 	public Emprestimo(String nomeDono, String nomeRequerente, String itemEmprestado, String dataEmprestimo,
-			int periodo)  {
+			int periodo, int vencimento)  {
 		this.nomeDono = nomeDono;
 		this.nomeRequerente = nomeRequerente;
 		this.itemEmprestado = itemEmprestado;
@@ -27,17 +27,17 @@ public class Emprestimo {
 		this.atrasou = false;
 		this.dataEntrega = "Emprestimo em andamento";
 		try {
-			fazendoVencimento(dataEmprestimo, periodo);
+			fazendoVencimento(dataEmprestimo, vencimento);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 
 	}
 
-	public void fazendoVencimento(String dataEmprestimo, int periodo) throws ParseException {
+	public void fazendoVencimento(String dataEmprestimo, int vencimento) throws ParseException {
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 		Date data1 = formato.parse(dataEmprestimo);
-		data1.setDate(data1.getDate() + periodo);
+		data1.setDate(data1.getDate() + vencimento);
 		this.vencimento = data1;
 
 		
