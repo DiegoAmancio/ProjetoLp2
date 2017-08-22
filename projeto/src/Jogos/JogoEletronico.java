@@ -6,8 +6,8 @@ import Item.Item;
 public class JogoEletronico extends Item{
 	private Plataforma plataforma;	
 	
-	public JogoEletronico(String nome, double preco, String plataforma) {
-		super(nome, preco);
+	public JogoEletronico(String donoItem,String nome, double preco, String plataforma) {
+		super(donoItem,nome, preco);
 		verificaPlataforma(plataforma);
 	}
 	

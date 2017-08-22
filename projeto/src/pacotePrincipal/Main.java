@@ -13,8 +13,8 @@ public class Main {
 		testes.add("us" + File.separator + "us2");
 		testes.add("us" + File.separator + "us3");
 		testes.add("us" + File.separator + "us4");
-		// testes.add("us" + File.separator + "us5");
-		// testes.add("us" + File.separator + "us6");
+		testes.add("us" + File.separator + "us5");
+		testes.add("us" + File.separator + "us6");
 		// testes.add("us" + File.separator + "us7");
 		EasyAccept.executeEasyAcceptTests("pacotePrincipal.Facade", testes);
 	}

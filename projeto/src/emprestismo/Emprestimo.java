@@ -1,20 +1,86 @@
-package Usuario;
+package emprestismo;
+
+import java.util.*;
+
+
+import java.text.*;
 
 public class Emprestimo {
 	private String nomeDono;
 	private String nomeRequerente;
-	private String dataEmprestimo;	
+	private String dataEmprestimo;
+	private String dataEntrega;
+	private Date vencimento;
 	private String itemEmprestado;
 	private int periodo;
-	
-	public Emprestimo(String nomeDono, String nomeRequerente, String itemEmprestado, String dataEmprestimo, int periodo) {
+	private int devolveuDias;
+	private boolean atrasou;
+
+	public Emprestimo(String nomeDono, String nomeRequerente, String itemEmprestado, String dataEmprestimo,
+			int periodo)  {
 		this.nomeDono = nomeDono;
 		this.nomeRequerente = nomeRequerente;
 		this.itemEmprestado = itemEmprestado;
-		this.dataEmprestimo = dataEmprestimo;				
+		this.dataEmprestimo = dataEmprestimo;
 		this.periodo = periodo;
+		this.devolveuDias = 0;
+		this.atrasou = false;
+		this.dataEntrega = "Emprestimo em andamento";
+		try {
+			fazendoVencimento(dataEmprestimo, periodo);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void fazendoVencimento(String dataEmprestimo, int periodo) throws ParseException {
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+		Date data1 = formato.parse(dataEmprestimo);
+		data1.setDate(data1.getDate() + periodo);
+		this.vencimento = data1;
+
+		
 	}
 	
+	public void fechandoEmprestimo(String dataEntrega)  {
+		this.dataEntrega  = dataEntrega;
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+		Date data1 = null;
+		try {
+			 data1 = formato.parse(dataEntrega);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (data1.after(this.vencimento)){
+			atrasou = true;
+		}
+		long diferencaDias = (data1.getTime() - this.vencimento.getTime()) / (1000*60*60*24);
+		
+		this.devolveuDias = (int) diferencaDias;
+		
+		
+    
+	}
+
+	public boolean getAtrasou() {
+		return atrasou;
+	}
+	
+	public String getDataEntrega() {
+		return dataEntrega;
+	}
+
+	public Date getVencimento() {
+		return vencimento;
+	}
+
+	public int getDevolveuDias() {
+		return devolveuDias;
+	}
+
+
 	public int getPeriodo() {
 		return periodo;
 	}
@@ -37,6 +103,10 @@ public class Emprestimo {
 
 	public void setNomeRequerente(String nomeRequerente) {
 		this.nomeRequerente = nomeRequerente;
+	}
+
+	public void devolveu(String dataDevolucao) {
+		this.dataEntrega = dataDevolucao;
 	}
 
 	public String getDataEmprestimo() {
@@ -97,7 +167,12 @@ public class Emprestimo {
 			return false;
 		return true;
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+
+		return "EMPRESTIMO - De: " + nomeDono + ", Para: " + nomeRequerente + ", " + itemEmprestado + ", "
+				+ dataEmprestimo + ", " + periodo + " dias, ENTREGA: " + dataEntrega + "|";
+	}
+
 }

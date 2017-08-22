@@ -7,8 +7,10 @@ import java.util.List;
 import BluRay.BluRayFilme;
 import BluRay.BluRaySerie;
 import BluRay.BluRayShow;
+import Enums.Emprestado;
 import Jogos.JogoEletronico;
 import Jogos.JogoTabuleiro;
+import emprestismo.Emprestimo;
 
 /**
  * Controlador de objetos tipo Item.
@@ -20,6 +22,7 @@ import Jogos.JogoTabuleiro;
 public class ItemController {
 	
 	private List<Item> itens;
+	
 	
 	/**
 	 * Construtor de ItemController.
@@ -33,6 +36,7 @@ public class ItemController {
 	 * 
 	 * @param nome
 	 *            nome do Eletronico a ser cadastrado.
+	 * @param nomeItem 
 	 * @param preco
 	 *            preco do Eletronico a ser cadastrado.
 	 * @param plataforma
@@ -40,8 +44,8 @@ public class ItemController {
 	 * @return
 	 *            retorna o objeto Eletronico que foi cadastrado.
 	 */
-	public Item cadastrarEletronico(String nome, double preco, String plataforma) {
-		Item item = new JogoEletronico(nome, preco, plataforma);
+	public Item cadastrarEletronico(String nome, String nomeItem, double preco, String plataforma) {
+		Item item = new JogoEletronico(nome,nomeItem, preco, plataforma);
 		itens.add(item);
 		return item;
 	}
@@ -56,8 +60,8 @@ public class ItemController {
 	 * @return
 	 *            retorna o objeto JogoTabuleiro que foi cadastrado.
 	 */
-	public Item cadastrarJogoTabuleiro(String nome, double preco) {
-		Item item = new JogoTabuleiro(nome, preco);
+	public Item cadastrarJogoTabuleiro(String nome,String nomeItem, double preco) {
+		Item item = new JogoTabuleiro(nome,nomeItem, preco);
 		itens.add(item);
 		return item;
 	}
@@ -80,8 +84,8 @@ public class ItemController {
 	 * @return
 	 *            retorna o objeto BluRayFilme que foi cadastrado.
 	 */
-	public Item cadastrarBluRayFilme(String nome, double preco, int duracao, String genero, String classificacao, int anoLancamento) {
-		Item item = new BluRayFilme(nome, preco, duracao, classificacao, genero, anoLancamento);
+	public Item cadastrarBluRayFilme(String dono,String nome, double preco, int duracao, String genero, String classificacao, int anoLancamento) {
+		Item item = new BluRayFilme(dono,nome, preco, duracao, classificacao, genero, anoLancamento);
 		itens.add(item);
 		return item;
 	}
@@ -104,8 +108,8 @@ public class ItemController {
 	 * @return
 	 *            retorna o objeto BluRayShow que foi cadastrado.
 	 */
-	public Item cadastrarBluRayShow(String nome, double preco, int duracao, int numeroFaixas, String artista, String classificacao) {
-		Item item = new BluRayShow(nome, preco, duracao, classificacao, numeroFaixas, artista);
+	public Item cadastrarBluRayShow(String dono,String nome, double preco, int duracao, int numeroFaixas, String artista, String classificacao) {
+		Item item = new BluRayShow(dono,nome, preco, duracao, classificacao, numeroFaixas, artista);
 		itens.add(item);
 		return item;
 	}	
@@ -147,8 +151,8 @@ public class ItemController {
 	 * @return
 	 *            retorna o objeto BluRaySerie que foi cadastrado.
 	 */
-	public Item cadastrarBluRaySerie(String nome, double preco, String descricao, int duracao, String classificacao, String genero, int numeroDaTemporada) {
-		Item item = new BluRaySerie(nome, preco, duracao, classificacao, genero, numeroDaTemporada);
+	public Item cadastrarBluRaySerie(String dono,String nome, double preco, String descricao, int duracao, String classificacao, String genero, int numeroDaTemporada) {
+		Item item = new BluRaySerie(dono,nome, preco, duracao, classificacao, genero, numeroDaTemporada);
 		itens.add(item);
 		return item;
 	}
@@ -214,5 +218,74 @@ public class ItemController {
 		}
 		return mensagem;
 	}
+
+	public void adicionarHistorico(String itemEmprestado, Emprestimo novoEmprestimo) {
+		for (int i = 0; i < itens.size(); i++) {
+			if(itens.get(i).getNome().equals(itemEmprestado)){
+				itens.get(i).adicionarHistorico(novoEmprestimo);
+			}
+		}
+		
+	}
+	public String historicoEmprestimosItem(String nomeItem){
+		return getItem(nomeItem).emprestimos();
+		
+	}
+	public String listarItensNaoEmprestados(){
+		Collections.sort(itens,new ItemNomeComparator());
+		String saida = "";
+		for (int i = 0; i < itens.size(); i++) {
+			if(itens.get(i).getEmprestado().equals(Emprestado.NAO_EMPRESTADO)){
+				saida += itens.get(i).toString()+"|";
+			}
+		}
+		return saida;
+	}
+	public String listarItensEmprestados(){
+		ArrayList<Item> itensEmprestados = retornarArray();
+		String saida = "";
+		
+		for (int i = 0; i < itensEmprestados.size(); i++) {
+			if(itensEmprestados.get(i).getEmprestado().equals(Emprestado.EMPRESTADO)){
+				saida += "Dono do item: "+itensEmprestados.get(i).getDonoItem()+", Nome do item emprestado: "+itensEmprestados.get(i).getNome()+"|";
+			}
+		}
+		return saida;
+	}
+
+	private ArrayList<Item> retornarArray() {
+		ArrayList<Item> itensEmprestados = new ArrayList<>();
+		for (int i= itens.size()-1;i>= 1; i--) {
+			if(itens.get(i).getEmprestado().equals(Emprestado.EMPRESTADO)){
+				itensEmprestados.add(itens.get(i));
+			}
+		}
+		return itensEmprestados;
+		
+	}
+	public String top10() {
+		String saida = "";
+		ArrayList<Item> itens = ordenarPorEmprestimos();
+		for (int i = 0; i < itens.size(); i++) {
+			Item item = itens.get(i);
+			saida += (i+1) + ") " + item.numeroEmprestimos() + " emprestimos - " + item.toString() + "|";
+		}
+		return saida;
+		
+	}
+	public ArrayList<Item> ordenarPorEmprestimos(){
+		
+		ArrayList<Item> itensTop10 = new ArrayList<>();
+		Collections.sort(itens,new ItemNumeroEmprestimosComparator());
+		
+		for (int i = 0; i < itens.size(); i++) {
+			if(itens.get(i).numeroEmprestimos() > 0) {
+				itensTop10.add(itens.get(i));
+			}
+		}
+		
+		return itensTop10;
+	}
+	
 	
 }

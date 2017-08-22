@@ -10,7 +10,7 @@ expectError "Item emprestado no momento" registrarEmprestimo nomeDono="Joao" tel
 
 expectError "Emprestimo nao encontrado" devolverItem nomeDono="Joao" telefoneDono="98888-8888" nomeRequerente="Vilmar" telefoneRequerente="55555-9999" nomeItem="War" dataEmprestimo="01/01/2018" dataDevolucao="06/01/2018"
 
-registrarEmprestimo nomeDono="Joao" telefoneDono="98888-8888" nomeRequerente="Josefina" telefoneRequerente="77777-7777" nomeItem="Xadrez de Bruxo" dataEmprestimo="15/01/2018" periodo=7
+registrarEmprestimo nomeDono="Joao" telefoneDono="98888-8888" nomeRequerente="Josefina" telefoneRequerente="77777-7777" nomeItem="Xadrez de Bruxo" dataEmprestimo="15/01/2018" periodo=5
 
 devolverItem nomeDono="Joao" telefoneDono="98888-8888" nomeRequerente="Carlos" telefoneRequerente="89999-9999" nomeItem="War" dataEmprestimo="01/01/2018" dataDevolucao="06/01/2018"
 

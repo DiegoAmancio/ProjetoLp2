@@ -1,12 +1,16 @@
 package Usuario;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import Enums.Emprestado;
 import Item.Item;
+import emprestismo.Emprestimo;
+import emprestismo.EmprestimoComparator;
 
 /**
  * representacao de um usuario
@@ -21,8 +25,9 @@ public class Usuario {
 	private String telefone;
 	private String email;
 	private Map<String, Item> itens;
-	private List<Emprestimo> emprestou; // lista de emprestimos que realizou de itens de outros usuarios
+	private List<Emprestimo> emprestou;
 	private List<Emprestimo> pegouEmprestado;
+	private double reputacao;
 
 	/**
 	 * 
@@ -45,6 +50,7 @@ public class Usuario {
 		this.itens = new HashMap<String, Item>();
 		emprestou = new ArrayList<Emprestimo>();
 		pegouEmprestado = new ArrayList<Emprestimo>();
+		this.reputacao = 0;
 	}
 
 	public void validaUsuarioAtributo(String atributo, String qualAtributo) {
@@ -54,6 +60,31 @@ public class Usuario {
 		if (atributo.trim().equals("")) {
 			throw new IllegalArgumentException(qualAtributo + "invalido,vazio");
 		}
+	}
+
+	public void sobeReputacao(double preco, String situacao) {
+		double valor = 0;
+		if (situacao.equals("Emprestou")) {
+			valor = this.reputacao + (preco * 0.1);
+		} else {
+			valor = this.reputacao + (preco * 0.05);
+		}
+		setReputacao(valor);
+	}
+
+	public void abaixaReputacao(double preco, int diasAtrasados) {
+
+		double diminuir = (preco * (diasAtrasados * 0.01));
+		setReputacao(this.reputacao - diminuir);
+
+	}
+
+	public double getReputacao() {
+		return reputacao;
+	}
+
+	public void setReputacao(double reputacao) {
+		this.reputacao = reputacao;
 	}
 
 	public String getNome() {
@@ -80,19 +111,15 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public Map<String, Item> getItens() {
-		return itens;
-	}
-
 	public void existeItem(String nomeItem) {
-		if(!itens.containsKey(nomeItem)){
+		if (!itens.containsKey(nomeItem)) {
 			throw new NullPointerException("Item nao encontrado");
 		}
 	}
 
-	// TODO requerente nao tem item
 	public void empresta(Emprestimo novoEmprestimo, String nomeItem) {
 		emprestou.add(novoEmprestimo);
+		sobeReputacao(getItem(nomeItem).getPreco(), "Emprestou");
 		itens.get(nomeItem).setEmprestado(Emprestado.EMPRESTADO);
 	}
 
@@ -103,6 +130,7 @@ public class Usuario {
 
 	public void adicionaItem(String nomeItem, Item item) {
 		if (!(itens.containsKey(nomeItem))) {
+			sobeReputacao(item.getPreco(), "");
 			itens.put(nomeItem, item);
 		}
 	}
@@ -204,18 +232,53 @@ public class Usuario {
 		return itens.get(itemEmprestado);
 	}
 
-	public void existeEmprestimo(String nomeItem, String nomeRequerente) {
-		boolean existe = false;
-		
+	public Emprestimo existeEmprestimo(String nomeItem, String nomeRequerente) {
+
 		for (Emprestimo emprestimo : emprestou) {
-			if(emprestimo.getItemEmprestado().equals(nomeItem) && emprestimo.getNomeRequerente().equals(nomeRequerente)) {
-				existe = true;
-			}			
+			if (emprestimo.getItemEmprestado().equals(nomeItem)
+					&& emprestimo.getNomeRequerente().equals(nomeRequerente)) {
+				return emprestimo;
+			}
 		}
-		if(!existe) {
-			throw new NullPointerException("Emprestimo nao encontrado");
+
+		throw new NullPointerException("Emprestimo nao encontrado");
+
+	}
+
+	public String listarItensEmprestados() {
+		String saida = "Emprestimos: ";
+		Collections.sort(emprestou, new EmprestimoComparator());
+		if (emprestou.size() > 0) {
+			for (int i = 0; i < emprestou.size(); i++) {
+				saida += emprestou.get(i).toString();
+			}
+			return saida;
+		} else {
+			return ("Nenhum item emprestado");
 		}
-		
+	}
+
+	public String listarItensPegouEmprestado() {
+		String saida = "Emprestimos pegos: ";
+		Collections.sort(emprestou, new EmprestimoComparator());
+		if (pegouEmprestado.size() > 0) {
+			for (int i = 0; i < pegouEmprestado.size(); i++) {
+				saida += pegouEmprestado.get(i).toString();
+			}
+			return saida;
+		} else {
+			return ("Nenhum item pego emprestado");
+		}
+	}
+
+	public void fechandoEmprestimo(String dataEntrega, Emprestimo ee) {
+		for (int i = 0; i < emprestou.size(); i++) {
+			Emprestimo emprestimo = emprestou.get(i);
+			if (emprestimo.equals(ee)) {
+				emprestimo.fechandoEmprestimo(dataEntrega);
+				
+			}
+		}
 	}
 
 }
