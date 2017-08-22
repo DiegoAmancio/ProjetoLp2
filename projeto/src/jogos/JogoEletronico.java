@@ -1,4 +1,4 @@
-package Jogos;
+package jogos;
 
 import enums.Plataforma;
 import item.Item;
