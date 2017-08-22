@@ -1,4 +1,4 @@
-package BluRay;
+package bluRay;
 
 /**
  * Representa o BluRayShow.

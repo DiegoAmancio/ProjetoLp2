@@ -1,4 +1,4 @@
-package BluRay;
+package bluRay;
 
 import enums.Genero;
 

@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import BluRay.BluRayFilme;
-import BluRay.BluRaySerie;
-import BluRay.BluRayShow;
 import Jogos.JogoEletronico;
 import Jogos.JogoTabuleiro;
+import bluRay.BluRayFilme;
+import bluRay.BluRaySerie;
+import bluRay.BluRayShow;
 import emprestismo.Emprestimo;
 import enums.Emprestado;
 

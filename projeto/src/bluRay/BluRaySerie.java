@@ -1,4 +1,4 @@
-package BluRay;
+package bluRay;
 
 import java.util.ArrayList;
 import java.util.List;
