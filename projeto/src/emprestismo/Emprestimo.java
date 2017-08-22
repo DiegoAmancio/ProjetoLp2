@@ -50,7 +50,6 @@ public class Emprestimo {
 		try {
 			 data1 = formato.parse(dataEntrega);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if (data1.after(this.vencimento)){
