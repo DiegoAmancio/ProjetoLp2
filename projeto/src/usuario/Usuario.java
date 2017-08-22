@@ -66,6 +66,7 @@ public class Usuario {
 	}
 
 	public void calcularTipoCartao() {
+		
 		if (itens.size() == 0) {
 			setCartao(CartaoFidelidade.FREE_RIDER);
 		} else if (this.reputacao >= 0 && this.reputacao <= 100) {
