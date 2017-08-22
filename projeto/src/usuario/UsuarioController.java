@@ -90,30 +90,28 @@ public class UsuarioController {
 
 	}
 
-	public void usuariosNegativados(String tipoComparacao) {
-		ArrayList<Usuario> negativados = new ArrayList<>();
-
-		for (int i = 0; i < usuarios.size(); i++) {
-			Usuario usuario = usuarios.get(i);
-			if (usuario.getReputacao() < 0) {
-				negativados.add(usuario);
+	
+	
+	public String listarCaloteiros(){
+		ArrayList<Usuario> top10 = new ArrayList<>();
+		for (Entry<String, Usuario> usuario : usuarios.entrySet()) {
+			if(usuario.getValue().getCartao().equals(CartaoFidelidade.CALOTEIRO)){
+				top10.add(usuario.getValue());
 			}
 		}
-		if(tipoComparacao.equals("Nome")){
-			Collections.sort(negativados, new UsuarioNomeComparator());
-		}else{
-			Collections.sort(negativados, new UsuarioReputacaoComparator());
+		String saida = "Lista de usuarios com reputacao negativa: ";		
+		for (int i = 0; i < top10.size(); i++) {
+			if(i == 10){
+				break;
+			}
+			Usuario usuario = top10.get(i);
+			if(usuario.getReputacao() >= 0) {
+				break;
+			}
+			saida +=usuario.toString()+"|";
 		}
-		setUsuariosReputacaoNegativa(negativados);
 		
-	}
-	public String listarCaloteiros(){
-		usuariosNegativados("Nome");
 		
-		String saida = "Lista de usuarios com reputacao negativa: ";
-		for (int i = 0; i < usuariosReputacaoNegativa.size(); i++) {
-			saida += usuariosReputacaoNegativa.get(i).toString();
-		}
 		return saida;
 	}
 	public String listarTop10PioresUsuarios(){
@@ -152,9 +150,7 @@ public class UsuarioController {
 		return saida;
 	}
 
-	private void setUsuariosReputacaoNegativa(List<Usuario> usuariosReputacaoNegativa) {
-		this.usuariosReputacaoNegativa = usuariosReputacaoNegativa;
-	}
+	
 
 	public String getInfoItem(String nome, String telefone, String nomeItem, String atributo) {
 		String identificador = getToken(nome, telefone);
