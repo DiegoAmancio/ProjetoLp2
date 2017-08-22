@@ -77,17 +77,6 @@ public class Usuario {
 		}
 	}
 
-	public CartaoFidelidade getCartao() {
-		return cartao;
-	}
-	public String getCartaoTxt() {
-		return cartao.getMensagem();
-	}
-
-	public void setCartao(CartaoFidelidade cartao) {
-		this.cartao = cartao;
-	}
-
 	public void sobeReputacao(double preco, String situacao) {
 		double valor = 0;
 		if (situacao.equals("Emprestou")) {
@@ -105,40 +94,6 @@ public class Usuario {
 		double diminuir = (preco * (diasAtrasados * 0.01));
 		setReputacao(this.reputacao - diminuir);
 		calcularTipoCartao();
-
-
-	}
-
-	public double getReputacao() {
-		return reputacao;
-	}
-
-	public void setReputacao(double reputacao) {
-		this.reputacao = reputacao;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public void existeItem(String nomeItem) {
@@ -153,7 +108,6 @@ public class Usuario {
 		itens.get(nomeItem).setEmprestado(Emprestado.EMPRESTADO);
 	}
 
-	// TODO requerente nao tem item
 	public void pegaEmprestado(Emprestimo novoEmprestimo, String nomeItem) {
 		pegouEmprestado.add(novoEmprestimo);
 	}
@@ -204,6 +158,50 @@ public class Usuario {
 			throw new NullPointerException("Item nao encontrado");
 		}
 	}
+	
+	public CartaoFidelidade getCartao() {
+		return cartao;
+	}
+	
+	public String getCartaoTxt() {
+		return cartao.getMensagem();
+	}
+
+	public void setCartao(CartaoFidelidade cartao) {
+		this.cartao = cartao;
+	}
+
+	public double getReputacao() {
+		return reputacao;
+	}
+
+	public void setReputacao(double reputacao) {
+		this.reputacao = reputacao;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	/**
 	 * Retorna o preco do item
@@ -234,6 +232,10 @@ public class Usuario {
 		}
 		throw new NullPointerException("Item nao encontrado");
 	}
+	
+	public Item getItem(String nomeItem) {
+		return itens.get(nomeItem);
+	}
 
 	/**
 	 * representacao de um usuario
@@ -258,10 +260,6 @@ public class Usuario {
 			}
 		}
 		return saida;
-	}
-
-	public Item getItem(String itemEmprestado) {
-		return itens.get(itemEmprestado);
 	}
 
 	public Emprestimo existeEmprestimo(String nomeItem, String nomeRequerente) {

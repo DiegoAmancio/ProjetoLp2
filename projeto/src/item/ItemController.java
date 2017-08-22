@@ -112,23 +112,6 @@ public class ItemController {
 		Item item = new BluRayShow(dono,nome, preco, duracao, classificacao, numeroFaixas, artista);
 		itens.add(item);
 		return item;
-	}	
-
-	/**
-	 * Adicona um Episodio a lista de episodios de um determinado BluRaySerie.
-	 * 
-	 * @param item
-	 *            Item que recebe o Episodio caso seja um BluRaySerie.
-	 * @param duracao
-	 *            duracao do objeto Episodio.
-	 */
-	public void adicionarBluRay(Item item, int duracao) {
-		if (item instanceof BluRaySerie) {
-			BluRaySerie bluRaySerie = (BluRaySerie) item;
-			bluRaySerie.adicionaEpisodio(duracao);
-		} else {
-			throw new IllegalArgumentException("Esse item nao se trata de uma Serie");
-		}
 	}
 	
 	/**
@@ -157,16 +140,6 @@ public class ItemController {
 		return item;
 	}
 	
-	public Item getItem(String nomeItem){
-		for (int i = 0; i < itens.size(); i++) {
-			if(itens.get(i).getNome().equals(nomeItem)){
-				return itens.get(i);
-			}
-			
-		}
-		throw new NullPointerException("Item nao encontrado");
-	}
-	
 	/**
 	 * Adiciona uma Peca a lista de pecas perdidas de um determinado JogoTabuleiro.
 	 * 
@@ -183,6 +156,33 @@ public class ItemController {
 			throw new IllegalArgumentException("Esse item nao se trata de um Jogo de Tabuleiro");
 		}
 	}
+	
+	/**
+	 * Adicona um Episodio a lista de episodios de um determinado BluRaySerie.
+	 * 
+	 * @param item
+	 *            Item que recebe o Episodio caso seja um BluRaySerie.
+	 * @param duracao
+	 *            duracao do objeto Episodio.
+	 */
+	public void adicionarBluRay(Item item, int duracao) {
+		if (item instanceof BluRaySerie) {
+			BluRaySerie bluRaySerie = (BluRaySerie) item;
+			bluRaySerie.adicionaEpisodio(duracao);
+		} else {
+			throw new IllegalArgumentException("Esse item nao se trata de uma Serie");
+		}
+	}	
+	
+	public Item getItem(String nomeItem){
+		for (int i = 0; i < itens.size(); i++) {
+			if(itens.get(i).getNome().equals(nomeItem)){
+				return itens.get(i);
+			}
+			
+		}
+		throw new NullPointerException("Item nao encontrado");
+	}	
 	
 	public void removeItem(String nomeItem) {
 		Item item = getItem(nomeItem);
@@ -256,14 +256,14 @@ public class ItemController {
 
 	private ArrayList<Item> retornarArray() {
 		ArrayList<Item> itensEmprestados = new ArrayList<>();
-		for (int i= itens.size()-1;i>= 1; i--) {
+		for (int i= itens.size()-1;i>= 0; i--) {
 			if(itens.get(i).getEmprestado().equals(Emprestado.EMPRESTADO)){
 				itensEmprestados.add(itens.get(i));
 			}
 		}
-		return itensEmprestados;
-		
+		return itensEmprestados;	
 	}
+	
 	public String top10() {
 		String saida = "";
 		ArrayList<Item> itens = ordenarPorEmprestimos();
