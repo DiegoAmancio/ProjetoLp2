@@ -1,4 +1,4 @@
-package Jogos;
+package jogos;
 
 public class Peca {
 	

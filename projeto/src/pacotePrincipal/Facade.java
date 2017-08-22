@@ -1,6 +1,6 @@
 package pacotePrincipal;
 
-import Usuario.UsuarioController;
+import usuario.UsuarioController;
 
 public class Facade {
 	UsuarioController controllerUsuario;

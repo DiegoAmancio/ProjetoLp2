@@ -1,16 +1,16 @@
-package Item;
+package item;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import BluRay.BluRayFilme;
-import BluRay.BluRaySerie;
-import BluRay.BluRayShow;
-import Enums.Emprestado;
-import Jogos.JogoEletronico;
-import Jogos.JogoTabuleiro;
+import bluRay.BluRayFilme;
+import bluRay.BluRaySerie;
+import bluRay.BluRayShow;
 import emprestismo.Emprestimo;
+import enums.Emprestado;
+import jogos.JogoEletronico;
+import jogos.JogoTabuleiro;
 
 /**
  * Controlador de objetos tipo Item.

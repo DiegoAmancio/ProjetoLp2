@@ -1,4 +1,4 @@
-package Usuario;
+package usuario;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,11 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import Enums.CartaoFidelidade;
-import Enums.Emprestado;
-import Item.Item;
 import emprestismo.Emprestimo;
 import emprestismo.EmprestimoComparator;
+import enums.CartaoFidelidade;
+import enums.Emprestado;
+import item.Item;
 
 /**
  * representacao de um usuario

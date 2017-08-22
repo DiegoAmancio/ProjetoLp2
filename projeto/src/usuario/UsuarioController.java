@@ -1,13 +1,13 @@
-package Usuario;
+package usuario;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import Enums.CartaoFidelidade;
-import Enums.Emprestado;
-import Item.Item;
-import Item.ItemController;
 import emprestismo.Emprestimo;
+import enums.CartaoFidelidade;
+import enums.Emprestado;
+import item.Item;
+import item.ItemController;
 
 /**
  * representacao de um controlador de usuarios
