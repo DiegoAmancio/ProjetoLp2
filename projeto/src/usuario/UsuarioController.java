@@ -290,7 +290,7 @@ public class UsuarioController {
 		usuarios.get(identificadorDono).existeItem(itemEmprestado);
 
 		if ((dono.getItem(itemEmprestado).getEmprestado() == Emprestado.NAO_EMPRESTADO)) {
-			int vencimento = determinarVencimento(dono.getCartao());
+			int vencimento = determinarVencimento(requerente.getCartao());
 			Emprestimo novoEmprestimo = new Emprestimo(nomeDono, nomeRequerente, itemEmprestado, dataEmprestimo,
 					periodo, vencimento);
 			dono.empresta(novoEmprestimo, itemEmprestado);
