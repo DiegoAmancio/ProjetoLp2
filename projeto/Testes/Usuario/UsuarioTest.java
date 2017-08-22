@@ -3,7 +3,7 @@ package Usuario;
 import org.junit.Before;
 import org.junit.Test;
 
-import Usuario.Usuario;
+import usuario.Usuario;
 
 /**
  * testa criaçao de usuarios.
