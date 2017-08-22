@@ -74,6 +74,8 @@ public class Usuario {
 			setCartao(CartaoFidelidade.BOM_AMIGO);
 		} else if (this.reputacao < 0) {
 			setCartao(CartaoFidelidade.CALOTEIRO);
+		}else {
+			setCartao(CartaoFidelidade.FREE_RIDER);
 		}
 	}
 
