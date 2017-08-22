@@ -109,5 +109,14 @@ public class Facade {
 	public String listarTop10Itens() {
 		return controllerUsuario.listarTop10Itens();
 	}
+	public String listarCaloteiros(){
+		return controllerUsuario.listarCaloteiros();
+	}
+	public String listarTop10PioresUsuarios(){
+		return controllerUsuario.listarTop10PioresUsuarios();
+	}
+	public String listarTop10MelhoresUsuarios(){
+		return controllerUsuario.top10MelhoresUsuarios();
+	}
 	
 }

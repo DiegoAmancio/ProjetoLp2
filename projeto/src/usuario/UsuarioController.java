@@ -12,6 +12,7 @@ import enums.CartaoFidelidade;
 import enums.Emprestado;
 import item.Item;
 import item.ItemController;
+import item.ReputacaoComparatorInverso;
 
 /**
  * representacao de um controlador de usuarios
@@ -89,7 +90,7 @@ public class UsuarioController {
 
 	}
 
-	public void usuariosNegativados() {
+	public void usuariosNegativados(String tipoComparacao) {
 		ArrayList<Usuario> negativados = new ArrayList<>();
 
 		for (int i = 0; i < usuarios.size(); i++) {
@@ -98,11 +99,39 @@ public class UsuarioController {
 				negativados.add(usuario);
 			}
 		}
-		Collections.sort(negativados, new UsuarioNomeComparator());
+		if(tipoComparacao.equals("Nome")){
+			Collections.sort(negativados, new UsuarioNomeComparator());
+		}else{
+			Collections.sort(negativados, new UsuarioReputacaoComparator());
+		}
 		setUsuariosReputacaoNegativa(negativados);
 		
 	}
-
+	public String listarCaloteiros(){
+		usuariosNegativados("Nome");
+		
+		String saida = "Lista de usuarios com reputacao negativa: ";
+		for (int i = 0; i < usuariosReputacaoNegativa.size(); i++) {
+			saida += usuariosReputacaoNegativa.get(i).toString();
+		}
+		return saida;
+	}
+	public String listarTop10PioresUsuarios(){
+		ArrayList<Usuario> top10 = new ArrayList<>();
+		for (Entry<String, Usuario> usuario : usuarios.entrySet()) {
+			top10.add(usuario.getValue());
+		}
+		Collections.sort(top10, new  ReputacaoComparatorInverso());
+		String saida = "";
+		for (int i = 0; i < top10.size(); i++) {
+			if(i == 10){
+				break;
+			}
+			Usuario usuario = top10.get(i);
+			saida +=(i+1)+": "+usuario.getNome()+" - Reputacao: "+String.format("%.2f", usuario.getReputacao())+"|";
+		}
+		return saida;
+	}
 	public String top10MelhoresUsuarios() {
 
 		ArrayList<Usuario> top10 = new ArrayList<>();
@@ -110,11 +139,15 @@ public class UsuarioController {
 			top10.add(usuario.getValue());
 		}
 		Collections.sort(top10, new UsuarioReputacaoComparator());
-		String saida = "Lista de usuarios com reputacao negativa: ";
+		String saida = "";
+		
 		for (int i = 0; i < top10.size(); i++) {
+			if(i == 10){
+				break;
+			}
 			Usuario usuario = top10.get(i);
-			//1: Jericho - Reputacao: 492,85|2: Evaine - Reputacao: 399,90|
-			saida += i+": "+usuario.getNome()+" - Reputacao: "+usuario.getReputacao()+"|";
+			
+			saida += (i+1)+": "+usuario.getNome()+" - Reputacao: "+String.format("%.2f", usuario.getReputacao())+"|";
 		}
 		return saida;
 	}
