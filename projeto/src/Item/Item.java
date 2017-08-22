@@ -111,6 +111,9 @@ public abstract class Item {
 		}
 		return 0;
 	}
+	public int compareToNumeroEmprestimos(Item item) {
+		return this.numeroEmprestimos() - item.numeroEmprestimos();
+	}
 
 	@Override
 	public int hashCode() {

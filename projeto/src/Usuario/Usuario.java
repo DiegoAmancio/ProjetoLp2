@@ -1,5 +1,6 @@
 package Usuario;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -24,8 +25,9 @@ public class Usuario {
 	private String telefone;
 	private String email;
 	private Map<String, Item> itens;
-	private List<Emprestimo> emprestou; 
+	private List<Emprestimo> emprestou;
 	private List<Emprestimo> pegouEmprestado;
+	private double reputacao;
 
 	/**
 	 * 
@@ -48,6 +50,7 @@ public class Usuario {
 		this.itens = new HashMap<String, Item>();
 		emprestou = new ArrayList<Emprestimo>();
 		pegouEmprestado = new ArrayList<Emprestimo>();
+		this.reputacao = 0;
 	}
 
 	public void validaUsuarioAtributo(String atributo, String qualAtributo) {
@@ -57,6 +60,29 @@ public class Usuario {
 		if (atributo.trim().equals("")) {
 			throw new IllegalArgumentException(qualAtributo + "invalido,vazio");
 		}
+	}
+
+	public void sobeReputacao(Item item, String situacao) {
+		double valor = 0;
+		if (situacao.equals("Emprestou")) {
+			valor = this.reputacao + (item.getPreco() * 0.1);
+		} else {
+			valor = this.reputacao + (item.getPreco() * 0.05);
+		}
+		setReputacao(valor);
+	}
+
+	public void abaixaReputacao(String nomeItem, int diasAtrasados) {
+		Item item = getItem(nomeItem);
+		this.reputacao = this.reputacao - (item.getPreco() * diasAtrasados * 0.01);
+	}
+
+	public double getReputacao() {
+		return reputacao;
+	}
+
+	public void setReputacao(double reputacao) {
+		this.reputacao = reputacao;
 	}
 
 	public String getNome() {
@@ -92,6 +118,7 @@ public class Usuario {
 	// TODO requerente nao tem item
 	public void empresta(Emprestimo novoEmprestimo, String nomeItem) {
 		emprestou.add(novoEmprestimo);
+		sobeReputacao(getItem(nomeItem), "Emprestou");
 		itens.get(nomeItem).setEmprestado(Emprestado.EMPRESTADO);
 	}
 
@@ -102,6 +129,7 @@ public class Usuario {
 
 	public void adicionaItem(String nomeItem, Item item) {
 		if (!(itens.containsKey(nomeItem))) {
+			sobeReputacao(item, "");
 			itens.put(nomeItem, item);
 		}
 	}
@@ -203,18 +231,16 @@ public class Usuario {
 		return itens.get(itemEmprestado);
 	}
 
-	public void existeEmprestimo(String nomeItem, String nomeRequerente) {
-		boolean existe = false;
+	public Emprestimo existeEmprestimo(String nomeItem, String nomeRequerente) {
 
 		for (Emprestimo emprestimo : emprestou) {
 			if (emprestimo.getItemEmprestado().equals(nomeItem)
 					&& emprestimo.getNomeRequerente().equals(nomeRequerente)) {
-				existe = true;
+				return emprestimo;
 			}
 		}
-		if (!existe) {
-			throw new NullPointerException("Emprestimo nao encontrado");
-		}
+
+		throw new NullPointerException("Emprestimo nao encontrado");
 
 	}
 
@@ -243,22 +269,16 @@ public class Usuario {
 			return ("Nenhum item pego emprestado");
 		}
 	}
-	public void devolvendoItem(String nomeItem,String data){
+
+	public Emprestimo fechandoEmprestimo(String dataEntrega, Emprestimo ee) {
 		for (int i = 0; i < emprestou.size(); i++) {
-			if(emprestou.get(i).getItemEmprestado().equals(nomeItem)){
-				emprestou.get(i).devolveu(data);
-				break;
-			}
-		}
-	}
-	public Emprestimo fechandoEmprestimo(String dataEntrega,String nomeItem){
-		for (int i = 0; i < emprestou.size(); i++) {
-			if(emprestou.get(i).getItemEmprestado().equals(nomeItem)){
-				emprestou.get(i).devolveu(dataEntrega);
+			if (emprestou.get(i).equals(ee)) {
+				emprestou.get(i).fechandoEmprestimo(dataEntrega);
+				
 				return emprestou.get(i);
 			}
 		}
 		return null;
 	}
-	
+
 }

@@ -60,7 +60,8 @@ public class UsuarioController {
 			Usuario usuario = usuarios.get(identificador);
 
 			switch (atributo.trim().toUpperCase()) {
-
+			case "REPUTACAO":
+				return Double.toString(usuario.getReputacao());
 			case "NOME":
 				return usuario.getNome();
 			case "TELEFONE":
@@ -312,10 +313,10 @@ public class UsuarioController {
 			String nomeItem, String dataEmprestimo, String dataDevolucao) {
 		String identificadorDono = getToken(nomeDono, telefoneDono);
 
-		usuarios.get(identificadorDono).existeEmprestimo(nomeItem, nomeRequerente);
+		Emprestimo ee = usuarios.get(identificadorDono).existeEmprestimo(nomeItem, nomeRequerente);
 		usuarios.get(identificadorDono).getItem(nomeItem).setEmprestado(Emprestado.NAO_EMPRESTADO);
 		
-		Emprestimo emprestimo = usuarios.get(identificadorDono).fechandoEmprestimo(dataDevolucao, nomeItem);
+		Emprestimo emprestimo = usuarios.get(identificadorDono).fechandoEmprestimo(dataDevolucao, ee);
 		if (emprestimo != null) {
 			itemController.adicionarHistorico(emprestimo.getItemEmprestado(), emprestimo);
 		}
