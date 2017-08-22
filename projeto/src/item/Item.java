@@ -1,4 +1,4 @@
-package Item;
+package item;
 
 import emprestismo.Emprestimo;
 import emprestismo.EmprestimoComparator;
