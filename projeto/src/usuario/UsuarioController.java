@@ -1,7 +1,11 @@
 package usuario;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import emprestismo.Emprestimo;
 import enums.CartaoFidelidade;
@@ -19,6 +23,7 @@ import item.ItemController;
  */
 public class UsuarioController {
 	private Map<String, Usuario> usuarios;
+	private List<Usuario> usuariosReputacaoNegativa;
 	private ItemController itemController;
 
 	/**
@@ -27,6 +32,7 @@ public class UsuarioController {
 	public UsuarioController() {
 		this.usuarios = new HashMap<String, Usuario>();
 		this.itemController = new ItemController();
+		this.usuariosReputacaoNegativa = new ArrayList<Usuario>();
 	}
 
 	public String getToken(String nome, String telefone) {
@@ -83,10 +89,45 @@ public class UsuarioController {
 
 	}
 
+	public void usuariosNegativados() {
+		ArrayList<Usuario> negativados = new ArrayList<>();
+
+		for (int i = 0; i < usuarios.size(); i++) {
+			Usuario usuario = usuarios.get(i);
+			if (usuario.getReputacao() < 0) {
+				negativados.add(usuario);
+			}
+		}
+		Collections.sort(negativados, new UsuarioNomeComparator());
+		setUsuariosReputacaoNegativa(negativados);
+		
+	}
+
+	public String top10MelhoresUsuarios() {
+
+		ArrayList<Usuario> top10 = new ArrayList<>();
+		for (Entry<String, Usuario> usuario : usuarios.entrySet()) {
+			top10.add(usuario.getValue());
+		}
+		Collections.sort(top10, new UsuarioReputacaoComparator());
+		String saida = "Lista de usuarios com reputacao negativa: ";
+		for (int i = 0; i < top10.size(); i++) {
+			Usuario usuario = top10.get(i);
+			//1: Jericho - Reputacao: 492,85|2: Evaine - Reputacao: 399,90|
+			saida += i+": "+usuario.getNome()+" - Reputacao: "+usuario.getReputacao()+"|";
+		}
+		return saida;
+	}
+
+	private void setUsuariosReputacaoNegativa(List<Usuario> usuariosReputacaoNegativa) {
+		this.usuariosReputacaoNegativa = usuariosReputacaoNegativa;
+	}
+
 	public String getInfoItem(String nome, String telefone, String nomeItem, String atributo) {
 		String identificador = getToken(nome, telefone);
 		Usuario usuario = usuarios.get(identificador);
 		return usuario.getInfoItem(nomeItem, atributo);
+
 	}
 
 	/**
@@ -291,7 +332,7 @@ public class UsuarioController {
 
 		if ((dono.getItem(itemEmprestado).getEmprestado() == Emprestado.NAO_EMPRESTADO)) {
 			int vencimento = determinarVencimento(requerente.getCartao());
-			if(vencimento < periodo){
+			if (vencimento < periodo) {
 				throw new IllegalArgumentException("Usuario impossiblitado de pegar emprestado por esse periodo");
 			}
 			Emprestimo novoEmprestimo = new Emprestimo(nomeDono, nomeRequerente, itemEmprestado, dataEmprestimo,
