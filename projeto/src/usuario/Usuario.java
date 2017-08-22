@@ -53,7 +53,7 @@ public class Usuario {
 		emprestou = new ArrayList<Emprestimo>();
 		pegouEmprestado = new ArrayList<Emprestimo>();
 		this.reputacao = 0;
-		this.cartao = CartaoFidelidade.NOOB;
+		this.cartao = CartaoFidelidade.FREE_RIDER;
 	}
 
 	public void validaUsuarioAtributo(String atributo, String qualAtributo) {
@@ -67,9 +67,8 @@ public class Usuario {
 
 	public void calcularTipoCartao() {
 		
-		if (itens.size() == 0) {
-			setCartao(CartaoFidelidade.FREE_RIDER);
-		} else if (this.reputacao >= 0 && this.reputacao <= 100) {
+	
+		if (this.reputacao >= 0 && this.reputacao <= 100) {
 			setCartao(CartaoFidelidade.NOOB);
 		} else if (this.reputacao > 100) {
 			setCartao(CartaoFidelidade.BOM_AMIGO);

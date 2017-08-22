@@ -4,7 +4,7 @@ public enum CartaoFidelidade {
 	NOOB("Noob"),
 	CALOTEIRO("Caloteiro"),
 	BOM_AMIGO("BomAmigo"),
-	FREE_RIDER("freeRider");
+	FREE_RIDER("FreeRyder");
 	
 	private String mensagem;
 
