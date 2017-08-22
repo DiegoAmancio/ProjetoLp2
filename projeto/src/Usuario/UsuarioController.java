@@ -3,10 +3,10 @@ package Usuario;
 import java.util.HashMap;
 import java.util.Map;
 
-import Enums.Emprestado;
 import Item.Item;
 import Item.ItemController;
 import emprestismo.Emprestimo;
+import enums.Emprestado;
 
 /**
  * representacao de um controlador de usuarios

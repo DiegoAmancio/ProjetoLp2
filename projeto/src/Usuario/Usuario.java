@@ -7,10 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import Enums.Emprestado;
 import Item.Item;
 import emprestismo.Emprestimo;
 import emprestismo.EmprestimoComparator;
+import enums.Emprestado;
 
 /**
  * representacao de um usuario

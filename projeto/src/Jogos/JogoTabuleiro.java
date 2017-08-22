@@ -3,8 +3,8 @@ package Jogos;
 import java.util.ArrayList;
 import java.util.List;
 
-import Enums.Completo;
 import Item.Item;
+import enums.Completo;
 
 public class JogoTabuleiro extends Item{
 	private Completo jogoCompleto;

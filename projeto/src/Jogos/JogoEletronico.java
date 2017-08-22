@@ -1,7 +1,7 @@
 package Jogos;
 
-import Enums.Plataforma;
 import Item.Item;
+import enums.Plataforma;
 
 public class JogoEletronico extends Item{
 	private Plataforma plataforma;	

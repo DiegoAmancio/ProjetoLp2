@@ -1,6 +1,6 @@
 package BluRay;
 
-import Enums.Genero;
+import enums.Genero;
 
 /**
  * Representa o BluRayFilme. Atribui-se BRF para BluRayFilme

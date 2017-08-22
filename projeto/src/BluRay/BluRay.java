@@ -1,7 +1,7 @@
 package BluRay;
 
-import Enums.Classificacao;
 import Item.Item;
+import enums.Classificacao;
 
 /**	representa a classe BluRay. Esta classe é subclasse de Item
  * 
