@@ -291,6 +291,9 @@ public class UsuarioController {
 
 		if ((dono.getItem(itemEmprestado).getEmprestado() == Emprestado.NAO_EMPRESTADO)) {
 			int vencimento = determinarVencimento(requerente.getCartao());
+			if(vencimento < periodo){
+				throw new IllegalArgumentException("Usuario impossiblitado de pegar emprestado por esse periodo");
+			}
 			Emprestimo novoEmprestimo = new Emprestimo(nomeDono, nomeRequerente, itemEmprestado, dataEmprestimo,
 					periodo, vencimento);
 			dono.empresta(novoEmprestimo, itemEmprestado);
