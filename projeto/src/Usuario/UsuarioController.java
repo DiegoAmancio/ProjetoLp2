@@ -312,11 +312,22 @@ public class UsuarioController {
 	public String devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
 			String nomeItem, String dataEmprestimo, String dataDevolucao) {
 		String identificadorDono = getToken(nomeDono, telefoneDono);
-
-		Emprestimo ee = usuarios.get(identificadorDono).existeEmprestimo(nomeItem, nomeRequerente);
-		usuarios.get(identificadorDono).getItem(nomeItem).setEmprestado(Emprestado.NAO_EMPRESTADO);
+		String requerente = getToken(nomeRequerente, telefoneRequerente);
 		
-		Emprestimo emprestimo = usuarios.get(identificadorDono).fechandoEmprestimo(dataDevolucao, ee);
+		Usuario dono = usuarios.get(identificadorDono);
+		Usuario caraPedindo= usuarios.get(requerente);
+		Item itemDono = dono.getItem(nomeItem);
+		Emprestimo ee = dono.existeEmprestimo(nomeItem, nomeRequerente);
+		itemDono.setEmprestado(Emprestado.NAO_EMPRESTADO);
+		
+		dono.fechandoEmprestimo(dataDevolucao, ee);
+		Emprestimo emprestimo = dono.existeEmprestimo(nomeItem, nomeRequerente);
+		
+		if(emprestimo.getAtrasou()){
+			caraPedindo.abaixaReputacao(itemDono.getPreco(), emprestimo.getDevolveuDias());
+		}else{
+			caraPedindo.sobeReputacao(itemDono.getPreco(), "");
+		}
 		if (emprestimo != null) {
 			itemController.adicionarHistorico(emprestimo.getItemEmprestado(), emprestimo);
 		}

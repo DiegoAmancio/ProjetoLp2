@@ -62,19 +62,21 @@ public class Usuario {
 		}
 	}
 
-	public void sobeReputacao(Item item, String situacao) {
+	public void sobeReputacao(double preco, String situacao) {
 		double valor = 0;
 		if (situacao.equals("Emprestou")) {
-			valor = this.reputacao + (item.getPreco() * 0.1);
+			valor = this.reputacao + (preco * 0.1);
 		} else {
-			valor = this.reputacao + (item.getPreco() * 0.05);
+			valor = this.reputacao + (preco * 0.05);
 		}
 		setReputacao(valor);
 	}
 
-	public void abaixaReputacao(String nomeItem, int diasAtrasados) {
-		Item item = getItem(nomeItem);
-		this.reputacao = this.reputacao - (item.getPreco() * diasAtrasados * 0.01);
+	public void abaixaReputacao(double preco, int diasAtrasados) {
+
+		double diminuir = (preco * (diasAtrasados * 0.01));
+		setReputacao(this.reputacao - diminuir);
+
 	}
 
 	public double getReputacao() {
@@ -115,10 +117,9 @@ public class Usuario {
 		}
 	}
 
-	// TODO requerente nao tem item
 	public void empresta(Emprestimo novoEmprestimo, String nomeItem) {
 		emprestou.add(novoEmprestimo);
-		sobeReputacao(getItem(nomeItem), "Emprestou");
+		sobeReputacao(getItem(nomeItem).getPreco(), "Emprestou");
 		itens.get(nomeItem).setEmprestado(Emprestado.EMPRESTADO);
 	}
 
@@ -129,7 +130,7 @@ public class Usuario {
 
 	public void adicionaItem(String nomeItem, Item item) {
 		if (!(itens.containsKey(nomeItem))) {
-			sobeReputacao(item, "");
+			sobeReputacao(item.getPreco(), "");
 			itens.put(nomeItem, item);
 		}
 	}
@@ -270,15 +271,14 @@ public class Usuario {
 		}
 	}
 
-	public Emprestimo fechandoEmprestimo(String dataEntrega, Emprestimo ee) {
+	public void fechandoEmprestimo(String dataEntrega, Emprestimo ee) {
 		for (int i = 0; i < emprestou.size(); i++) {
-			if (emprestou.get(i).equals(ee)) {
-				emprestou.get(i).fechandoEmprestimo(dataEntrega);
+			Emprestimo emprestimo = emprestou.get(i);
+			if (emprestimo.equals(ee)) {
+				emprestimo.fechandoEmprestimo(dataEntrega);
 				
-				return emprestou.get(i);
 			}
 		}
-		return null;
 	}
 
 }

@@ -26,28 +26,39 @@ public class Emprestimo {
 		this.devolveuDias = 0;
 		this.atrasou = false;
 		this.dataEntrega = "Emprestimo em andamento";
+		try {
+			fazendoVencimento(dataEmprestimo, periodo);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 
 	}
 
 	public void fazendoVencimento(String dataEmprestimo, int periodo) throws ParseException {
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 		Date data1 = formato.parse(dataEmprestimo);
-		data1.setDate(data1.getDate()+ periodo);
+		data1.setDate(data1.getDate() + periodo);
 		this.vencimento = data1;
+
+		
 	}
-	public boolean verificavencimento(Date entrega){
-		boolean data;
-		if (entrega.before(vencimento)){
-			data = true;
-		}
-		else if (entrega.after(vencimento))
-			data = false;
-		else
-			data = true;
-		return data;
-	}
+	
 	public void fechandoEmprestimo(String dataEntrega)  {
 		this.dataEntrega  = dataEntrega;
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+		Date data1 = null;
+		try {
+			 data1 = formato.parse(dataEntrega);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (data1.after(this.vencimento)){
+			atrasou = true;
+		}
+		long diferencaDias = (data1.getTime() - this.vencimento.getTime()) / (1000*60*60*24);
+		
+		this.devolveuDias = (int) diferencaDias;
 		
 		
     
