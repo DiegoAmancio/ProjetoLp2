@@ -240,7 +240,7 @@ public class Usuario {
 	 */
 	@Override
 	public String toString() {
-		return nome + ", " + telefone + ", " + email;
+		return nome + ", " + email + ", " + telefone;
 	}
 
 	/**
