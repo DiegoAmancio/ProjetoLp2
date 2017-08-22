@@ -3,6 +3,7 @@ package Usuario;
 import java.util.HashMap;
 import java.util.Map;
 
+import Enums.CartaoFidelidade;
 import Enums.Emprestado;
 import Item.Item;
 import Item.ItemController;
@@ -60,6 +61,8 @@ public class UsuarioController {
 			Usuario usuario = usuarios.get(identificador);
 
 			switch (atributo.trim().toUpperCase()) {
+			case "CARTAO":
+				return usuario.getCartaoTxt();
 			case "REPUTACAO":
 				return Double.toString(usuario.getReputacao());
 			case "NOME":
@@ -262,9 +265,9 @@ public class UsuarioController {
 	}
 
 	/**
-	 * Registra emprestimos, passos: Primeiro, checa se o usuario tem determinado
-	 * item para emprestar, se sim, verifica o status do item (se esta emprestado ou
-	 * nao), se nao estiver emprestado, realiza emprestimo.
+	 * Registra emprestimos, passos: Primeiro, checa se o usuario tem
+	 * determinado item para emprestar, se sim, verifica o status do item (se
+	 * esta emprestado ou nao), se nao estiver emprestado, realiza emprestimo.
 	 * 
 	 * @param nomeDono
 	 * @param telefoneDono
@@ -282,18 +285,33 @@ public class UsuarioController {
 		String identificadorRequerente = getToken(nomeRequerente, telefoneRequerente);
 		existeUsuario(identificadorDono);
 		existeUsuario(identificadorRequerente);
-
+		Usuario dono = usuarios.get(identificadorDono);
+		Usuario requerente = usuarios.get(identificadorRequerente);
 		usuarios.get(identificadorDono).existeItem(itemEmprestado);
-		
-		if ((usuarios.get(identificadorDono).getItem(itemEmprestado).getEmprestado() == Emprestado.NAO_EMPRESTADO)) {
+
+		if ((dono.getItem(itemEmprestado).getEmprestado() == Emprestado.NAO_EMPRESTADO)) {
+			int vencimento = determinarVencimento(dono.getCartao());
 			Emprestimo novoEmprestimo = new Emprestimo(nomeDono, nomeRequerente, itemEmprestado, dataEmprestimo,
-					periodo);
-			usuarios.get(identificadorDono).empresta(novoEmprestimo, itemEmprestado);
-			usuarios.get(identificadorRequerente).pegaEmprestado(novoEmprestimo, itemEmprestado);
+					periodo, vencimento);
+			dono.empresta(novoEmprestimo, itemEmprestado);
+			requerente.pegaEmprestado(novoEmprestimo, itemEmprestado);
 			itemController.adicionarHistorico(itemEmprestado, novoEmprestimo);
 			return "Item emprestado com sucesso";
 		} else {
 			throw new IllegalArgumentException("Item emprestado no momento");
+		}
+	}
+
+	public int determinarVencimento(CartaoFidelidade cartao) {
+
+		if (cartao.equals(CartaoFidelidade.BOM_AMIGO)) {
+			return 14;
+		} else if (cartao.equals(CartaoFidelidade.NOOB)) {
+			return 7;
+		} else if (cartao.equals(CartaoFidelidade.FREE_RIDER)) {
+			return 5;
+		} else {
+			throw new NullPointerException("Usuario nao pode pegar nenhum item emprestado");
 		}
 	}
 
@@ -313,19 +331,19 @@ public class UsuarioController {
 			String nomeItem, String dataEmprestimo, String dataDevolucao) {
 		String identificadorDono = getToken(nomeDono, telefoneDono);
 		String requerente = getToken(nomeRequerente, telefoneRequerente);
-		
+
 		Usuario dono = usuarios.get(identificadorDono);
-		Usuario caraPedindo= usuarios.get(requerente);
+		Usuario caraPedindo = usuarios.get(requerente);
 		Item itemDono = dono.getItem(nomeItem);
 		Emprestimo ee = dono.existeEmprestimo(nomeItem, nomeRequerente);
 		itemDono.setEmprestado(Emprestado.NAO_EMPRESTADO);
-		
+
 		dono.fechandoEmprestimo(dataDevolucao, ee);
 		Emprestimo emprestimo = dono.existeEmprestimo(nomeItem, nomeRequerente);
-		
-		if(emprestimo.getAtrasou()){
+
+		if (emprestimo.getAtrasou()) {
 			caraPedindo.abaixaReputacao(itemDono.getPreco(), emprestimo.getDevolveuDias());
-		}else{
+		} else {
 			caraPedindo.sobeReputacao(itemDono.getPreco(), "");
 		}
 		if (emprestimo != null) {
@@ -366,7 +384,7 @@ public class UsuarioController {
 	}
 
 	public String listarTop10Itens() {
-		
+
 		return itemController.top10();
 	}
 

@@ -149,7 +149,7 @@ public class UsuarioControllerTeste {
 		
 	}
 	@Test
-	public void desgraça(){
+	public void testeUs6(){
 		controlador.cadastrarUsuario("Jericho","90510-2010","jericho@email.com");
 		assertEquals("0.0", controlador.getInfoUsuario("Jericho","90510-2010","Reputacao"));
 		
@@ -199,10 +199,13 @@ public class UsuarioControllerTeste {
 //				# Reputcao de Shauna: 17.25 + 60 * 0.05 = 17.25 + 3.0 = 20.25
 		assertEquals("20.25",controlador.getInfoUsuario("Shauna","91005-2011","Reputacao"));
 		assertEquals("-55.0",controlador.getInfoUsuario("Sarah","90809-2010","Reputacao"));
-//
+		assertEquals("Caloteiro",controlador.getInfoUsuario("Sarah","90809-2010","Cartao"));
 //				fecharSistema
 
+	
 	}
+	
+	
 
 	
 }
