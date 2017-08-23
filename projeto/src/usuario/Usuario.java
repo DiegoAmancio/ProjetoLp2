@@ -56,125 +56,21 @@ public class Usuario {
 		this.cartao = CartaoFidelidade.FREE_RIDER;
 	}
 
-	public void validaUsuarioAtributo(String atributo, String qualAtributo) {
-		if (atributo == null) {
-			throw new NullPointerException(qualAtributo + "invalido,nulo");
-		}
-		if (atributo.trim().equals("")) {
-			throw new IllegalArgumentException(qualAtributo + "invalido,vazio");
-		}
-	}
-
-	public void calcularTipoCartao() {
-		
-	
-		if (this.reputacao >= 0 && this.reputacao <= 100) {
-			setCartao(CartaoFidelidade.NOOB);
-		} else if (this.reputacao > 100) {
-			setCartao(CartaoFidelidade.BOM_AMIGO);
-		} else if (this.reputacao < 0) {
-			setCartao(CartaoFidelidade.CALOTEIRO);
-		}else {
-			setCartao(CartaoFidelidade.FREE_RIDER);
-		}
-	}
-
-	public CartaoFidelidade getCartao() {
-		return cartao;
-	}
-	public String getCartaoTxt() {
-		return cartao.getMensagem();
-	}
-
-	public void setCartao(CartaoFidelidade cartao) {
-		this.cartao = cartao;
-	}
-
-	public void sobeReputacao(double preco, String situacao) {
-		double valor = 0;
-		if (situacao.equals("Emprestou")) {
-			valor = this.reputacao + (preco * 0.1);
-		} else {
-			valor = this.reputacao + (preco * 0.05);
-		}
-		setReputacao(valor);
-		calcularTipoCartao();
-
-	}
-
 	public void abaixaReputacao(double preco, int diasAtrasados) {
 
 		double diminuir = (preco * (diasAtrasados * 0.01));
 		setReputacao(this.reputacao - diminuir);
 		calcularTipoCartao();
 
-
-	}
-
-	public double getReputacao() {
-		return reputacao;
-	}
-
-	public void setReputacao(double reputacao) {
-		this.reputacao = reputacao;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public void existeItem(String nomeItem) {
-		if (!itens.containsKey(nomeItem)) {
-			throw new NullPointerException("Item nao encontrado");
-		}
-	}
-
-	public void empresta(Emprestimo novoEmprestimo, String nomeItem) {
-		emprestou.add(novoEmprestimo);
-		sobeReputacao(getItem(nomeItem).getPreco(), "Emprestou");
-		itens.get(nomeItem).setEmprestado(Emprestado.EMPRESTADO);
-	}
-
-	// TODO requerente nao tem item
-	public void pegaEmprestado(Emprestimo novoEmprestimo, String nomeItem) {
-		pegouEmprestado.add(novoEmprestimo);
 	}
 
 	public void adicionaItem(String nomeItem, Item item) {
 		if (!(itens.containsKey(nomeItem))) {
 			sobeReputacao(item.getPreco(), "");
 			itens.put(nomeItem, item);
-			
+
 		}
 		calcularTipoCartao();
-	}
-
-	public void removerItem(String nomeItem) {
-		if (itens.containsKey(nomeItem)) {
-			itens.remove(nomeItem);
-		} else {
-			throw new NullPointerException("Item nao encontrado");
-		}
 	}
 
 	/**
@@ -207,6 +103,54 @@ public class Usuario {
 		}
 	}
 
+	public void calcularTipoCartao() {
+
+		if (this.reputacao >= 0 && this.reputacao <= 100) {
+			setCartao(CartaoFidelidade.NOOB);
+		} else if (this.reputacao > 100) {
+			setCartao(CartaoFidelidade.BOM_AMIGO);
+		} else if (this.reputacao < 0) {
+			setCartao(CartaoFidelidade.CALOTEIRO);
+		} else {
+			setCartao(CartaoFidelidade.FREE_RIDER);
+		}
+	}
+
+	public void empresta(Emprestimo novoEmprestimo, String nomeItem) {
+		emprestou.add(novoEmprestimo);
+		sobeReputacao(getItem(nomeItem).getPreco(), "Emprestou");
+		itens.get(nomeItem).setEmprestado(Emprestado.EMPRESTADO);
+	}
+
+	public Emprestimo existeEmprestimo(String nomeItem, String nomeRequerente) {
+
+		for (Emprestimo emprestimo : emprestou) {
+			if (emprestimo.getItemEmprestado().equals(nomeItem)
+					&& emprestimo.getNomeRequerente().equals(nomeRequerente)) {
+				return emprestimo;
+			}
+		}
+
+		throw new NullPointerException("Emprestimo nao encontrado");
+
+	}
+
+	public void existeItem(String nomeItem) {
+		if (!itens.containsKey(nomeItem)) {
+			throw new NullPointerException("Item nao encontrado");
+		}
+	}
+
+	public void fechandoEmprestimo(String dataEntrega, Emprestimo ee) {
+		for (int i = 0; i < emprestou.size(); i++) {
+			Emprestimo emprestimo = emprestou.get(i);
+			if (emprestimo.equals(ee)) {
+				emprestimo.fechandoEmprestimo(dataEntrega);
+
+			}
+		}
+	}
+
 	/**
 	 * Retorna o preco do item
 	 * 
@@ -228,55 +172,6 @@ public class Usuario {
 		} else {
 			throw new IllegalArgumentException("Item nao encontrado");
 		}
-	}
-
-	public String getDetalhes(String nomeItem) {
-		if (itens.containsKey(nomeItem)) {
-			return itens.get(nomeItem).toString();
-		}
-		throw new NullPointerException("Item nao encontrado");
-	}
-
-	/**
-	 * representacao de um usuario
-	 */
-	@Override
-	public String toString() {
-		return nome + ", " + email + ", " + telefone;
-	}
-
-	/**
-	 * compara um usuario com este.
-	 * 
-	 * @param usuario
-	 *            usuario a ser comparado
-	 * @return se o usuario e igual ao dono deste metodo.
-	 */
-	public boolean equals(Usuario usuario) {
-		boolean saida = false;
-		if (usuario.getNome().equals(this.nome)) {
-			if (usuario.getTelefone().equals(this.telefone)) {
-				saida = true;
-			}
-		}
-		return saida;
-	}
-
-	public Item getItem(String itemEmprestado) {
-		return itens.get(itemEmprestado);
-	}
-
-	public Emprestimo existeEmprestimo(String nomeItem, String nomeRequerente) {
-
-		for (Emprestimo emprestimo : emprestou) {
-			if (emprestimo.getItemEmprestado().equals(nomeItem)
-					&& emprestimo.getNomeRequerente().equals(nomeRequerente)) {
-				return emprestimo;
-			}
-		}
-
-		throw new NullPointerException("Emprestimo nao encontrado");
-
 	}
 
 	public String listarItensEmprestados() {
@@ -305,14 +200,117 @@ public class Usuario {
 		}
 	}
 
-	public void fechandoEmprestimo(String dataEntrega, Emprestimo ee) {
-		for (int i = 0; i < emprestou.size(); i++) {
-			Emprestimo emprestimo = emprestou.get(i);
-			if (emprestimo.equals(ee)) {
-				emprestimo.fechandoEmprestimo(dataEntrega);
+	public void pegaEmprestado(Emprestimo novoEmprestimo, String nomeItem) {
+		pegouEmprestado.add(novoEmprestimo);
+	}
 
+	public void removerItem(String nomeItem) {
+		if (itens.containsKey(nomeItem)) {
+			itens.remove(nomeItem);
+		} else {
+			throw new NullPointerException("Item nao encontrado");
+		}
+	}
+
+	public void sobeReputacao(double preco, String situacao) {
+		double valor = 0;
+		if (situacao.equals("Emprestou")) {
+			valor = this.reputacao + (preco * 0.1);
+		} else {
+			valor = this.reputacao + (preco * 0.05);
+		}
+		setReputacao(valor);
+		calcularTipoCartao();
+
+	}
+
+	public void validaUsuarioAtributo(String atributo, String qualAtributo) {
+		if (atributo == null) {
+			throw new NullPointerException(qualAtributo + "invalido,nulo");
+		}
+		if (atributo.trim().equals("")) {
+			throw new IllegalArgumentException(qualAtributo + "invalido,vazio");
+		}
+	}
+
+	/**
+	 * compara um usuario com este.
+	 * 
+	 * @param usuario
+	 *            usuario a ser comparado
+	 * @return se o usuario e igual ao dono deste metodo.
+	 */
+	public boolean equals(Usuario usuario) {
+		boolean saida = false;
+		if (usuario.getNome().equals(this.nome)) {
+			if (usuario.getTelefone().equals(this.telefone)) {
+				saida = true;
 			}
 		}
+		return saida;
+	}
+
+	public String getDetalhes(String nomeItem) {
+		if (itens.containsKey(nomeItem)) {
+			return itens.get(nomeItem).toString();
+		}
+		throw new NullPointerException("Item nao encontrado");
+	}
+
+	public Item getItem(String itemEmprestado) {
+		return itens.get(itemEmprestado);
+	}
+
+	public CartaoFidelidade getCartao() {
+		return cartao;
+	}
+
+	public double getReputacao() {
+		return reputacao;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getCartaoTxt() {
+		return cartao.getMensagem();
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setReputacao(double reputacao) {
+		this.reputacao = reputacao;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setCartao(CartaoFidelidade cartao) {
+		this.cartao = cartao;
+	}
+
+	/**
+	 * representacao de um usuario
+	 */
+	@Override
+	public String toString() {
+		return nome + ", " + email + ", " + telefone;
 	}
 
 }
