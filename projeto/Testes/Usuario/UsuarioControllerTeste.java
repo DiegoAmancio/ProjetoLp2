@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import usuario.UsuarioController;
+
 /**
  * testa metodos da classe UsuarioController
  * 
@@ -148,6 +150,64 @@ public class UsuarioControllerTeste {
 		}
 		
 	}
+	@Test
+	public void testeUs6(){
+		controlador.cadastrarUsuario("Jericho","90510-2010","jericho@email.com");
+		assertEquals("0.0", controlador.getInfoUsuario("Jericho","90510-2010","Reputacao"));
+		
+		controlador.cadastrarUsuario("Shauna","91005-2011","shauna@email.com");
+		assertEquals("0.0", controlador.getInfoUsuario("Shauna","91005-2011","Reputacao"));
+		
+		controlador.cadastrarUsuario("Sarah","90809-2010","sarah@email.com");
+		assertEquals("0.0", controlador.getInfoUsuario("Sarah","90809-2010","Reputacao"));
+		
+		controlador.cadastrarEletronico("Jericho","90510-2010","Age of Empires III",70.00,"PC");
+		assertEquals("3.5", controlador.getInfoUsuario("Jericho","90510-2010","Reputacao"));
+		
+		controlador.cadastrarEletronico("Jericho","90510-2010","Age of Empires II",37.00,"PC");
+		assertEquals("5.35", controlador.getInfoUsuario("Jericho","90510-2010","Reputacao"));
+
+		controlador.cadastrarBluRayShow("Jericho","90510-2010","DJ Sona: Ultimate Concert",3250.00,13,3,"Sona","LIVRE");
+		assertEquals("167.85",controlador.getInfoUsuario("Jericho","90510-2010","Reputacao"));
+		assertEquals("3250.0",controlador.getInfoItem("Jericho", "90510-2010", "DJ Sona: Ultimate Concert", "Preco"));
+
+		controlador.cadastrarJogoTabuleiro("Shauna","91005-2011","MECHS VS MINIONS",230.00);
+		assertEquals("11.5",controlador.getInfoUsuario("Shauna","91005-2011","Reputacao"));
+
+		controlador.cadastrarBluRaySerie("Shauna","91005-2011","A Lenda de Sleepy Hollow",115.00,"Ressurreicao, cavaleiros do apocalipse, bruxas...",42,"QUATORZE_ANOS","ACAO",2);
+		assertEquals("17.25",controlador.getInfoUsuario("Shauna","91005-2011","Reputacao"));
+
+		controlador.cadastrarBluRayFilme("Sarah","90809-2010","Piratas do Caribe: A Vingança de Salazar",60.00,129,"AVENTURA","DOZE_ANOS",2017);
+		assertEquals("3.0" ,controlador.getInfoUsuario("Sarah","90809-2010","Reputacao"));
+
+		controlador.cadastrarBluRayFilme("Sarah","90809-2010","Piratas do Caribe: A Maldição do Pérola Negra",20.00,136,"AVENTURA","QUATORZE_ANOS",2003);
+		assertEquals("4.0",controlador.getInfoUsuario("Sarah","90809-2010","Reputacao"));
+
+		controlador.registrarEmprestimo("Jericho","90510-2010","Sarah","90809-2010","DJ Sona: Ultimate Concert","03/05/2018",7);
+		assertEquals("492.85", controlador.getInfoUsuario("Jericho","90510-2010","Reputacao"));
+		assertEquals("4.0",controlador.getInfoUsuario("Sarah","90809-2010","Reputacao"));
+
+		controlador.devolverItem("Jericho","90510-2010","Sarah","90809-2010","DJ Sona: Ultimate Concert","03/05/2018","12/05/2018");
+		assertEquals("-61.0",controlador.getInfoUsuario("Sarah","90809-2010","Reputacao"));
+		assertEquals("492.85",controlador.getInfoUsuario("Jericho","90510-2010","Reputacao"));		
+
+		controlador.registrarEmprestimo("Sarah","90809-2010","Shauna","91005-2011","Piratas do Caribe: A Vingança de Salazar","05/05/2018",7);
+
+		assertEquals("-55.0",controlador.getInfoUsuario("Sarah","90809-2010","Reputacao"));
+		assertEquals("17.25",controlador.getInfoUsuario("Shauna","91005-2011","Reputacao"));
+		
+		controlador.devolverItem("Sarah","90809-2010","Shauna","91005-2011","Piratas do Caribe: A Vingança de Salazar","05/05/2018","12/05/2018");
+//
+//				# Reputcao de Shauna: 17.25 + 60 * 0.05 = 17.25 + 3.0 = 20.25
+		assertEquals("20.25",controlador.getInfoUsuario("Shauna","91005-2011","Reputacao"));
+		assertEquals("-55.0",controlador.getInfoUsuario("Sarah","90809-2010","Reputacao"));
+		assertEquals("Caloteiro",controlador.getInfoUsuario("Sarah","90809-2010","Cartao"));
+//				fecharSistema
+
+	
+	}
+	
+	
 
 	
 }

@@ -4,6 +4,10 @@
 	<classpathentry kind="src" path="Testes"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/Users/ANDRÉ/Documents/GitHub/ProjetoLp2/easyaccept.jar"/>
+=======
+	<classpathentry kind="lib" path="/home/andrema/Área de Trabalho/ProjetoP2 2017.1/ProjetoLp2/easyaccept.jar"/>
+>>>>>>> c9d18f28b80cb167b94ff3151281877765c5570c
 	<classpathentry kind="output" path="bin"/>
 </classpath>

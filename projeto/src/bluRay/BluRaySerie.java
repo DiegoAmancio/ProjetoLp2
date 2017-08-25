@@ -1,10 +1,9 @@
-package BluRay;
+package bluRay;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import Enums.Genero;
-
+import enums.Genero;
 
 /**
  * Representa o BluRaySerie. Atribui-se BRS para BluRaySerie
@@ -14,7 +13,7 @@ import Enums.Genero;
  */
 public class BluRaySerie extends BluRay {
 	private Genero genero;
-	private int numeroDaTemporada;	
+	private int numeroDaTemporada;
 	private List<Episodio> temporada = new ArrayList<Episodio>();
 
 	/**
@@ -33,10 +32,78 @@ public class BluRaySerie extends BluRay {
 	 * @param numeroDaTemporada
 	 *            (numero da temporada do BRS)
 	 */
-	public BluRaySerie(String nome, double preco, int duracao, String classificacao, String genero, int numeroDaTemporada) {
-		super(nome, preco, duracao, classificacao);
+	public BluRaySerie(String donoItem, String nome, double preco, int duracao, String classificacao, String genero,
+			int numeroDaTemporada) {
+		super(donoItem, nome, preco, duracao, classificacao);
 		verificaGenero(genero);
 		this.numeroDaTemporada = numeroDaTemporada;
+	}
+
+	public void verificaGenero(String genero) {
+		switch (genero.toUpperCase().trim()) {
+		case "ACAO":
+			this.genero = Genero.ACAO;
+			break;
+		case "ANIMACAO":
+			this.genero = Genero.ANIMACAO;
+			break;
+		case "AVENTURA":
+			this.genero = Genero.AVENTURA;
+			break;
+		case "COEMDIA":
+			this.genero = Genero.COEMDIA;
+			break;
+		case "DOCUMENTARIO":
+			this.genero = Genero.DOCUMENTARIO;
+			break;
+		case "DRAMA":
+			this.genero = Genero.DRAMA;
+			break;
+		case "EROTICO":
+			this.genero = Genero.EROTICO;
+			break;
+		case "FAROESTE":
+			this.genero = Genero.FAROESTE;
+			break;
+		case "FICCAO":
+			this.genero = Genero.FICCAO;
+			break;
+		case "MUSICAL":
+			this.genero = Genero.MUSICAL;
+			break;
+		case "POLICIAL":
+			this.genero = Genero.POLICIAL;
+			break;
+		case "ROMANCE":
+			this.genero = Genero.ROMANCE;
+			break;
+		case "SUSPENSE":
+			this.genero = Genero.SUSPENSE;
+			break;
+		case "TERROR":
+			this.genero = Genero.TERROR;
+			break;
+		case "OUTRO":
+			this.genero = Genero.OUTRO;
+			break;
+
+		default:
+			throw new IllegalArgumentException();
+		}
+	}
+
+	@Override
+	public String getInfoItem(String atributo) {
+		switch (atributo.trim().toUpperCase()) {
+		case "GENERO":
+			return this.getGenero();
+		case "TEMPORADA":
+			return Integer.toString(this.getNumeroDaTemporada());
+		case "PRECO":
+			return Double.toString(this.getPreco());
+		default:
+			throw new IllegalArgumentException();
+		}
 	}
 
 	/**
@@ -97,91 +164,25 @@ public class BluRaySerie extends BluRay {
 		return genero.getMensagem();
 	}
 
-	public void verificaGenero(String genero) {
-		switch (genero.toUpperCase().trim()) {
-		case "ACAO":
-			this.genero = Genero.ACAO;
-			break;
-		case "ANIMACAO":
-			this.genero = Genero.ANIMACAO;
-			break;
-		case "AVENTURA":
-			this.genero = Genero.AVENTURA;
-			break;
-		case "COEMDIA":
-			this.genero = Genero.COEMDIA;
-			break;
-		case "DOCUMENTARIO":
-			this.genero = Genero.DOCUMENTARIO;
-			break;
-		case "DRAMA":
-			this.genero = Genero.DRAMA;
-			break;
-		case "EROTICO":
-			this.genero = Genero.EROTICO;
-			break;
-		case "FAROESTE":
-			this.genero = Genero.FAROESTE;
-			break;
-		case "FICCAO":
-			this.genero = Genero.FICCAO;
-			break;
-		case "MUSICAL":
-			this.genero = Genero.MUSICAL;
-			break;
-		case "POLICIAL":
-			this.genero = Genero.POLICIAL;
-			break;
-		case "ROMANCE":
-			this.genero = Genero.ROMANCE;
-			break;
-		case "SUSPENSE":
-			this.genero = Genero.SUSPENSE;
-			break;
-		case "TERROR":
-			this.genero = Genero.TERROR;
-			break;
-		case "OUTRO":
-			this.genero = Genero.OUTRO;
-			break;
-
-		default:
-			throw new IllegalArgumentException();
-		}
-	}
-
 	public int getNumeroDaTemporada() {
 		return numeroDaTemporada;
-	}
-
-	public void setNumeroDaTemporada(int numeroDaTemporada) {
-		this.numeroDaTemporada = numeroDaTemporada;
 	}
 
 	public List<Episodio> getTemporada() {
 		return temporada;
 	}
 
+	public void setNumeroDaTemporada(int numeroDaTemporada) {
+		this.numeroDaTemporada = numeroDaTemporada;
+	}
+
 	public void setTemporada(List<Episodio> temporada) {
 		this.temporada = temporada;
 	}
-	
-	@Override
-	public String getInfoItem(String atributo) {
-		switch (atributo.trim().toUpperCase()) {
-		case "GENERO":
-			return this.getGenero();			
-		case "TEMPORADA":
-			return Integer.toString(this.getNumeroDaTemporada());
-		case "PRECO":
-			return Double.toString(this.getPreco());
-		default:
-			throw new IllegalArgumentException();
-		}
-	}
+
 	@Override
 	public String toString() {
-		return "SERIE: " + super.toString()+ this.genero.getMensagem()+", "+"Temporada "+this.numeroDaTemporada;
+		return "SERIE: " + super.toString() + this.genero.getMensagem() + ", " + "Temporada " + this.numeroDaTemporada;
 	}
-	
+
 }

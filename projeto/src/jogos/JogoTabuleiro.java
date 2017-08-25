@@ -1,17 +1,17 @@
-package Jogos;
+package jogos;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import Enums.Completo;
-import Item.Item;
+import enums.Completo;
+import item.Item;
 
 public class JogoTabuleiro extends Item{
 	private Completo jogoCompleto;
 	private List<Peca> pecasPerdidas;
 	
-	public JogoTabuleiro(String nome, double preco) {
-		super(nome, preco);
+	public JogoTabuleiro(String donoItem,String nome, double preco) {
+		super(donoItem,nome, preco);
 		pecasPerdidas = new ArrayList<>();
 		this.jogoCompleto = Completo.COMPLETO;
 	}
@@ -44,7 +44,7 @@ public class JogoTabuleiro extends Item{
 	
 	@Override
 	public String toString() {
-		return "JOGO DE TABULEIRO: " + super.toString() + ", " + jogoCompleto.getMensagem();
+		return "JOGO DE TABULEIRO: "+super.toString() + ", " + jogoCompleto.getMensagem();
 	}
 
 	@Override

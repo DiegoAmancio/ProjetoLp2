@@ -1,6 +1,6 @@
-package BluRay;
+package bluRay;
 
-import Enums.Genero;
+import enums.Genero;
 
 /**
  * Representa o BluRayFilme. Atribui-se BRF para BluRayFilme
@@ -29,14 +29,26 @@ public class BluRayFilme extends BluRay {
 	 *            (ano de lancamento do BRF)
 	 * 
 	 */
-	public BluRayFilme(String nome, double preco, int duracao, String classificacao, String genero, int anoLancamento) {
-		super(nome, preco, duracao, classificacao);
+	public BluRayFilme(String donoItem, String nome, double preco, int duracao, String classificacao, String genero,
+			int anoLancamento) {
+		super(donoItem, nome, preco, duracao, classificacao);
 		verificaGenero(genero);
 		this.anoLancamento = anoLancamento;
-	}	
+	}
 
-	public String getGenero() {
-		return genero.getMensagem();
+	@Override
+	public String getInfoItem(String atributo) {
+		String info = super.getInfoItem(atributo);
+		switch (atributo) {
+		case "Genero":
+			info += this.getGenero();
+			return info;
+		case "Ano de Lancamento":
+			info += this.getAnoLancamento();
+			return info;
+		default:
+			throw new IllegalArgumentException();
+		}
 	}
 
 	public void verificaGenero(String genero) {
@@ -96,28 +108,17 @@ public class BluRayFilme extends BluRay {
 		return anoLancamento;
 	}
 
+	public String getGenero() {
+		return genero.getMensagem();
+	}
+
 	public void setAnoLancamento(int anoLancamento) {
 		this.anoLancamento = anoLancamento;
 	}
-	
-	@Override
-	public String getInfoItem(String atributo) {
-		String info = super.getInfoItem(atributo);
-		switch (atributo) {
-		case "Genero":
-			info += this.getGenero();
-			return info;
-		case "Ano de Lancamento":
-			info += this.getAnoLancamento();
-			return info;
-		default:
-			throw new IllegalArgumentException();
-		}
-	}
+
 	@Override
 	public String toString() {
-		return "FILME: " + super.toString() + this.genero.getMensagem()+", "+ this.anoLancamento ;
+		return "FILME: " + super.toString() + this.genero.getMensagem() + ", " + this.anoLancamento;
 	}
-	
-}
 
+}

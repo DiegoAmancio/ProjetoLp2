@@ -1,13 +1,13 @@
-package Jogos;
+package jogos;
 
-import Enums.Plataforma;
-import Item.Item;
+import enums.Plataforma;
+import item.Item;
 
 public class JogoEletronico extends Item{
 	private Plataforma plataforma;	
 	
-	public JogoEletronico(String nome, double preco, String plataforma) {
-		super(nome, preco);
+	public JogoEletronico(String donoItem,String nome, double preco, String plataforma) {
+		super(donoItem,nome, preco);
 		verificaPlataforma(plataforma);
 	}
 	

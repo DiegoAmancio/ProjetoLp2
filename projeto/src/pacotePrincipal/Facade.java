@@ -1,6 +1,6 @@
 package pacotePrincipal;
 
-import Usuario.UsuarioController;
+import usuario.UsuarioController;
 
 public class Facade {
 	UsuarioController controllerUsuario;
@@ -89,6 +89,34 @@ public class Facade {
 		
 	public String devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente, String nomeItem, String dataEmprestimo, String dataDevolucao) {
 		return controllerUsuario.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
+	}
+	public String listarEmprestimosUsuarioEmprestando(String nome,String telefone){
+		return controllerUsuario.listarEmprestimosUsuarioEmprestando(nome, telefone);
+	}
+
+	public String listarEmprestimosUsuarioPegandoEmprestado(String nome,String telefone){
+		return controllerUsuario.listarEmprestimosUsuarioPegandoEmprestado(nome, telefone);
+	}
+	public String listarEmprestimosItem(String nomeItem){
+		return controllerUsuario.listarEmprestimosItem(nomeItem);
+	}
+	public String listarItensNaoEmprestados(){
+		return controllerUsuario.listarItensNaoEmprestados();
+	}
+	public String listarItensEmprestados(){
+		return controllerUsuario.listarItensEmprestados();
+	}
+	public String listarTop10Itens() {
+		return controllerUsuario.listarTop10Itens();
+	}
+	public String listarCaloteiros(){
+		return controllerUsuario.listarCaloteiros();
+	}
+	public String listarTop10PioresUsuarios(){
+		return controllerUsuario.listarTop10PioresUsuarios();
+	}
+	public String listarTop10MelhoresUsuarios(){
+		return controllerUsuario.top10MelhoresUsuarios();
 	}
 	
 }

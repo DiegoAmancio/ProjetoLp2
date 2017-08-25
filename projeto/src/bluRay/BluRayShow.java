@@ -1,4 +1,4 @@
-package BluRay;
+package bluRay;
 
 /**
  * Representa o BluRayShow.
@@ -26,35 +26,20 @@ public class BluRayShow extends BluRay {
 	 * @param nomeArtista
 	 *            (nome do artista do BRS)
 	 */
-	public BluRayShow(String nome, double preco, int duracao, String classificacao, int numeroFaixas, String nomeArtista) {
-		super(nome, preco, duracao, classificacao);
+	public BluRayShow(String donoItem, String nome, double preco, int duracao, String classificacao, int numeroFaixas,
+			String nomeArtista) {
+		super(donoItem, nome, preco, duracao, classificacao);
 		this.numeroFaixas = numeroFaixas;
 		this.nomeArtista = nomeArtista;
 	}
 
-	public int getNumeroFaixas() {
-		return numeroFaixas;
-	}
-
-	public void setNumeroFaixas(int numeroFaixas) {
-		this.numeroFaixas = numeroFaixas;
-	}
-
-	public String getNomeArtista() {
-		return nomeArtista;
-	}
-
-	public void setNomeArtista(String nomeArtista) {
-		this.nomeArtista = nomeArtista;
-	}
-	
 	@Override
 	public String getInfoItem(String atributo) {
 		switch (atributo.trim().toUpperCase()) {
 		case "ARTISTA":
-			return this.getNomeArtista();			
+			return this.getNomeArtista();
 		case "FAIXAS":
-			return Integer.toString(this.getNumeroFaixas());			
+			return Integer.toString(this.getNumeroFaixas());
 		case "PRECO":
 			return Double.toString(this.getPreco());
 		default:
@@ -89,9 +74,26 @@ public class BluRayShow extends BluRay {
 			return false;
 		return true;
 	}
+
+	public int getNumeroFaixas() {
+		return numeroFaixas;
+	}
+
+	public String getNomeArtista() {
+		return nomeArtista;
+	}
+
+	public void setNumeroFaixas(int numeroFaixas) {
+		this.numeroFaixas = numeroFaixas;
+	}
+
+	public void setNomeArtista(String nomeArtista) {
+		this.nomeArtista = nomeArtista;
+	}
+
 	@Override
 	public String toString() {
-		return "SHOW: " + super.toString() + this.nomeArtista + ", " + this.numeroFaixas +" faixas";
+		return "SHOW: " + super.toString() + this.nomeArtista + ", " + this.numeroFaixas + " faixas";
 	}
 
 }
