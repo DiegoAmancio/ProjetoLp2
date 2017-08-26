@@ -56,67 +56,11 @@ public class Usuario {
 		this.cartao = CartaoFidelidade.FREE_RIDER;
 	}
 
-<<<<<<< HEAD
-	public void validaUsuarioAtributo(String atributo, String qualAtributo) {
-		if (atributo == null) {
-			throw new NullPointerException(qualAtributo + "invalido,nulo");
-		}
-		if (atributo.trim().equals("")) {
-			throw new IllegalArgumentException(qualAtributo + "invalido,vazio");
-		}
-	}
-
-	public void calcularTipoCartao() {
-		
-	
-		if (this.reputacao >= 0 && this.reputacao <= 100) {
-			setCartao(CartaoFidelidade.NOOB);
-		} else if (this.reputacao > 100) {
-			setCartao(CartaoFidelidade.BOM_AMIGO);
-		} else if (this.reputacao < 0) {
-			setCartao(CartaoFidelidade.CALOTEIRO);
-		}
-	}
-
-	public void sobeReputacao(double preco, String situacao) {
-		double valor = 0;
-		if (situacao.equals("Emprestou")) {
-			valor = this.reputacao + (preco * 0.1);
-		} else {
-			valor = this.reputacao + (preco * 0.05);
-		}
-		setReputacao(valor);
-		calcularTipoCartao();
-
-	}
-
-=======
->>>>>>> master
 	public void abaixaReputacao(double preco, int diasAtrasados) {
 
 		double diminuir = (preco * (diasAtrasados * 0.01));
 		setReputacao(this.reputacao - diminuir);
 		calcularTipoCartao();
-<<<<<<< HEAD
-	}
-
-	public void existeItem(String nomeItem) {
-		if (!itens.containsKey(nomeItem)) {
-			throw new NullPointerException("Item nao encontrado");
-		}
-	}
-
-	public void empresta(Emprestimo novoEmprestimo, String nomeItem) {
-		emprestou.add(novoEmprestimo);
-		sobeReputacao(getItem(nomeItem).getPreco(), "Emprestou");
-		itens.get(nomeItem).setEmprestado(Emprestado.EMPRESTADO);
-	}
-
-	public void pegaEmprestado(Emprestimo novoEmprestimo, String nomeItem) {
-		pegouEmprestado.add(novoEmprestimo);
-=======
-
->>>>>>> master
 	}
 
 	public void adicionaItem(String nomeItem, Item item) {
@@ -353,63 +297,11 @@ public class Usuario {
 		return saida;
 	}
 
-<<<<<<< HEAD
-	public Emprestimo existeEmprestimo(String nomeItem, String nomeRequerente) {
-=======
 	public String getDetalhes(String nomeItem) {
 		if (itens.containsKey(nomeItem)) {
 			return itens.get(nomeItem).toString();
 		}
 		throw new NullPointerException("Item nao encontrado");
-	}
-
-	public Item getItem(String itemEmprestado) {
-		return itens.get(itemEmprestado);
-	}
-
-	public CartaoFidelidade getCartao() {
-		return cartao;
-	}
->>>>>>> master
-
-	public double getReputacao() {
-		return reputacao;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public String getCartaoTxt() {
-		return cartao.getMensagem();
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public void setReputacao(double reputacao) {
-		this.reputacao = reputacao;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public void setCartao(CartaoFidelidade cartao) {
-		this.cartao = cartao;
 	}
 
 	/**

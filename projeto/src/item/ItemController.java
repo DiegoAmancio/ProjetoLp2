@@ -179,61 +179,9 @@ public class ItemController {
 		itens.add(item);
 		return item;
 	}
-<<<<<<< HEAD
-	
-	/**
-	 * Adiciona uma Peca a lista de pecas perdidas de um determinado JogoTabuleiro.
-	 * 
-	 * @param item
-	 *            Item que perdeu a peca caso seja um JogoTabuleiro.
-	 * @param nomePeca
-	 *            nome do objeto Peca que foi perdido.
-	 */
-	public void adicionarPecaPerdida(Item item, String nomePeca) {
-		if (item instanceof JogoTabuleiro) {
-			JogoTabuleiro jogoTabuleiro = (JogoTabuleiro) item;
-			jogoTabuleiro.adicionaPecaPerdida(nomePeca);
-		} else {
-			throw new IllegalArgumentException("Esse item nao se trata de um Jogo de Tabuleiro");
-		}
-	}
-	
-	/**
-	 * Adicona um Episodio a lista de episodios de um determinado BluRaySerie.
-	 * 
-	 * @param item
-	 *            Item que recebe o Episodio caso seja um BluRaySerie.
-	 * @param duracao
-	 *            duracao do objeto Episodio.
-	 */
-	public void adicionarBluRay(Item item, int duracao) {
-		if (item instanceof BluRaySerie) {
-			BluRaySerie bluRaySerie = (BluRaySerie) item;
-			bluRaySerie.adicionaEpisodio(duracao);
-		} else {
-			throw new IllegalArgumentException("Esse item nao se trata de uma Serie");
-		}
-	}	
-	
-	public Item getItem(String nomeItem){
-		for (int i = 0; i < itens.size(); i++) {
-			if(itens.get(i).getNome().equals(nomeItem)){
-				return itens.get(i);
-			}
-			
-		}
-		throw new NullPointerException("Item nao encontrado");
-	}	
-	
-	public void removeItem(String nomeItem) {
-		Item item = getItem(nomeItem);
-		itens.remove(item);
-=======
 
 	public String historicoEmprestimosItem(String nomeItem) {
 		return getItem(nomeItem).emprestimos();
-
->>>>>>> master
 	}
 
 	/**
@@ -312,7 +260,6 @@ public class ItemController {
 
 	private ArrayList<Item> retornarArray() {
 		ArrayList<Item> itensEmprestados = new ArrayList<>();
-<<<<<<< HEAD
 		for (int i= itens.size()-1;i>= 0; i--) {
 			if(itens.get(i).getEmprestado().equals(Emprestado.EMPRESTADO)){
 				itensEmprestados.add(itens.get(i));
@@ -320,18 +267,7 @@ public class ItemController {
 		}
 		return itensEmprestados;	
 	}
-	
-=======
-		for (int i = itens.size() - 1; i >= 1; i--) {
-			if (itens.get(i).getEmprestado().equals(Emprestado.EMPRESTADO)) {
-				itensEmprestados.add(itens.get(i));
-			}
-		}
-		return itensEmprestados;
 
-	}
-
->>>>>>> master
 	public String top10() {
 		String saida = "";
 		ArrayList<Item> itens = ordenarPorEmprestimos();
