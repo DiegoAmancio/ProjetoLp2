@@ -3,7 +3,6 @@ package usuario;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -24,7 +23,6 @@ import item.ReputacaoComparatorInverso;
  */
 public class UsuarioController {
 	private Map<String, Usuario> usuarios;
-	private List<Usuario> usuariosReputacaoNegativa;
 	private ItemController itemController;
 
 	/**
@@ -33,7 +31,7 @@ public class UsuarioController {
 	public UsuarioController() {
 		this.usuarios = new HashMap<String, Usuario>();
 		this.itemController = new ItemController();
-		this.usuariosReputacaoNegativa = new ArrayList<Usuario>();
+		new ArrayList<Usuario>();
 	}
 
 	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) {

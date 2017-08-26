@@ -61,7 +61,6 @@ public class Usuario {
 		double diminuir = (preco * (diasAtrasados * 0.01));
 		setReputacao(this.reputacao - diminuir);
 		calcularTipoCartao();
-
 	}
 
 	public void adicionaItem(String nomeItem, Item item) {
@@ -101,6 +100,50 @@ public class Usuario {
 		} else {
 			throw new NullPointerException("Item nao encontrado");
 		}
+	}
+	
+	public CartaoFidelidade getCartao() {
+		return cartao;
+	}
+	
+	public String getCartaoTxt() {
+		return cartao.getMensagem();
+	}
+
+	public void setCartao(CartaoFidelidade cartao) {
+		this.cartao = cartao;
+	}
+
+	public double getReputacao() {
+		return reputacao;
+	}
+
+	public void setReputacao(double reputacao) {
+		this.reputacao = reputacao;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public void calcularTipoCartao() {
@@ -211,6 +254,10 @@ public class Usuario {
 			throw new NullPointerException("Item nao encontrado");
 		}
 	}
+	
+	public Item getItem(String nomeItem) {
+		return itens.get(nomeItem);
+	}
 
 	public void sobeReputacao(double preco, String situacao) {
 		double valor = 0;
@@ -255,54 +302,6 @@ public class Usuario {
 			return itens.get(nomeItem).toString();
 		}
 		throw new NullPointerException("Item nao encontrado");
-	}
-
-	public Item getItem(String itemEmprestado) {
-		return itens.get(itemEmprestado);
-	}
-
-	public CartaoFidelidade getCartao() {
-		return cartao;
-	}
-
-	public double getReputacao() {
-		return reputacao;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public String getCartaoTxt() {
-		return cartao.getMensagem();
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public void setReputacao(double reputacao) {
-		this.reputacao = reputacao;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public void setCartao(CartaoFidelidade cartao) {
-		this.cartao = cartao;
 	}
 
 	/**

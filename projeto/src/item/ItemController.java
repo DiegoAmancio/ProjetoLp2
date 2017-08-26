@@ -182,7 +182,6 @@ public class ItemController {
 
 	public String historicoEmprestimosItem(String nomeItem) {
 		return getItem(nomeItem).emprestimos();
-
 	}
 
 	/**
@@ -261,13 +260,12 @@ public class ItemController {
 
 	private ArrayList<Item> retornarArray() {
 		ArrayList<Item> itensEmprestados = new ArrayList<>();
-		for (int i = itens.size() - 1; i >= 1; i--) {
-			if (itens.get(i).getEmprestado().equals(Emprestado.EMPRESTADO)) {
+		for (int i= itens.size()-1;i>= 0; i--) {
+			if(itens.get(i).getEmprestado().equals(Emprestado.EMPRESTADO)){
 				itensEmprestados.add(itens.get(i));
 			}
 		}
-		return itensEmprestados;
-
+		return itensEmprestados;	
 	}
 
 	public String top10() {
