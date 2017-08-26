@@ -21,7 +21,7 @@ public abstract class Item {
 	private String nome;
 	private double preco;
 	private List<Emprestimo> historicoDeEmprestimos;
-	
+
 	private Emprestado emprestado;
 
 	/**
@@ -41,43 +41,8 @@ public abstract class Item {
 		this.historicoDeEmprestimos = new ArrayList<Emprestimo>();
 	}
 
-	public String getNome() {
-		return nome;
-	}
-	
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public double getPreco() {
-		return preco;
-	}
-
-	public void setPreco(double preco) {
-		this.preco = preco;
-	}
-
-	public String isEmprestado() {
-		return emprestado.getEmprestado();
-	}
-
-	public Emprestado getEmprestado() {
-		return emprestado;
-	}
 	public int numeroEmprestimos() {
 		return historicoDeEmprestimos.size();
-	}
-	/**
-	 * Set status de emprestimo, se o parametro de entrada for true, o item ser�
-	 * emprestado, se n�o, o item estar� livre para ser emprestado
-	 * 
-	 * @param estaEmprestado
-	 */
-	public void setEmprestado(Emprestado estaEmprestado) {
-		if (this.emprestado != estaEmprestado) {
-			this.emprestado = estaEmprestado;
-		}
 	}
 
 	public void verificaPreco(double preco) {
@@ -97,11 +62,6 @@ public abstract class Item {
 		}
 	}
 
-	@Override
-	public String toString() {
-		return this.nome + ", R$ " + Double.toString(preco) + ", " + emprestado.getEmprestado();
-	}
-
 	public int compareToPreco(Item item) {
 		if (this.preco < item.getPreco()) {
 			return -1;
@@ -111,8 +71,50 @@ public abstract class Item {
 		}
 		return 0;
 	}
+
 	public int compareToNumeroEmprestimos(Item item) {
 		return this.numeroEmprestimos() - item.numeroEmprestimos();
+	}
+
+	public void adicionarHistorico(Emprestimo novoEmprestimo) {
+
+		boolean temEmprestimo = false;
+		for (int i = 0; i < historicoDeEmprestimos.size(); i++) {
+			if (historicoDeEmprestimos.get(i).equals(novoEmprestimo)) {
+				temEmprestimo = true;
+
+			}
+
+		}
+		if (!(temEmprestimo)) {
+			historicoDeEmprestimos.add(novoEmprestimo);
+		}
+	}
+
+	public void atualizandoEmprestimo(Emprestimo emprestimo, String dataDevolucao) {
+		if (historicoDeEmprestimos.contains(emprestimo)) {
+			for (int i = 0; i < historicoDeEmprestimos.size(); i++) {
+				if (historicoDeEmprestimos.get(i).equals(emprestimo)) {
+					historicoDeEmprestimos.get(i).devolveu(dataDevolucao);
+
+				}
+			}
+		}
+	}
+
+	public String emprestimos() {
+		String saida = "Emprestimos associados ao item: ";
+		Collections.sort(historicoDeEmprestimos, new EmprestimoComparator());
+
+		if (historicoDeEmprestimos.size() > 0) {
+
+			for (int i = 0; i < historicoDeEmprestimos.size(); i++) {
+				saida += historicoDeEmprestimos.get(i).toString();
+			}
+			return saida;
+		} else {
+			return ("Nenhum emprestimos associados ao item");
+		}
 	}
 
 	@Override
@@ -144,56 +146,56 @@ public abstract class Item {
 		return historicoDeEmprestimos;
 	}
 
-	public void setHistoricoDeEmprestimos(List<Emprestimo> historicoDeEmprestimos) {
-		this.historicoDeEmprestimos = historicoDeEmprestimos;
-	}
-
-	public void adicionarHistorico(Emprestimo novoEmprestimo) {
-		
-		boolean temEmprestimo = false;
-		for (int i = 0; i < historicoDeEmprestimos.size(); i++) {
-			if (historicoDeEmprestimos.get(i).equals(novoEmprestimo)) {
-				temEmprestimo = true;
-
-			}
-
-		}
-		if (!(temEmprestimo)) {
-			historicoDeEmprestimos.add(novoEmprestimo);
-		}
-	}
-
-	public void atualizandoEmprestimo(Emprestimo emprestimo, String dataDevolucao) {
-		if (historicoDeEmprestimos.contains(emprestimo)) {
-			for (int i = 0; i < historicoDeEmprestimos.size(); i++) {
-				if (historicoDeEmprestimos.get(i).equals(emprestimo)) {
-					historicoDeEmprestimos.get(i).devolveu(dataDevolucao);
-					
-				}
-			}
-		}
-	}
-
-	public String emprestimos() {
-		String saida = "Emprestimos associados ao item: ";
-		Collections.sort(historicoDeEmprestimos, new EmprestimoComparator());
-
-		if (historicoDeEmprestimos.size() > 0) {
-
-			for (int i = 0; i < historicoDeEmprestimos.size(); i++) {
-				saida += historicoDeEmprestimos.get(i).toString();
-			}
-			return saida;
-		} else {
-			return ("Nenhum emprestimos associados ao item");
-		}
-	}
-
 	public String getDonoItem() {
 		return donoItem;
 	}
 
+	public String getNome() {
+		return nome;
+	}
+
+	public double getPreco() {
+		return preco;
+	}
+
+	public Emprestado getEmprestado() {
+		return emprestado;
+	}
+
+	/**
+	 * Set status de emprestimo, se o parametro de entrada for true, o item ser�
+	 * emprestado, se n�o, o item estar� livre para ser emprestado
+	 * 
+	 * @param estaEmprestado
+	 */
+	public void setEmprestado(Emprestado estaEmprestado) {
+		if (this.emprestado != estaEmprestado) {
+			this.emprestado = estaEmprestado;
+		}
+	}
+
+	public void setHistoricoDeEmprestimos(List<Emprestimo> historicoDeEmprestimos) {
+		this.historicoDeEmprestimos = historicoDeEmprestimos;
+	}
+
+	public void setPreco(double preco) {
+		this.preco = preco;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	public void setDonoItem(String donoItem) {
 		this.donoItem = donoItem;
+	}
+
+	public String isEmprestado() {
+		return emprestado.getEmprestado();
+	}
+
+	@Override
+	public String toString() {
+		return this.nome + ", R$ " + Double.toString(preco) + ", " + emprestado.getEmprestado();
 	}
 }

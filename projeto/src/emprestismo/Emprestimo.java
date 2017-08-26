@@ -2,7 +2,6 @@ package emprestismo;
 
 import java.util.*;
 
-
 import java.text.*;
 
 public class Emprestimo {
@@ -16,8 +15,8 @@ public class Emprestimo {
 	private int devolveuDias;
 	private boolean atrasou;
 
-	public Emprestimo(String nomeDono, String nomeRequerente, String itemEmprestado, String dataEmprestimo,
-			int periodo, int vencimento)  {
+	public Emprestimo(String nomeDono, String nomeRequerente, String itemEmprestado, String dataEmprestimo, int periodo,
+			int vencimento) {
 		this.nomeDono = nomeDono;
 		this.nomeRequerente = nomeRequerente;
 		this.itemEmprestado = itemEmprestado;
@@ -40,88 +39,28 @@ public class Emprestimo {
 		data1.setDate(data1.getDate() + vencimento);
 		this.vencimento = data1;
 
-		
 	}
-	
-	public void fechandoEmprestimo(String dataEntrega)  {
-		this.dataEntrega  = dataEntrega;
+
+	public void fechandoEmprestimo(String dataEntrega) {
+		this.dataEntrega = dataEntrega;
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 		Date data1 = null;
 		try {
-			 data1 = formato.parse(dataEntrega);
+			data1 = formato.parse(dataEntrega);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		if (data1.after(this.vencimento)){
+		if (data1.after(this.vencimento)) {
 			atrasou = true;
 		}
-		long diferencaDias = (data1.getTime() - this.vencimento.getTime()) / (1000*60*60*24);
-		
+		long diferencaDias = (data1.getTime() - this.vencimento.getTime()) / (1000 * 60 * 60 * 24);
+
 		this.devolveuDias = (int) diferencaDias;
-		
-		
-    
-	}
 
-	public boolean getAtrasou() {
-		return atrasou;
-	}
-	
-	public String getDataEntrega() {
-		return dataEntrega;
-	}
-
-	public Date getVencimento() {
-		return vencimento;
-	}
-
-	public int getDevolveuDias() {
-		return devolveuDias;
-	}
-
-
-	public int getPeriodo() {
-		return periodo;
-	}
-
-	public void setPeriodo(int periodo) {
-		this.periodo = periodo;
-	}
-
-	public String getNomeDono() {
-		return nomeDono;
-	}
-
-	public void setNomeDono(String nomeDono) {
-		this.nomeDono = nomeDono;
-	}
-
-	public String getNomeRequerente() {
-		return nomeRequerente;
-	}
-
-	public void setNomeRequerente(String nomeRequerente) {
-		this.nomeRequerente = nomeRequerente;
 	}
 
 	public void devolveu(String dataDevolucao) {
 		this.dataEntrega = dataDevolucao;
-	}
-
-	public String getDataEmprestimo() {
-		return dataEmprestimo;
-	}
-
-	public void setDataEmprestimo(String dataEmprestimo) {
-		this.dataEmprestimo = dataEmprestimo;
-	}
-
-	public String getItemEmprestado() {
-		return itemEmprestado;
-	}
-
-	public void setItemEmprestado(String itemEmprestado) {
-		this.itemEmprestado = itemEmprestado;
 	}
 
 	@Override
@@ -165,6 +104,62 @@ public class Emprestimo {
 		} else if (!nomeRequerente.equals(other.nomeRequerente))
 			return false;
 		return true;
+	}
+
+	public boolean getAtrasou() {
+		return atrasou;
+	}
+
+	public String getDataEntrega() {
+		return dataEntrega;
+	}
+
+	public Date getVencimento() {
+		return vencimento;
+	}
+
+	public int getDevolveuDias() {
+		return devolveuDias;
+	}
+
+	public int getPeriodo() {
+		return periodo;
+	}
+
+	public void setPeriodo(int periodo) {
+		this.periodo = periodo;
+	}
+
+	public String getNomeDono() {
+		return nomeDono;
+	}
+
+	public void setNomeDono(String nomeDono) {
+		this.nomeDono = nomeDono;
+	}
+
+	public String getDataEmprestimo() {
+		return dataEmprestimo;
+	}
+
+	public void setDataEmprestimo(String dataEmprestimo) {
+		this.dataEmprestimo = dataEmprestimo;
+	}
+
+	public String getItemEmprestado() {
+		return itemEmprestado;
+	}
+
+	public void setItemEmprestado(String itemEmprestado) {
+		this.itemEmprestado = itemEmprestado;
+	}
+
+	public String getNomeRequerente() {
+		return nomeRequerente;
+	}
+
+	public void setNomeRequerente(String nomeRequerente) {
+		this.nomeRequerente = nomeRequerente;
 	}
 
 	@Override

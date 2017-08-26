@@ -3,55 +3,14 @@ package jogos;
 import enums.Plataforma;
 import item.Item;
 
-public class JogoEletronico extends Item{
-	private Plataforma plataforma;	
-	
-	public JogoEletronico(String donoItem,String nome, double preco, String plataforma) {
-		super(donoItem,nome, preco);
+public class JogoEletronico extends Item {
+	private Plataforma plataforma;
+
+	public JogoEletronico(String donoItem, String nome, double preco, String plataforma) {
+		super(donoItem, nome, preco);
 		verificaPlataforma(plataforma);
 	}
-	
-	public void verificaPlataforma(String plataforma){
-		switch(plataforma.trim().toUpperCase()){
-			case "PC":
-				this.plataforma = Plataforma.PC;
-				break;
-			case "MAC":
-				this.plataforma = Plataforma.MAC;
-				break;
-			case "PS3":
-				this.plataforma = Plataforma.PS3;
-				break;
-			case "PS4":
-				this.plataforma = Plataforma.PS4;
-				break;
-			case "XBOX_360":
-				this.plataforma = Plataforma.XBOX360;
-				break;
-			case "XBOX_ONE":
-				this.plataforma = Plataforma.XBOX_ONE;
-				break;
-			case "NINTENDO_3DS":
-				this.plataforma = Plataforma.NINTENDO_3DS;
-				break;
-			case "OUTRO":
-				this.plataforma = Plataforma.OUTRO;
-				break;							
-			default:
-				throw new IllegalArgumentException();
-		}
-	}
-	
-	
-	
-	public Plataforma getPlataforma() {
-		return plataforma;
-	}
 
-	public void setPlataforma(Plataforma plataforma) {
-		this.plataforma = plataforma;
-	}
-	
 	@Override
 	public String getInfoItem(String atributo) {
 		String info = super.getInfoItem(atributo);
@@ -62,6 +21,45 @@ public class JogoEletronico extends Item{
 		default:
 			throw new IllegalArgumentException();
 		}
+	}
+
+	public void verificaPlataforma(String plataforma) {
+		switch (plataforma.trim().toUpperCase()) {
+		case "PC":
+			this.plataforma = Plataforma.PC;
+			break;
+		case "MAC":
+			this.plataforma = Plataforma.MAC;
+			break;
+		case "PS3":
+			this.plataforma = Plataforma.PS3;
+			break;
+		case "PS4":
+			this.plataforma = Plataforma.PS4;
+			break;
+		case "XBOX_360":
+			this.plataforma = Plataforma.XBOX360;
+			break;
+		case "XBOX_ONE":
+			this.plataforma = Plataforma.XBOX_ONE;
+			break;
+		case "NINTENDO_3DS":
+			this.plataforma = Plataforma.NINTENDO_3DS;
+			break;
+		case "OUTRO":
+			this.plataforma = Plataforma.OUTRO;
+			break;
+		default:
+			throw new IllegalArgumentException();
+		}
+	}
+
+	public Plataforma getPlataforma() {
+		return plataforma;
+	}
+
+	public void setPlataforma(Plataforma plataforma) {
+		this.plataforma = plataforma;
 	}
 
 	@Override
@@ -90,8 +88,5 @@ public class JogoEletronico extends Item{
 	public String toString() {
 		return "JOGO ELETRONICO: " + super.toString() + ", " + getPlataforma().getValor();
 	}
-	
-	
-	
 
 }

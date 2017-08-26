@@ -6,19 +6,24 @@ import java.util.List;
 import enums.Completo;
 import item.Item;
 
-public class JogoTabuleiro extends Item{
+public class JogoTabuleiro extends Item {
 	private Completo jogoCompleto;
 	private List<Peca> pecasPerdidas;
-	
-	public JogoTabuleiro(String donoItem,String nome, double preco) {
-		super(donoItem,nome, preco);
+
+	public JogoTabuleiro(String donoItem, String nome, double preco) {
+		super(donoItem, nome, preco);
 		pecasPerdidas = new ArrayList<>();
 		this.jogoCompleto = Completo.COMPLETO;
 	}
 
+	public void adicionaPecaPerdida(String nomePeca) {
+		pecasPerdidas.add(new Peca(nomePeca));
+		this.jogoCompleto = Completo.NAO_COMPLETO;
+	}
+
 	public boolean isJogoCompleto() {
 		return jogoCompleto.getValor();
-	}	
+	}
 
 	public List<Peca> getPecasPerdidas() {
 		return pecasPerdidas;
@@ -27,12 +32,7 @@ public class JogoTabuleiro extends Item{
 	public void setPecasPerdidas(List<Peca> pecasPerdidas) {
 		this.pecasPerdidas = pecasPerdidas;
 	}
-	
-	public void adicionaPecaPerdida(String nomePeca){
-		pecasPerdidas.add(new Peca(nomePeca));
-		this.jogoCompleto = Completo.NAO_COMPLETO;
-	}
-	
+
 	@Override
 	public String getInfoItem(String atributo) {
 		String info = super.getInfoItem(atributo);
@@ -41,10 +41,10 @@ public class JogoTabuleiro extends Item{
 		}
 		return info;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "JOGO DE TABULEIRO: "+super.toString() + ", " + jogoCompleto.getMensagem();
+		return "JOGO DE TABULEIRO: " + super.toString() + ", " + jogoCompleto.getMensagem();
 	}
 
 	@Override
@@ -71,7 +71,5 @@ public class JogoTabuleiro extends Item{
 			return false;
 		return true;
 	}
-	
-	
 
 }
