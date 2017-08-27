@@ -1,23 +1,33 @@
 package pacotePrincipal;
 
 import usuario.UsuarioController;
-
+/**
+ * representa a facade para acesso ao sistema
+ * @author Diego Amancio - 11621016
+ *
+ */
 public class Facade {
 	UsuarioController controllerUsuario;
-	
+	/**
+	 * constroi a facade
+	 */
 	public Facade() {
 		controllerUsuario = new UsuarioController();
 	}
-	public void iniciarSistema(){
-		
+
+	public void iniciarSistema() {
+
 	}
-	public void fecharSistema(){
-		
+
+	public void fecharSistema() {
+
 	}
+
 	public void cadastrarUsuario(String nome, String telefone, String email) {
 		controllerUsuario.cadastrarUsuario(nome, telefone, email);
 	}
-	public String getInfoUsuario(String nome,String telefone,String atributo){
+
+	public String getInfoUsuario(String nome, String telefone, String atributo) {
 		return controllerUsuario.getInfoUsuario(nome, telefone, atributo);
 	}
 
@@ -28,11 +38,11 @@ public class Facade {
 	public void atualizarUsuario(String nome, String telefone, String atributo, String valor) {
 		controllerUsuario.atualizarUsuario(nome, telefone, atributo, valor);
 	}
-	
-	public String getInfoItem(String nome, String telefone, String nomeItem, String atributo){
+
+	public String getInfoItem(String nome, String telefone, String nomeItem, String atributo) {
 		return controllerUsuario.getInfoItem(nome, telefone, nomeItem, atributo);
 	}
-	
+
 	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma) {
 		controllerUsuario.cadastrarEletronico(nome, telefone, nomeItem, preco, plataforma);
 	}
@@ -43,80 +53,97 @@ public class Facade {
 
 	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) {
 		controllerUsuario.adicionarPecaPerdida(nome, telefone, nomeItem, nomePeca);
-		
+
 	}
 
-	public void cadastrarBluRayFilme(String nome, String telefone, String nomeItem, double preco, int duracao, String genero,
-			String classificacao, int anoLancamento) {
-		controllerUsuario.cadastrarBluRayFilme(nome, telefone, nomeItem, preco, duracao, genero, classificacao, anoLancamento);
+	public void cadastrarBluRayFilme(String nome, String telefone, String nomeItem, double preco, int duracao,
+			String genero, String classificacao, int anoLancamento) {
+		controllerUsuario.cadastrarBluRayFilme(nome, telefone, nomeItem, preco, duracao, genero, classificacao,
+				anoLancamento);
 	}
-	
-	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao, int numeroFaixas,
-			String artista, String classificacao) {
-		controllerUsuario.cadastrarBluRayShow(nome, telefone, nomeItem, preco, duracao, numeroFaixas, artista, classificacao);
+
+	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao,
+			int numeroFaixas, String artista, String classificacao) {
+		controllerUsuario.cadastrarBluRayShow(nome, telefone, nomeItem, preco, duracao, numeroFaixas, artista,
+				classificacao);
 	}
 
 	public void cadastrarBluRaySerie(String nome, String telefone, String nomeItem, double preco, String descricao,
 			int duracao, String classificacao, String genero, int numeroDaTemporada) {
-		controllerUsuario.cadastrarBluRaySerie(nome, telefone, nomeItem, preco, descricao, duracao, classificacao, genero, numeroDaTemporada);
+		controllerUsuario.cadastrarBluRaySerie(nome, telefone, nomeItem, preco, descricao, duracao, classificacao,
+				genero, numeroDaTemporada);
 	}
-	
+
 	public void adicionarBluRay(String nome, String telefone, String nomeBlueRayTemporada, int duracao) {
 
 	}
-	
+
 	public void removerItem(String nome, String telefone, String nomeItem) {
 		controllerUsuario.removerItem(nome, telefone, nomeItem);
 	}
-	
-	public void atualizarItem(String nome, String telefone,String nomeItem, String atributo, String valor) {
+
+	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor) {
 		controllerUsuario.atualizarItem(nome, telefone, nomeItem, atributo, valor);
 	}
-	
-	public String listarItensOrdenadosPorNome(){
+
+	public String listarItensOrdenadosPorNome() {
 		return controllerUsuario.listarItensOrdenadosPorNome();
-	} 
-	public String listarItensOrdenadosPorValor(){
+	}
+
+	public String listarItensOrdenadosPorValor() {
 		return controllerUsuario.listarItensOrdenadosPorValor();
 	}
-	public String pesquisarDetalhesItem(String nome ,String telefone,String nomeItem){
-		return controllerUsuario.pesquisarDetalhesItem( nome ,telefone,nomeItem);
+
+	public String pesquisarDetalhesItem(String nome, String telefone, String nomeItem) {
+		return controllerUsuario.pesquisarDetalhesItem(nome, telefone, nomeItem);
 	}
-	
-	public String registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente, String itemEmprestado, String dataEmprestimo, int periodo){
-		return controllerUsuario.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, itemEmprestado, dataEmprestimo, periodo);
+
+	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente,
+			String telefoneRequerente, String itemEmprestado, String dataEmprestimo, int periodo) {
+		controllerUsuario.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente,
+				itemEmprestado, dataEmprestimo, periodo);
 	}
-		
-	public String devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente, String nomeItem, String dataEmprestimo, String dataDevolucao) {
-		return controllerUsuario.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
+
+	public void devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
+			String nomeItem, String dataEmprestimo, String dataDevolucao) {
+		 controllerUsuario.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem,
+				dataEmprestimo, dataDevolucao);
 	}
-	public String listarEmprestimosUsuarioEmprestando(String nome,String telefone){
+
+	public String listarEmprestimosUsuarioEmprestando(String nome, String telefone) {
 		return controllerUsuario.listarEmprestimosUsuarioEmprestando(nome, telefone);
 	}
 
-	public String listarEmprestimosUsuarioPegandoEmprestado(String nome,String telefone){
+	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) {
 		return controllerUsuario.listarEmprestimosUsuarioPegandoEmprestado(nome, telefone);
 	}
-	public String listarEmprestimosItem(String nomeItem){
+
+	public String listarEmprestimosItem(String nomeItem) {
 		return controllerUsuario.listarEmprestimosItem(nomeItem);
 	}
-	public String listarItensNaoEmprestados(){
+
+	public String listarItensNaoEmprestados() {
 		return controllerUsuario.listarItensNaoEmprestados();
 	}
-	public String listarItensEmprestados(){
+
+	public String listarItensEmprestados() {
 		return controllerUsuario.listarItensEmprestados();
 	}
+
 	public String listarTop10Itens() {
 		return controllerUsuario.listarTop10Itens();
 	}
-	public String listarCaloteiros(){
+
+	public String listarCaloteiros() {
 		return controllerUsuario.listarCaloteiros();
 	}
-	public String listarTop10PioresUsuarios(){
+
+	public String listarTop10PioresUsuarios() {
 		return controllerUsuario.listarTop10PioresUsuarios();
 	}
-	public String listarTop10MelhoresUsuarios(){
+
+	public String listarTop10MelhoresUsuarios() {
 		return controllerUsuario.top10MelhoresUsuarios();
 	}
-	
+
 }

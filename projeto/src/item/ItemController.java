@@ -16,7 +16,7 @@ import jogos.JogoTabuleiro;
  * Controlador de objetos tipo Item.
  * 
  * @author Andre Azevedo - 116111248
- *
+ * @author Diego Amancio - 116210716
  */
 
 public class ItemController {
@@ -48,7 +48,8 @@ public class ItemController {
 	}
 
 	/**
-	 * Adiciona uma Peca a lista de pecas perdidas de um determinado JogoTabuleiro.
+	 * Adiciona uma Peca a lista de pecas perdidas de um determinado
+	 * JogoTabuleiro.
 	 * 
 	 * @param item
 	 *            Item que perdeu a peca caso seja um JogoTabuleiro.
@@ -64,6 +65,15 @@ public class ItemController {
 		}
 	}
 
+	/**
+	 * adiciona no historico do item a transção entre os usuarios usando o item
+	 * me questão.
+	 * 
+	 * @param itemEmprestado
+	 *            nome do item
+	 * @param novoEmprestimo
+	 *            emprestimo associado o item
+	 */
 	public void adicionarHistorico(String itemEmprestado, Emprestimo novoEmprestimo) {
 		for (int i = 0; i < itens.size(); i++) {
 			if (itens.get(i).getNome().equals(itemEmprestado)) {
@@ -180,13 +190,19 @@ public class ItemController {
 		return item;
 	}
 
+	/**
+	 * lista o historicos de emprestimos envolvidos com este item.
+	 * 
+	 * @return uma lista dos emprestimos associados a este item.
+	 */
 	public String historicoEmprestimosItem(String nomeItem) {
 		return getItem(nomeItem).emprestimos();
 
 	}
 
 	/**
-	 * Ordena a lista de objetos Item e concatena os componentes em uma so String.
+	 * Ordena a lista de objetos Item e concatena os componentes em uma so
+	 * String.
 	 * 
 	 * @return Representacao em String de todos os objetos Item cadastrados, em
 	 *         ordem alfanumerica.
@@ -201,7 +217,8 @@ public class ItemController {
 	}
 
 	/**
-	 * Ordena a lista de objetos Item e concatena os componentes em uma so String.
+	 * Ordena a lista de objetos Item e concatena os componentes em uma so
+	 * String.
 	 * 
 	 * @return Representacao em String de todos os objetos Item cadastrados,
 	 *         ordenados pelo preco.
@@ -215,6 +232,11 @@ public class ItemController {
 		return mensagem;
 	}
 
+	/**
+	 * lista os itens não emprestados no sistema
+	 * 
+	 * @return lista os objetos não emprestados no sistema
+	 */
 	public String listarItensNaoEmprestados() {
 		Collections.sort(itens, new ItemNomeComparator());
 		String saida = "";
@@ -226,6 +248,11 @@ public class ItemController {
 		return saida;
 	}
 
+	/**
+	 * lista os itens emprestados no sistema
+	 * 
+	 * @return lista os objetos emprestados no sistema
+	 */
 	public String listarItensEmprestados() {
 		ArrayList<Item> itensEmprestados = retornarArray();
 		Collections.sort(itensEmprestados, new ItemNomeDonoComparator());
@@ -254,6 +281,12 @@ public class ItemController {
 		return itensTop10;
 	}
 
+	/**
+	 * remove um item do sistema e do usuario
+	 * 
+	 * @param nomeItem
+	 *            nome do item a ser removido
+	 */
 	public void removeItem(String nomeItem) {
 		Item item = getItem(nomeItem);
 		itens.remove(item);
@@ -270,6 +303,12 @@ public class ItemController {
 
 	}
 
+	/**
+	 * lista os itens mais emprestados no sistema
+	 * 
+	 * @return lista em ordem decrescente o item que foi mais emprestado ao que
+	 *         foi menos intervalo [0,9].
+	 */
 	public String top10() {
 		String saida = "";
 		ArrayList<Item> itens = ordenarPorEmprestimos();
@@ -281,6 +320,15 @@ public class ItemController {
 
 	}
 
+	/**
+	 * pega o item
+	 * 
+	 * @param nomeItem
+	 *            nome do item
+	 * @throws exceção
+	 *             anuciando que o item não esta cadastrado
+	 * @return o objeto do item cadastrado
+	 */
 	public Item getItem(String nomeItem) {
 		for (int i = 0; i < itens.size(); i++) {
 			if (itens.get(i).getNome().equals(nomeItem)) {
