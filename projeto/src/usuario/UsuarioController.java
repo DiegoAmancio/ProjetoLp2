@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import emprestismo.Emprestimo;
+import emprestismo.EmprestimoController;
 import enums.CartaoFidelidade;
 import enums.Emprestado;
 import item.Item;
@@ -24,6 +25,7 @@ import item.ReputacaoComparatorInverso;
 public class UsuarioController {
 	private Map<String, Usuario> usuarios;
 	private ItemController itemController;
+	private EmprestimoController emprestimoController;
 
 	/**
 	 * constroi um controlador de usuarios
@@ -31,16 +33,18 @@ public class UsuarioController {
 	public UsuarioController() {
 		this.usuarios = new HashMap<String, Usuario>();
 		this.itemController = new ItemController();
+		this.emprestimoController = new EmprestimoController();
+	}
+
+	public void adicionarBluRay(String nome, String telefone, String nomeBlueRayTemporada, int duracao) {
+		Usuario usuario = achandoUsuario(nome, telefone);
+		usuario.adicionarBluRay(nomeBlueRayTemporada, duracao);
+		itemController.adicionarBluRay(nomeBlueRayTemporada, duracao);
 	}
 
 	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) {
-		String identificador = getToken(nome, telefone);
-		if (usuarios.get(identificador) != null) {
-			Item item = itemController.getItem(nomeItem);
-			itemController.adicionarPecaPerdida(item, nomePeca);
-		} else {
-			throw new NullPointerException("Usuario invalido");
-		}
+		Item item = itemController.getItem(nomeItem);
+		itemController.adicionarPecaPerdida(item, nomePeca);
 	}
 
 	/**
@@ -304,22 +308,9 @@ public class UsuarioController {
 		} else {
 			requerente.sobeReputacao(itemDono.getPreco(), "");
 		}
-		if (emprestimo != null) {
-			itemController.adicionarHistorico(emprestimo.getItemEmprestado(), emprestimo);
-		}
-	}
 
-	public int determinarVencimento(CartaoFidelidade cartao) {
+		itemController.adicionarHistorico(emprestimo.getItemEmprestado(), emprestimo);
 
-		if (cartao.equals(CartaoFidelidade.BOM_AMIGO)) {
-			return 14;
-		} else if (cartao.equals(CartaoFidelidade.NOOB)) {
-			return 7;
-		} else if (cartao.equals(CartaoFidelidade.FREE_RIDER)) {
-			return 5;
-		} else {
-			throw new NullPointerException("Usuario nao pode pegar nenhum item emprestado");
-		}
 	}
 
 	/**
@@ -388,7 +379,7 @@ public class UsuarioController {
 	}
 
 	/**
-	 * lista oos caloteiros.
+	 * lista os caloteiros.
 	 * 
 	 * @return uma lista cntendo os inadiplentes do sistema
 	 */
@@ -414,6 +405,14 @@ public class UsuarioController {
 		return saida;
 	}
 
+	public ArrayList<Usuario> reunindoUsuariosTop10PorValor() {
+		ArrayList<Usuario> top10 = new ArrayList<>();
+		for (Entry<String, Usuario> usuario : usuarios.entrySet()) {
+			top10.add(usuario.getValue());
+		}
+		return top10;
+	}
+
 	/**
 	 * lista o top 10 dos usuarios com as piores reputações.
 	 * 
@@ -421,10 +420,7 @@ public class UsuarioController {
 	 *         tem a maior reputação em um intervalo de 0 a 9 fechado.
 	 */
 	public String listarTop10PioresUsuarios() {
-		ArrayList<Usuario> top10 = new ArrayList<>();
-		for (Entry<String, Usuario> usuario : usuarios.entrySet()) {
-			top10.add(usuario.getValue());
-		}
+		ArrayList<Usuario> top10 = reunindoUsuariosTop10PorValor();
 		Collections.sort(top10, new ReputacaoComparatorInverso());
 		String saida = "";
 		for (int i = 0; i < top10.size(); i++) {
@@ -459,9 +455,14 @@ public class UsuarioController {
 	}
 
 	/**
-	 * lista os itens que o usuario emprestou
+	 * pede ao usuario controller para listar os itens que o usuario emprestou
 	 * 
+	 * @param nome
+	 *            nome do usuario
+	 * @param telefone
+	 *            telefone do usuario
 	 * @return a informação sobre os itens que o usuario em questao emprestou;
+	 * 
 	 */
 	public String listarEmprestimosUsuarioEmprestando(String nome, String telefone) {
 
@@ -473,6 +474,11 @@ public class UsuarioController {
 	/**
 	 * lista os itens que o usuario pegou emprestado
 	 * 
+	 *
+	 * @param nome
+	 *            nome do usuario
+	 * @param telefone
+	 *            telefone do usuario
 	 * @return a informação sobre os itens que o usuario em questao pegou
 	 *         emprestado;
 	 */
@@ -484,6 +490,8 @@ public class UsuarioController {
 	/**
 	 * lista o historicos de emprestimos envolvidos com este item.
 	 * 
+	 * @param nomeItem
+	 *            nome do item
 	 * @return uma lista dos emprestimos associados a este item.
 	 */
 	public String listarEmprestimosItem(String nomeItem) {
@@ -574,23 +582,21 @@ public class UsuarioController {
 	 */
 	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente,
 			String telefoneRequerente, String itemEmprestado, String dataEmprestimo, int periodo) {
+
 		Usuario dono = achandoUsuario(nomeDono, telefoneDono);
 		Usuario requerente = achandoUsuario(nomeRequerente, telefoneRequerente);
 		dono.existeItem(itemEmprestado);
 
-		if ((dono.getItem(itemEmprestado).getEmprestado() == Emprestado.NAO_EMPRESTADO)) {
-			int vencimento = determinarVencimento(requerente.getCartao());
-			if (vencimento < periodo) {
-				throw new IllegalArgumentException("Usuario impossiblitado de pegar emprestado por esse periodo");
-			}
-			Emprestimo novoEmprestimo = new Emprestimo(nomeDono, nomeRequerente, itemEmprestado, dataEmprestimo,
-					periodo, vencimento);
-			dono.empresta(novoEmprestimo, itemEmprestado);
-			requerente.pegaEmprestado(novoEmprestimo, itemEmprestado);
-			itemController.adicionarHistorico(itemEmprestado, novoEmprestimo);
-		} else {
-			throw new IllegalArgumentException("Item emprestado no momento");
-		}
+		dono.taEmprestado(itemEmprestado);
+
+		Emprestimo novoEmprestimo = emprestimoController.criaEmprestimo(nomeDono, telefoneDono, nomeRequerente,
+				telefoneRequerente, itemEmprestado, dataEmprestimo, periodo, requerente.getCartao());
+		dono.empresta(novoEmprestimo, itemEmprestado);
+
+		requerente.pegaEmprestado(novoEmprestimo, itemEmprestado);
+
+		itemController.adicionarHistorico(itemEmprestado, novoEmprestimo);
+
 	}
 
 	/**
@@ -618,7 +624,7 @@ public class UsuarioController {
 	 * @param telefone
 	 *            telefone do usuario
 	 * @param nomeItem
-	 *            nome od item a ser removido
+	 *            nome do item a ser removido
 	 */
 	public void removerItem(String nome, String telefone, String nomeItem) {
 		Usuario usuario = achandoUsuario(nome, telefone);
