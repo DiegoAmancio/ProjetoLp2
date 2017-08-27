@@ -3,12 +3,11 @@ package item;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+import enums.Emprestado;
 import bluRay.BluRayFilme;
 import bluRay.BluRaySerie;
 import bluRay.BluRayShow;
 import emprestismo.Emprestimo;
-import enums.Emprestado;
 import jogos.JogoEletronico;
 import jogos.JogoTabuleiro;
 
@@ -38,7 +37,8 @@ public class ItemController {
 	 * @param duracao
 	 *            duracao do objeto Episodio.
 	 */
-	public void adicionarBluRay(Item item, int duracao) {
+	public void adicionarBluRay(String nomeItem, int duracao) {
+		Item item = getItem(nomeItem);
 		if (item instanceof BluRaySerie) {
 			BluRaySerie bluRaySerie = (BluRaySerie) item;
 			bluRaySerie.adicionaEpisodio(duracao);
@@ -190,6 +190,8 @@ public class ItemController {
 		return item;
 	}
 
+	
+
 	/**
 	 * lista o historicos de emprestimos envolvidos com este item.
 	 * 
@@ -331,7 +333,8 @@ public class ItemController {
 	 */
 	public Item getItem(String nomeItem) {
 		for (int i = 0; i < itens.size(); i++) {
-			if (itens.get(i).getNome().equals(nomeItem)) {
+			Item item = itens.get(i);
+			if (item.getNome().equals(nomeItem)) {
 				return itens.get(i);
 			}
 

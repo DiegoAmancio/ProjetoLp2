@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import bluRay.BluRaySerie;
 import emprestismo.Emprestimo;
 import emprestismo.EmprestimoComparator;
 import enums.CartaoFidelidade;
@@ -63,6 +64,26 @@ public class Usuario {
 		calcularTipoCartao();
 
 	}
+	public void adicionarBluRay(String nomeItem, int duracao) {
+		Item item = getItem(nomeItem);
+		if (item instanceof BluRaySerie) {
+			BluRaySerie bluRaySerie = (BluRaySerie) item;
+			bluRaySerie.adicionaEpisodio(duracao);
+		} else {
+			throw new IllegalArgumentException("Esse item nao se trata de uma Serie");
+		}
+	}
+	/**
+	 * verifica se um item esta emprestado
+	 * 
+	 * @param item
+	 *            item a ser verificado
+	 */
+	public void taEmprestado(String item) {
+		if (getItem(item).getEmprestado() == Emprestado.EMPRESTADO) {
+			throw new IllegalArgumentException("Item emprestado no momento");
+		}
+	}
 
 	public void adicionaItem(String nomeItem, Item item) {
 		if (!(itens.containsKey(nomeItem))) {
@@ -77,9 +98,11 @@ public class Usuario {
 	 * atualiza o preco do item
 	 * 
 	 * @param nomeItem
+	 *            nome do item
 	 * @param atributo
+	 *            atributo do item
 	 * @param valor
-	 * @param preco
+	 *            valor do item
 	 */
 	public void atualizarItem(String nomeItem, String atributo, String valor) {
 		if (itens.containsKey(nomeItem)) {
@@ -122,6 +145,18 @@ public class Usuario {
 		itens.get(nomeItem).setEmprestado(Emprestado.EMPRESTADO);
 	}
 
+	/**
+	 * verifica se o emprestimo existe
+	 * 
+	 * @param nomeItem
+	 *            nome do item
+	 * @param nomeRequerente
+	 *            nome do usuario que pegou o item emprestado
+	 * @throws NullPointerException
+	 *             joga um nullpointerException falando que o emprestimo não foi
+	 *             encontrado
+	 * @return o emprestimo
+	 */
 	public Emprestimo existeEmprestimo(String nomeItem, String nomeRequerente) {
 
 		for (Emprestimo emprestimo : emprestou) {
@@ -135,17 +170,31 @@ public class Usuario {
 
 	}
 
+	/**
+	 * verifica se o item existe
+	 * 
+	 * @param nomeItem
+	 *            nome do item
+	 */
 	public void existeItem(String nomeItem) {
 		if (!itens.containsKey(nomeItem)) {
 			throw new NullPointerException("Item nao encontrado");
 		}
 	}
 
-	public void fechandoEmprestimo(String dataEntrega, Emprestimo ee) {
+	/**
+	 * fecha um emprestimo
+	 * 
+	 * @param dataEntrega
+	 *            dataq de entrega do item
+	 * @param emprestimo
+	 *            emrpestimo no qual esta sendo fechado
+	 */
+	public void fechandoEmprestimo(String dataEntrega, Emprestimo emprestimo) {
 		for (int i = 0; i < emprestou.size(); i++) {
-			Emprestimo emprestimo = emprestou.get(i);
-			if (emprestimo.equals(ee)) {
-				emprestimo.fechandoEmprestimo(dataEntrega);
+			Emprestimo emprestimoLista = emprestou.get(i);
+			if (emprestimoLista.equals(emprestimo)) {
+				emprestimoLista.fechandoEmprestimo(dataEntrega);
 
 			}
 		}
@@ -154,11 +203,10 @@ public class Usuario {
 	/**
 	 * Retorna o preco do item
 	 * 
-	 * @param nomeItem
-	 * @param atributo
-	 * @return
+	 * @param nomeItem nome do item
+	 * @param atributo atributo do item
+	 * @return retorna o item em txt
 	 */
-
 	public String getInfoItem(String nomeItem, String atributo) {
 		if (itens.containsKey(nomeItem)) {
 			switch (atributo.trim().toUpperCase()) {
@@ -174,6 +222,12 @@ public class Usuario {
 		}
 	}
 
+	/**
+	 * reune informações dos emprestimos em que o usuario emprestou um item
+	 * 
+	 * @return uma lista dos emprestimos no qual este usuario participou como
+	 *         requirinte do item
+	 */
 	public String listarItensEmprestados() {
 		String saida = "Emprestimos: ";
 		Collections.sort(emprestou, new EmprestimoComparator());
@@ -187,6 +241,13 @@ public class Usuario {
 		}
 	}
 
+	/**
+	 * reune informações dos emrpestimos em que o usuario pegou emprestado um
+	 * item
+	 * 
+	 * @return uma lista dos emprestimos no qual este usuario participou como
+	 *         requirinte do item
+	 */
 	public String listarItensPegouEmprestado() {
 		String saida = "Emprestimos pegos: ";
 		Collections.sort(emprestou, new EmprestimoComparator());
@@ -204,6 +265,12 @@ public class Usuario {
 		pegouEmprestado.add(novoEmprestimo);
 	}
 
+	/**
+	 * remove um item
+	 * 
+	 * @param nomeItem
+	 *            nome do item a ser removido
+	 */
 	public void removerItem(String nomeItem) {
 		if (itens.containsKey(nomeItem)) {
 			itens.remove(nomeItem);
@@ -212,6 +279,14 @@ public class Usuario {
 		}
 	}
 
+	/**
+	 * sobe a reputacao de usuarios
+	 * 
+	 * @param preco
+	 *            valor do item
+	 * @param situacao
+	 *            verifica se ele emprestou ou esta pegando emprestado
+	 */
 	public void sobeReputacao(double preco, String situacao) {
 		double valor = 0;
 		if (situacao.equals("Emprestou")) {
@@ -224,6 +299,15 @@ public class Usuario {
 
 	}
 
+	/**
+	 * valida os atributos nos quais o usuario vai ser criado
+	 * 
+	 * @param atributo
+	 *            atribuo testado
+	 * @param qualAtributo
+	 *            representação em texto de qual tipo(nome, telefone e etc) e o
+	 *            atributo a ser testado
+	 */
 	public void validaUsuarioAtributo(String atributo, String qualAtributo) {
 		if (atributo == null) {
 			throw new NullPointerException(qualAtributo + "invalido,nulo");

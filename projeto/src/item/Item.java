@@ -27,9 +27,11 @@ public abstract class Item {
 	/**
 	 * constroi um item
 	 * 
+	 * @param donoItem
+	 *            nome do dono do item
 	 * @param nome
 	 *            nome do item
-	 * @param preco2
+	 * @param preco
 	 *            valor de compra deste item
 	 */
 	public Item(String donoItem, String nome, double preco) {
@@ -76,6 +78,12 @@ public abstract class Item {
 		return this.numeroEmprestimos() - item.numeroEmprestimos();
 	}
 
+	/**
+	 * adiciona um meprestimo no historicos de emprestimos
+	 * 
+	 * @param novoEmprestimo
+	 *            emprestimo a ser adicionado
+	 */
 	public void adicionarHistorico(Emprestimo novoEmprestimo) {
 
 		boolean temEmprestimo = false;
@@ -91,6 +99,14 @@ public abstract class Item {
 		}
 	}
 
+	/**
+	 * atualiza os emprestimos quando o usuario devolve este item
+	 * 
+	 * @param emprestimo
+	 *            emprestimo a ser fechado
+	 * @param dataDevolucao
+	 *            data que o usuario devolveu o item
+	 */
 	public void atualizandoEmprestimo(Emprestimo emprestimo, String dataDevolucao) {
 		if (historicoDeEmprestimos.contains(emprestimo)) {
 			for (int i = 0; i < historicoDeEmprestimos.size(); i++) {
@@ -167,6 +183,7 @@ public abstract class Item {
 	 * emprestado, se n�o, o item estar� livre para ser emprestado
 	 * 
 	 * @param estaEmprestado
+	 *            ve se esta emprestado
 	 */
 	public void setEmprestado(Emprestado estaEmprestado) {
 		if (this.emprestado != estaEmprestado) {
