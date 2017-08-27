@@ -4,6 +4,13 @@ import java.util.*;
 
 import java.text.*;
 
+/**
+ * representa um emprestimo
+ * 
+ * @author Diego Amancio - 116210716
+ * @author Isaac Meneses - Mat.: 116.111.246
+ *
+ */
 public class Emprestimo {
 	private String nomeDono;
 	private String nomeRequerente;
@@ -15,6 +22,25 @@ public class Emprestimo {
 	private int devolveuDias;
 	private boolean atrasou;
 
+	/**
+	 * 
+	 * @param nomeDono
+	 *            nome do dono do item a ser emprestado
+	 * @param telefoneDono
+	 *            telefone do dono do item a ser emprestado
+	 * @param nomeRequerente
+	 *            nome do usuario que esta requisitando o item
+	 * @param telefoneRequerente
+	 *            telefone do usuario que esta requisitando o item
+	 * @param itemEmprestado
+	 *            nome do item a ser emprestado
+	 * @param dataEmprestimo
+	 *            inicio do emprestimo
+	 * @param periodo
+	 *            periodo limite que o usuario pode ficar com o item
+	 * @param vencimento
+	 *            quantidade de dias que o item pode ser emprestado
+	 */
 	public Emprestimo(String nomeDono, String nomeRequerente, String itemEmprestado, String dataEmprestimo, int periodo,
 			int vencimento) {
 		this.nomeDono = nomeDono;
@@ -33,6 +59,16 @@ public class Emprestimo {
 
 	}
 
+	/**
+	 * determina o vencimento do emprestimo
+	 * 
+	 * @param dataEmprestimo
+	 *            data no qual o item foi emprestado
+	 * @param vencimento
+	 *            quantidade de dias que o item pode ser emprestado
+	 * @throws ParseException
+	 *             exceção caso a informação da data informada for invalida
+	 */
 	public void fazendoVencimento(String dataEmprestimo, int vencimento) throws ParseException {
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 		Date data1 = formato.parse(dataEmprestimo);
@@ -41,6 +77,12 @@ public class Emprestimo {
 
 	}
 
+	/**
+	 * fecha o emprestimo
+	 * 
+	 * @param dataEntrega
+	 *            data no qual o item foi entregado
+	 */
 	public void fechandoEmprestimo(String dataEntrega) {
 		this.dataEntrega = dataEntrega;
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
