@@ -342,4 +342,13 @@ public class ItemController {
 		throw new NullPointerException("Item nao encontrado");
 	}
 
+	public List<Item> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<Item> itens) {
+		this.itens = itens;
+	}
+	
+
 }

@@ -659,4 +659,14 @@ public class UsuarioController {
 		return saida;
 	}
 
+	public Map<String, Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(Map<String, Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+	
+	
+
 }

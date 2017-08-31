@@ -1,5 +1,15 @@
 package pacotePrincipal;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+import dados.GravaDados;
+import dados.RecuperarDados;
 import usuario.UsuarioController;
 
 /**
@@ -12,20 +22,32 @@ public class Facade {
 	/**
 	 * 
 	 */
-
+	
 	UsuarioController controllerUsuario;
+	
 
 	/**
 	 * constroi a facade
+	 * @throws IOException
 	 */
-	public Facade() {
+	public Facade() throws IOException {
 		controllerUsuario = new UsuarioController();
+		iniciarSistema();
 	}
 
-	public void iniciarSistema() {
+	/**
+	 * Inicia o sistema. O parametro true � usado para que n�o haja sobrescrita do
+	 * arquivo
+	 * @throws IOException 
+	 */
+
+	public void iniciarSistema() throws IOException {
+		RecuperarDados recupera = new RecuperarDados();
+		recupera.getDados();
 	}
 
-	public void fecharSistema() {
+	public void fecharSistema() throws IOException {
+		GravaDados.salvaDados();
 	}
 
 	/**
@@ -264,8 +286,8 @@ public class Facade {
 	/**
 	 * pede ao usuario controller para listar os itens ordenados pelo nome
 	 * 
-	 * @return retorna uma lista de itens ordenados eusando como referencial o
-	 *         nome do item;
+	 * @return retorna uma lista de itens ordenados eusando como referencial o nome
+	 *         do item;
 	 */
 	public String listarItensOrdenadosPorNome() {
 		return controllerUsuario.listarItensOrdenadosPorNome();
@@ -274,16 +296,15 @@ public class Facade {
 	/**
 	 * pede ao usuario controller para listar os itens ordenados pelo valor
 	 * 
-	 * @return retorna uma lista de itens ordenados eusando como referencial o
-	 *         valor do item;
+	 * @return retorna uma lista de itens ordenados eusando como referencial o valor
+	 *         do item;
 	 */
 	public String listarItensOrdenadosPorValor() {
 		return controllerUsuario.listarItensOrdenadosPorValor();
 	}
 
 	/**
-	 * pede ao usuario controller para pesquisar detalhes especificos de um
-	 * item;
+	 * pede ao usuario controller para pesquisar detalhes especificos de um item;
 	 * 
 	 * @param nome
 	 *            nome do usuario dono do item
@@ -300,9 +321,9 @@ public class Facade {
 	/**
 	 * pede ao usuario controller para:
 	 * 
-	 * Registra emprestimos, passos: Primeiro, checa se o usuario tem
-	 * determinado item para emprestar, se sim, verifica o status do item (se
-	 * esta emprestado ou nao), se nao estiver emprestado, realiza emprestimo.
+	 * Registra emprestimos, passos: Primeiro, checa se o usuario tem determinado
+	 * item para emprestar, se sim, verifica o status do item (se esta emprestado ou
+	 * nao), se nao estiver emprestado, realiza emprestimo.
 	 * 
 	 * @param nomeDono
 	 *            nome do dono do item a ser emprestado
@@ -326,8 +347,8 @@ public class Facade {
 	}
 
 	/**
-	 * pede ao usuario controller para: Devolve item e muda o status do item
-	 * para NAO EMPRESTADO.
+	 * pede ao usuario controller para: Devolve item e muda o status do item para
+	 * NAO EMPRESTADO.
 	 * 
 	 * @param nomeDono
 	 *            nome do dono do item
@@ -381,8 +402,8 @@ public class Facade {
 	}
 
 	/**
-	 * pede ao usuario controller para listar o historicos de emprestimos
-	 * envolvidos com este item.
+	 * pede ao usuario controller para listar o historicos de emprestimos envolvidos
+	 * com este item.
 	 * 
 	 * @param nomeItem
 	 *            nome do item
@@ -393,8 +414,7 @@ public class Facade {
 	}
 
 	/**
-	 * pede ao usuario controller para listar os itens não emprestados no
-	 * sistema
+	 * pede ao usuario controller para listar os itens não emprestados no sistema
 	 * 
 	 * @return lista os objetos não emprestados no sistema
 	 */
@@ -412,11 +432,10 @@ public class Facade {
 	}
 
 	/**
-	 * pede ao usuario controller para listar os itens mais emprestados no
-	 * sistema
+	 * pede ao usuario controller para listar os itens mais emprestados no sistema
 	 * 
-	 * @return lista em ordem decrescente o item que foi mais emprestado ao que
-	 *         foi menos intervalo [0,9].
+	 * @return lista em ordem decrescente o item que foi mais emprestado ao que foi
+	 *         menos intervalo [0,9].
 	 */
 	public String listarTop10Itens() {
 		return controllerUsuario.listarTop10Itens();
@@ -432,8 +451,8 @@ public class Facade {
 	}
 
 	/**
-	 * pede ao usuario controller para listar o top 10 dos usuarios com as
-	 * piores reputações.
+	 * pede ao usuario controller para listar o top 10 dos usuarios com as piores
+	 * reputações.
 	 * 
 	 * @return uma lista ordenada do usuario que tem a pior reputação ate o que
 	 *         tem a maior reputação em um intervalo de 0 a 9 fechado.

@@ -74,4 +74,14 @@ public class EmprestimoController {
 			throw new NullPointerException("Usuario nao pode pegar nenhum item emprestado");
 		}
 	}
+
+	public List<Emprestimo> getEmprestimos() {
+		return emprestimos;
+	}
+
+	public void setEmprestimos(List<Emprestimo> emprestimos) {
+		this.emprestimos = emprestimos;
+	}
+	
+	
 }
